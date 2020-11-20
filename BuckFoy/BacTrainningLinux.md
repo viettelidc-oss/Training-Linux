@@ -59,3 +59,7 @@ vmstat -m | kiểm tra thông tin bộ nhớ |
 shutdown, halt |  Tắt hệ thống tại thời điểm yêu cầu |
 pwd: | hiển thị thư mục hiện tại |
 
+### add disk và cấu hình LVM
+  - cấu trúc LVM 
+  
+
