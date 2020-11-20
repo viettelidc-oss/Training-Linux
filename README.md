@@ -1,3 +1,3 @@
 # Training-Linux
 Repo chứa báo cáo training linux
-<img src="https://www.flickr.com/gp/191112450@N03/036T9N">
+<img src="https://flic.kr/p/2k8iG9o">
