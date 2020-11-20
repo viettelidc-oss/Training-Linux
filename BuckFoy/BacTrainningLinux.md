@@ -62,4 +62,22 @@ pwd: | hiển thị thư mục hiện tại |
 ### add disk và cấu hình LVM
   - cấu trúc LVM 
   
+  ![image15](https://user-images.githubusercontent.com/74639473/99787412-47fce200-2b52-11eb-83a5-7a2d52f3daa1.png)
+  
+- cài đặt LVM:
+
+  add đĩa vào máy  ảo Centos
+  
+  ![image9](https://user-images.githubusercontent.com/74639473/99787752-b8a3fe80-2b52-11eb-82a4-704255c4841a.png)
+  
+  xem máy ảo đã nhận disk chưa : lsblk
+  
+![image2](https://user-images.githubusercontent.com/74639473/99787848-dcffdb00-2b52-11eb-9f3f-7afdb7b69193.png)
+
+  Tạo các partition cho các ổ mới , bắt đầu từ sdb với lệnh :fdisk /dev/sdb
+  
+  ![image11](https://user-images.githubusercontent.com/74639473/99788055-23553a00-2b53-11eb-8cd5-c62c0f4fad60.png)
+
+
+
 
