@@ -39,7 +39,7 @@ Thư mục | Chức năng |
 /proc | Sử dụng cho nhân Linux. Chúng được sử dụng bởi nhân để xuất dữ liệu sang không gian người dùng. |
 
 ### thông tin về hệ thống
-
+câu lệnh | ý nghĩa |
 |----------| --------|
 cat /proc/cpuinfo  | thông tin về hệ thống |
 cat /proc/cpuinfo  | hiển thị thông tin CPU |
