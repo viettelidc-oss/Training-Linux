@@ -63,11 +63,8 @@ pwd: | hiển thị thư mục hiện tại |
   - cấu trúc LVM 
   
   ![image15](https://user-images.githubusercontent.com/74639473/99787412-47fce200-2b52-11eb-83a5-7a2d52f3daa1.png)
-  
 - cài đặt LVM:
-
   add đĩa vào máy  ảo Centos
-  
   ![image9](https://user-images.githubusercontent.com/74639473/99787752-b8a3fe80-2b52-11eb-82a4-704255c4841a.png)
   
   xem máy ảo đã nhận disk chưa : lsblk
@@ -77,6 +74,20 @@ pwd: | hiển thị thư mục hiện tại |
   Tạo các partition cho các ổ mới , bắt đầu từ sdb với lệnh :fdisk /dev/sdb
   
   ![image11](https://user-images.githubusercontent.com/74639473/99788055-23553a00-2b53-11eb-8cd5-c62c0f4fad60.png)
+  Tạo Physical Volume :pvcreate /dev/sdb1
+    tạo Volume Group :vgcreate vg-demo1 /dev/sdb1 /dev/sdc1
+    tạo logical Volume: lvcreate -L 1G -n lv-demo1 vg-demo1
+![image5](https://user-images.githubusercontent.com/74639473/99788406-a4accc80-2b53-11eb-8081-4e156dabfdcc.png)
+
+
+# 1.2. USER ACCOUNT MANAGEMENT
+###  Files used in creating a user
+- tập tin /etc/passwd:  là csdl các tài khoản người dùng trên Linux dưới dạng văn bản: xem thông tin file /etc/passwd : cat /etc/passwd
+- tập tin /etc/shadow: là nơi lưu trữ mật khẩu đã được mã hóa.xem thông tin file /etc/shadow là cat /etc/shadow
+- tập tin /etc/group là nơi lưu thông tin các nhóm
+-tạo người dùng và mật khẩu:
+
+
 
 
 
