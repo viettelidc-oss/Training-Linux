@@ -215,3 +215,175 @@ Tìm kiếm một library trong cache: # ldconfig -p | grep ncurses
 
     Cron là một tiện ích giúp lập lịch chạy những dòng lệnh bên phía server để thực thi một hoặc nhiều công việc nào đó theo thời gian được lập sẵn. Một số người gọi những công việc đó là Cron job hoặc Cron task
 
+## 2.3 Cấu hình SSH
+ ### Cấu hình cơ bản
+  - kiểm tra đã cấu hình SSH chưa: service sshd restart
+  
+  - cài đặt ssh: yum install openssh-server -y
+  
+  - cài đặt mobaXterm
+  
+  - thực hiện ssh trên mobaXterm
+  
+  ![image19](https://user-images.githubusercontent.com/74639473/99811870-4f36e680-2b78-11eb-813f-aee1e4b58828.png)
+
+![image26](https://user-images.githubusercontent.com/74639473/99811895-56f68b00-2b78-11eb-94bc-7611d15ca828.png)
+
+  - câu lệnh thực hiện kiểm tra ssh
+  
+        /etc/ssh/sshd_config : Cấu hình OpenSSH Server
+        /etc/ssh/ssh_config : Cấu hình OpenSSH Client
+        ~/.ssh/ : Thực mục SSH user
+        ~/.ssh/authorized_keys hoặc ~/.ssh/authorized_keys : Thư mục chứa public key (RSA hoặc DSA) dùng để cấu hình SSH auth
+        /etc/nologin : Nếu file này tồn tại , SSH sẽ từ chối mọi user trừ root
+        /etc/host.allow và /etc/hosts.deny : Thư mục Access List của SSH
+      
+   ### Cấu hình SSH nâng cao
+   
+   - Đổi cổng ssh 22 thành cổng khác lớn hơn 1024
+    
+   ![image14](https://user-images.githubusercontent.com/74639473/99812363-f61b8280-2b78-11eb-9757-e68470dadbe4.png)
+ 
+   sau đó mở port trên iptable chuyển 22 thành 2222
+   
+   service sshd restart
+    
+   service iptable restart
+   
+  - giới hạn số lần đăng nhập sai và phiên làm việc
+  
+ ![image7](https://user-images.githubusercontent.com/74639473/99812381-f9af0980-2b78-11eb-946c-3ec4fdc3f4e4.png)
+
+  - sử dụng ssh Protocol 2 
+  
+![image8](https://user-images.githubusercontent.com/74639473/99812386-fae03680-2b78-11eb-9469-22f1cb86ccf3.png)
+
+  - logout ssh nếu phiên đang nhàn rỗi
+
+![image21](https://user-images.githubusercontent.com/74639473/99812397-ffa4ea80-2b78-11eb-8279-772967f8ede9.png)
+    
+## 2.4. BACKUP AND RESTORE
+
+### Archiving with tar  
+- tạo file nén tar
+
+     tar -cvf file.tar ./file
+   
+ - tạo file nén tar.gz
+ 
+      tar -cvzf file.tar.gz ./file
+    
+- tạo file nén tar.bz2
+
+	tar -cvjf file.tar.bz2 ./file
+      
+      trong đó c là tạo file .tar mới
+        v: hiển thị quá trình nén file
+        f: tên file
+        z: chỉ file gzip để nén
+        j để  chỉ nén bz2
+        
+- giải nén toàn bộ file
+
+      giải nén file tar
+      tar -xvf file.tar
+      tar -xvf file.tar -C /home/…
+      giải nén file tar.gz
+      tar -xvf file.tar.gz
+      tar -xvf file.tar.gz -C /home/…
+
+ liệt kê các file nén
+ 
+     tar -tvf file.tar	
+ 
+giải nén 1 file trong file nén
+
+     tar -xvf file.tar file1
+
+giải nén nhiều file
+
+    tar -xvf file.tar file1 file2
+
+ giải nén nhiều file cùng dạng
+
+    tar -xvf file.tar --wildcards ‘*.jpg’
+
+thêm file vào file nén
+
+    tar -rvf file.tar file1
+
+kiểm tra một file .tar
+
+    tar -tvf file.tar
+
+kiểm tra kích thước file nén
+
+    tar -czf - sampleArchive.tar | wc -c
+    
+  ### Using the dd command
+  
+ - Câu lệnh dd dùng để sử dụng trong các trường hợp sau:
+ 
+    -  Sao lưu và phục hồi toàn bộ dữ liệu ổ cứng hoặc một partition
+    - Chuyển đổi định dạng dữ liệu từ ASCII sang EBCDIC hoặc ngược lại
+    - Sao lưu lại MBR trong máy (MBR là một file dữ liệu rất quan trọng nó chứa các lệnh để LILO hoặc GRUB nạp hệ điều hành)
+    - Chuyển đổi chữ thường sang chữ hoa và ngược lại
+    -  Tạo một file với kích cỡ cố định
+    - Tạo một file ISO
+-  cú pháp sử dụng dd
+
+      dd if=<địa chỉ đầu vào> of=<địa chỉ đầu ra> option
+    
+- sao chép  và phục hồi ổ cứng hoặc phân vùng ổ cứng
+
+    sao lưu ổ cứng này sang ổ cứng khác
+    
+        dd if=/dev/sdb of=/dev/sdc conv=noerror, sync
+        
+    tạo 1 file image cho sdb1
+    
+      dd if=/dev/sdb1 of=/root/sdb1.img 
+      
+    nén ảnh file vào
+    
+      dd if=/dev/sdb1 | grip > /root/sdb1.img.gz
+    sao lưu phân vùng này sang   phân vùng khác
+    
+      dd if=/dev/sdb2 of=/dev/sdc2 bs=512 conv=noerror,sync
+    phục hồi dữ liệu
+      
+      dd if=/root/sda1.img of=/dev/sda1
+    phục hồi từ CDrom
+        
+        dd if=/dev/cdrom of=/root/cd rom.img conv=noerror
+#### sao lưu và phục hồi MBR
+   Sao chép MBR
+      
+      dd if=/dev/sda1 of=/root/mbr.txt bs=512 count=1
+phục hồi MBR
+      
+      dd if=/root/mbr.txt of=/dev/sda1
+tạo một file có lưu lượng cố định
+    
+    dd if=/dev/zero of=/root/file1 bs=100M count=1
+    
+## Mirroring data between systems: rsync
+ Các đặc điểm nổi bật khi dùng Rsync
+
+      Hiệu quả trong việc sao lưu và đồng bộ file từ 1 hệ thống khác
+      Hỗ trợ sao chép links, devices, owners, groups and permissions.
+      Nhanh hơn sử dụng SCP (secure copy).
+      Rsync tiêu tốn ít bandwidth vì nó có sử dụng cơ chế nén khi truyền tải và nhận dữ liệu.
+      
+cú pháp :
+    rsync options source destination
+    
+    Các tùy chọn trong rsync
+    v : verbose
+    r : sao chép dữ liệu theo cách đệ quy ( không bảo tồn mốc thời gian và permission trong quá trình truyền dữ liệu)
+    a :chế độ lưu trữ cho phép sao chép các tệp đệ quy và giữ các liên kết, quyền sở hữu, nhóm và mốc thời gian
+    z : nén dữ liệu
+    h : định dạng số
+
+
+
