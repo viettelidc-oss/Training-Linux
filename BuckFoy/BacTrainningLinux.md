@@ -40,7 +40,7 @@ Thư mục | Chức năng |
 
 ### thông tin về hệ thống
 
-----------| --------|
+|----------| --------|
 cat /proc/cpuinfo  | thông tin về hệ thống |
 cat /proc/cpuinfo  | hiển thị thông tin CPU |
 cat /proc/meminfo | hiển thị thông tin về RAM đang sử dụng |
