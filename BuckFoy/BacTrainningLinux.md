@@ -147,10 +147,10 @@ Khi bật máy tính, quá trình khởi động sẽ được thực hiện the
             Gọi thi hành /etc/rc.d/rc.local: bổ sung thêm các lệnh cần thiết.
             
             Sau khi init đã xử lý tất cả các mức thi hành, script /etc/inittab phát sinh một tiến trình getty cho mỗi virtual console cho mỗi mức thi hành.
-    - khung tập lệnh 
+ - khung tập lệnh 
     
             startx khởi động chế độ xwindows từ cửa sổ terminal
-  -   quản lý các service
+ -   quản lý các service
   
             service --status-all Kiểm tra tất cả các service và tình trạng của nó.
             service mysql stop shutdown dịch vụ mysql.
@@ -159,12 +159,59 @@ Khi bật máy tính, quá trình khởi động sẽ được thực hiện the
              service --status-all | grep abc, xem tình trạng của tiến trình abc
             service start | stop | restart
             /etc/init.d/ start | stop
-
+             netstat - plnt kiểm tra xem các dịch vụ đang sử dụng cổng mạng nào có thể kết hợp với grep như sau
+            netstat -plnt | grep :25 (Kiểm tra xem dịch vụ nào đang sử dụng cổng 25)
+            
+  # 2.2 PROCESS MONITORING AND SCHEDULING
   
-
-
-
+  - Theo dõi các tiến trình
+  
+          xem thong tin tiến trình : ps -ax 
+          xem tiến trình cha con: ps -ef |more
+          xem tiến trình theo cấu trúc : pstree -np | more
+          xem tiến trình user khởi tạo: ps -u user
+          hủy tiến trình: pkill pid
+          hủy tiến trình theo tên : pkill name
       
+![image4](https://user-images.githubusercontent.com/74639473/99790483-c8254680-2b56-11eb-995a-492e56cc94cc.png)
 
+![image18](https://user-images.githubusercontent.com/74639473/99790518-d5423580-2b56-11eb-92f0-b196609fa393.png)
 
+## Shared Library
+
+  Library là file chứa các đoạn mã lệnh và dữ liệu được tổ chức thành các hàm (subroutine), các lớp (class) nhằm cung cấp dịch vụ, chức năng nào đó cho các chương trình chạy trên máy tính.
+  
+xác định các library cần thiết cho 1 chương trình.
+
+        # ldd program1, program2
+
+![image23](https://user-images.githubusercontent.com/74639473/99790596-f145d700-2b56-11eb-85d0-8a8b2bca6306.png)
+
+- tạo index cho các  shared library
+      
+Các library được đặt trong các thư mục như /lib, /usr/lib, /usr/local/lib. Để hướng dẫn cho ld.so tìm kiếm library trong các thư mục này cũng như là các thư mục khác thì có 2 cách:
+
+  1.thêm danh sách các thư mục đó vào biên môi trường shell là LD_LIBRARY_PATH
+  
+2. tạo index gồm tên các library và thư mục lưu trữ chúng. File /etc/ld.so.cache chứa thông tin index này
+  
+  thêm các index vào library  
+  
+        # ldconfig [options] /lib_dirs
+        trong đó options gồm -p hoặc -v 
+        # ldconfig -v /lib_dirs
+        
+![image6](https://user-images.githubusercontent.com/74639473/99791012-8b0d8400-2b57-11eb-911a-b3055675add4.png)
+
+   Để xem nội dung của ld.so.cache: # ldconfig -p
+
+![image1](https://user-images.githubusercontent.com/74639473/99791018-8cd74780-2b57-11eb-9bc8-97259a51c1c4.png)
+
+Tìm kiếm một library trong cache: # ldconfig -p | grep ncurses
+
+![image13](https://user-images.githubusercontent.com/74639473/99791065-a4163500-2b57-11eb-9e50-96d9152e6eb8.png)
+
+- Scheduling processes with cron
+
+    Cron là một tiện ích giúp lập lịch chạy những dòng lệnh bên phía server để thực thi một hoặc nhiều công việc nào đó theo thời gian được lập sẵn. Một số người gọi những công việc đó là Cron job hoặc Cron task
 
