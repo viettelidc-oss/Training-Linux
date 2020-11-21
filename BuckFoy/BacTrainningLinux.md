@@ -383,7 +383,31 @@ cú pháp :
     r : sao chép dữ liệu theo cách đệ quy ( không bảo tồn mốc thời gian và permission trong quá trình truyền dữ liệu)
     a :chế độ lưu trữ cho phép sao chép các tệp đệ quy và giữ các liên kết, quyền sở hữu, nhóm và mốc thời gian
     z : nén dữ liệu
-    h : định dạng số
+    h : định dạng so
+  
+## Cấu hình SSH bằng Key
+- tạo khóa trên Server
+ câu lệnh : ssh-keygen -t rsa
+ 
+ ![hinh1](https://user-images.githubusercontent.com/74639473/99883096-9ba52380-2c57-11eb-9810-8894a56a595f.png)
+ 
+ - thực hiện cài đặt trên client
+ 
+    trên MobaXterm, click vào tab Tools
+    
+    Trong các sub tab của Tools, kích chọn MobaKeyGen
+    
+    ![hinh2](https://user-images.githubusercontent.com/74639473/99883165-33a30d00-2c58-11eb-8cb2-bba860b1ae2d.png)
+    
+    ![hinh3](https://user-images.githubusercontent.com/74639473/99883168-3867c100-2c58-11eb-9f80-7e13ea0be56b.png)
+
+Chọn đường dẫn đến file copy key từ server đã lưu ở phần trên. Sau đó sẽ có 1 của sổ hiện ra như bên dưới, nhập vào mật khẩu Passphrase sau đó chọn Ok để tiếp tục.
+
+![hinf4](https://user-images.githubusercontent.com/74639473/99883171-3b62b180-2c58-11eb-854b-820f2ec2f8db.png)
+
+![hinh5](https://user-images.githubusercontent.com/74639473/99883172-3d2c7500-2c58-11eb-8c45-5d9c3caf226e.png)
+
+![hinh6](https://user-images.githubusercontent.com/74639473/99883174-3e5da200-2c58-11eb-96cc-5c132de015aa.png)
 
 
 
