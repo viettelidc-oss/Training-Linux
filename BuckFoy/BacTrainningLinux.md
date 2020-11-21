@@ -409,5 +409,19 @@ Chọn đường dẫn đến file copy key từ server đã lưu ở phần tr�
 
 ![hinh6](https://user-images.githubusercontent.com/74639473/99883174-3e5da200-2c58-11eb-96cc-5c132de015aa.png)
 
+- kiểm tra ssh key
+
+Tại đây làm theo các bước sau :
+
+	Chọn giao thức là SSH
+	Nhập vào IP của server để tiến hành ssh đến
+	Tích chọn sử dụng private key để xác thực ssh bằng key
+	Sau khi chọn file, chọn Ok để bắt đầu ssh tới server
+	
+![hinh7](https://user-images.githubusercontent.com/74639473/99883363-89c48000-2c59-11eb-9dbe-08ca1d61b541.png)
+
+sau đó nhập user để đăng nhập qua ssh
+
+![hinh8](https://user-images.githubusercontent.com/74639473/99883366-8c26da00-2c59-11eb-9bc9-caab5abc0ef0.png)
 
 
