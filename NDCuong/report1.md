@@ -33,7 +33,7 @@
   + Tạo key: `ssh-keygen -t rsa` =>Chọn đường dẫn hoặc bỏ qua => nhập passphase hoặc bỏ qua
   > ![](./images/report1/keygen.png)
   + Sửa file ssh_config : `vi /etc/ssh/sshd_config` => nhập 2 dòng PubkeyAuthentication yes và AuthorizedKeysFile .ssh/authorized_keys 
-  > ![](./images/report1/.png)
+  > ![](./images/report1/sshconfig.png)
   + Đặt file public key vào thư mục /home/[username]/.ssh và rename thành authorized_keys 
   + Gửi file private key cho client
 - **Cấu hình SSH key phía client (sử dụng mobaXterm):**
