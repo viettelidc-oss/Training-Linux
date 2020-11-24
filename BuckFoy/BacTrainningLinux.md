@@ -1,11 +1,11 @@
 ### Mục lục
 [    REPORT 1     ](#Report)
-- [1.1. FILE SYSTEM CONFIGURATION](#filesystem)
+- [1.1. FILE SYSTEM CONFIGURATION](#p1)
 - [1.2. USER ACCOUNT MANAGEMENT](#useraccount)
 - [1.3. PACKAGE MANAGEMENT](#package)
 [    REPORT 2    ](#report2)
 #                    REPORT 1
-
+<a name="p1"> </a>
 ##   1.1. FILE SYSTEM CONFIGURATION
 
 File system được dùng để quản lý các dữ liệu được đọc và lưu trên thiết bị.File system cho phép người dùng truy cập nhanh chóng và an toàn khi cần thiết.Các loại file system
