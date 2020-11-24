@@ -12,7 +12,7 @@
 
 [1.3. Managing services using](#P13)
 
-[1.5. Managing services with system/service/systemctl)(#P15)
+[1.5. Managing services with system/service/systemctl](#P15)
 
 [1.6 Shutdowns and rc](#P16)
 
@@ -373,9 +373,10 @@ Lệnh này nó sẽ chờ sau 1 phút trước khi  khởi động lại để 
 
 
 
+<a name="P2"> </a>
 
 # 2. PROCESS MONITORING AND SCHEDULING
-
+<a name="P21"> </a>
 ## 2.1.	Monitoring processes
 
 ### 2.1.1. tiến trình là gì ?
@@ -394,4 +395,212 @@ Init process là tiến trình đầu tiên được khởi động sau khi bạ
 - Parents process - Child process
 
 Trong hệ điều hành  linux các tiến trình được phân thành parents process và child process.Một tiến trình khi thực hiện lệnh fork() để tạo ra một tiến trình mới thì được gọi là parents process. Tiến trình mới tạo được gọi là child process.
+
+![hinh 21](https://user-images.githubusercontent.com/74639473/100116765-b4efdf00-2ea6-11eb-92de-851a7af4f6f7.png)
+
+Một parents process có thể có nhiều child process nhưng một child process chỉ có một parents process. Khi quan sát thông tin của một tiến trình, ngoài PID (Process ID) ta cần để ý tới PPID (Parent Process ID). Nó sẽ cho ta thông tin về parents process của tiến trình đó: ps -ef
+
+![hinh 22](https://user-images.githubusercontent.com/74639473/100116793-bfaa7400-2ea6-11eb-8bd5-c4e6765eb8e3.png)
+
+- Orphan process- Zombie Process
+
+Khi parents process – child process hoạt động sẽ xảy ra một số trường hợp đặc biệt. Lúc đó Orphan process – Zombie Process sẽ được hình thành.
+
+Khi một parents process bị tắt trước khi child process được tắt, tiến trình con đó sẽ trở thành một orphan process. Lúc này init process sẽ trở thành cha của orphan processes và thực hiện tắt chúng.
+
+Khi một child process được kết thúc, mọi trạng thái của child process sẽ được thông báo bởi lời gọi hàm wait() của parents process. Vì vậy, kernel sẽ đợi parents process trả về hàm wait() trước khi tắt child process. Tuy nhiên vì một vài lí do mà parents process không thể trả về hàm wait(), khi đó child process sẽ trở thành một zombie process. Khi ở trạng thái này, tiến trình sẽ gần như giải phóng bộ nhớ hoàn toàn, chỉ lưu giữ một số thông tin như PID, lượng tại nguyên sử dụng,… trên bảng danh sách tiến trình.
+
+Tuy giải phóng bộ nhớ hoàn toàn nhưng các zombie process không bị kết thúc. Vì vậy nếu lượng zombie process lớn sẽ nắm giữ lượng lớn các PID. Nếu lượng PID đầy, sẽ không có tiến trình mới được tạo thêm. Các zombie process sẽ chỉ bị kết thúc nếu như parents process của chúng bị kill.
+
+Để tìm các zombie process ta gõ kiểm tra trạng thái của tiến trình theo lệnh sau: ps  -lA | grep ‘^. Z’
+
+![hinh 23](https://user-images.githubusercontent.com/74639473/100116808-c46f2800-2ea6-11eb-9aa7-ab18708c2dd5.png)
+
+- Daemon Process
+
+Một Daemon Process là một tiến trình chạy nền. Nó sẽ luôn trong trạng thái hoạt động và sẽ được kích hoạt bởi một điều kiện hoặc câu lệnh nào đó. Trong Unix, các daemon thường được kết thúc bằng “d” ví dụ như httpd, sshd, crond, mysqld,…
+
+Chúng ta có thể chạy một đoạn script bash shell, python, java,… dưới dạng một daemon process bằng cách sử dụng dấu & ví  dụ:  ./simpleshell.sh &
+
+Tuy nhiên, vấn đề ở đây là khi ta kết thúc phiên của terminal, tiến trình đó sẽ không có tiến trình cha và sẽ trở thành một orphan process. Để giải quyết vấn đề này, ta sẽ cho shell chạy với tư cách là tiến trình con của init process bằng cách dùng lệnh nohup như sau: nohup ./simpleshell.sh &
+
+### 2.1.3. Các tiến trình đang hoạt động
+
+Khi một hệ thống đã vận hành, có rất nhiều chương trình đã và đang hoạt động cùng nhau, cùng phối hợp để khiến cho hệ thống có thể giúp người dùng xử lý các công việc. Các bản phân phối Linux cũng giống như các hệ điều hành hiện đại ngày nay, hoạt động theo cơ chế đa nhiệm, tức là trong cùng 1 thời điểm có thể có nhiều chương trình cùng (có vẻ) thực thi tại 1 thời điểm. Tất nhiên thực tế điều này không bao giờ xảy ra, các chương trình đã được phân chia thời gian hoạt động và hệ điều hành điều phối hoạt động tốt đến mức ta không nhận ra được các chương trình thực tế đang chạy tuần tự mà nghĩ rằng nó đang chạy song song.
+
+Ngoài sự đa nhiệm, Linux còn hỗ trợ cơ chế đa người dùng, tức là tại 1 thời điểm, có thể có nhiều chương trình được hoạt động với người dùng là những người khác nhau. Hệ điều hành quản lý tất cả các tiến trình này và vẫn đảm bảo trải nghiệm là đồng đều giữa các người dùng cũng như giữa các chương trình. Một chương trình đặc biệt là top có thể giúp ta biết được hệ thống hiện tại có các chương trình nào đang hoạt động.
+
+![hinh  24](https://user-images.githubusercontent.com/74639473/100116853-cd5ff980-2ea6-11eb-9940-adebd6db1f08.png)
+
+lệnh top có biết khá nhiều thông tin của các tiến trình:
+
+	dòng thứ nhất cho biết thời gian uptime,  số người dụng thực tế hoạt động.
+	dòng thứ 2 là thống kê về số lượng tiến trình, bao gồm tổng số tiến trình (total), số đang hoạt động (running), số đang ngủ/chờ(sleeping), số đã dừng(stopped) và số không thể dừng hẳn (zombie)
+	dòng thứ 3-5 laf lần lượt thông tin về CPU, RAM, và bộ nhớ Swap
+	các dòng còn lại liệt kê  chi tiết về các tiến trình như định danh (PID), người dùng thực thi (User), độ ưu tiên(PR), dòng lệnh thực thi(Command),...
+
+### 2.1.4. Kết thúc một tiến trình đang hoạt động
+
+Nếu một tiến trình đang bị treo (not responding), nhưng không thể tắt nó thì cần phải sử dụng các công cụ dòng lệnh ps và kill. Lệnh kill được dùng để kết thúc một tiến trình dựa trên định danh các tiến trình PID, và để biết được PID của tiến trình cần buộc kết thúc, có thể dùng ps kết hợp với redirection bằng grep. Ta sử dụng câu lệnh ps aux | grep ‘ten tien trinh bi treo’
+
+![hinh 25](https://user-images.githubusercontent.com/74639473/100116862-cfc25380-2ea6-11eb-8bb7-25c963934a86.png)
+
+Trình duyệt opera  chạy rất nhiều tiến trình, vậy ta thử tắt chứng đi, ta sử dụng lệnh kill -9 PID, thử tắt tiến trình PID = 8768, và opera đã được đóng lại.
+
+Trong trường hợp khi không thể thao tác bằng chuột hoặc hệ thống không cho phép mở một terminal thì ta có thể sử dụng tổ hợp phím Ctrl+Alt+F<Console> với Console là 1 trong các giá trị từ 1-12. Khi ấn tổ hợp phím này, một giao diện dòng lệnh sẽ được kích hoạt (gọi là tty). Ta có thể sử dụng giao diện dòng lệnh này để kill các tiến trình bị treo. Đặc biệt sau khi kill được các tiến trình đó, ta có thể dùng tổ hợp phím Ctrl+Alt+F7 để quay về giao diện đồ họa. Nếu cách này không hiệu quả (nguyên do là vì CPU và RAM đều quá tải) thì ta buộc phải khởi động lại hệ thống.
+	
+[trở về mục luc](#mucluc)
+
+<a name="P22"> </a>
+
+## 2.2. Shared Libraries
+
+### 2.2.1. Shared Library và Dynamic Linking
+
+Library là file chứa các đoạn mã lệnh và dữ liệu được tổ chức thành các hàm (subroutine), các lớp (class) nhằm cung cấp dịch vụ, chức năng nào đó cho các chương trình chạy trên máy tính.
+
+Library gồm 3 loại: Static, Dynamic và Shared. Thường thì các library ở dạng mã nhị phân, không phải dạng văn bản thuần túy (plain text) – là các ký tự mà con người có thể đọc hiểu được.
+
+Khi biên dịch 1 chương trình đang ở dạng các file source code (gồm tập các câu lệnh, khai báo được viết bằng 1 ngôn ngữ lập trình cấp cao như C/C++, Java…) sang dạng executable (hay binary – tập các mã máy nhị phân mà chỉ có CPU mới hiểu được) thì nhiều hàm chức năng của chương trình được liên kết từ các library. Quá trình biên dịch này do bộ biên dịch (Compiler) đảm nhiệm.
+
+Một chương trình đã được biên dịch, chứa đoạn mã trong các library và được lưu trữ ở bộ nhớ ngoài (HDD, USB…) được coi là được liên kết tĩnh (Static Linking) bởi vì khi chạy nó hoàn toàn độc lập, không còn phụ thuộc vào sự tồn tại của các library chứa đoạn mã đó nữa . “Chương trình được liên kết tĩnh” có 1 số điểm hạn chế như:
+
+– Chương trình sẽ “phình to” hơn về kích thước chiếm dụng trên bộ nhớ ngoài do phải bao gồm đoạn mã của library được liên kết trong chương trình.
+
+– Gây ra sự lãng phí bộ nhớ RAM nếu nhiều chương trình đang chạy đồng thời chứa cùng đoạn mã giống nhau trong library.
+
+![hinh 26](https://user-images.githubusercontent.com/74639473/100116874-d2bd4400-2ea6-11eb-921c-2b1f36b487e3.png)
+
+Để khắc phục 2 nhược điểm trên, nhiều chương trình được liên kết động (Dynamic Linking) tức là:
+
+– Bản thân các chương trình này khi được lưu trữ ở bộ nhớ ngoài không chứa các đoạn mã trong library mà chỉ chứa khai báo tham khảo tới đoạn mã đó. Điều này giúp giảm kích cỡ của chương trình.
+
+– Khác với static linking, việc liên kết tới library diễn ra tại thời điểm biên dịch. Ở dynamic linking, việc liên kết giữa các file thực thi (ở dạng binary) của chương trình với library diễn ra tại thời điểm chạy chương trình (runtime). Quá trình gắn kết này do bộ Linker đảm nhiệm giúp cho phép nhiều chương trình sử dụng chung library trong bộ nhớ.
+
+![hinh 27](https://user-images.githubusercontent.com/74639473/100116883-d51f9e00-2ea6-11eb-98f9-9eec59a7cee6.png)
+
+Các file library được liên kết động và được dùng chung bởi nhiều ứng dụng được gọi là shared library. Trên Windows các file này có phần mở rộng là .dll , còn Linux là các file .so
+
+### 2.2.2 Xác định các  shared library của một tiến trình 
+
+Bất kỳ chương trình nào sử dụng dynamic linking đều yêu cầu 1 vài shared library có trên hệ thống. Nếu các library cần thiết không được tìm thấy (hoặc không tồn tại), khi chạy chương trình sẽ đưa ra thông báo lỗi.
+
+Tiện ích ldd sẽ giúp xác định các  library cần thiết cho một chương trình
+ 	
+	# ldd  program1, program2…
+	
+Lệnh trên sẽ hiện thi các shared library cho các chương trình program 1 , program 2 … .Kết  quả cho biết tên của library cùng với vị trí bạn cần đặt nó vào cây thư mục.
+
+Ví dụ: ldd /bin/bash
+
+![hinh 28](https://user-images.githubusercontent.com/74639473/100116900-d81a8e80-2ea6-11eb-83f7-b44ab50872dd.png)
+
+### 2.2.3. Tạo chỉ mục tìm kiếm index cho các shared library
+
+Khi các chương trình ở dạng executable có sử dụng dynamic linking được chạy, thì tiện ích ld.so sẽ chịu trách nhiệm tìm kiếm và nạp vào bộ nhớ các shared library cần thiết cho chương trình đó.  Nếu ld.so không thể tìm thấy các library đó thì chương trình sẽ gặp lỗi và không thể chạy được.
+
+Thường thì các library được đặt trong các thư mục như /lib, /usr/lib, /usr/local/lib. Để hướng dẫn cho ld.so tìm kiếm library trong các thư mục này cũng như là các thư mục khác thì có 2 cách:
+
+Đơn giản nhất, bạn thêm danh sách các thư mục đó vào biên môi trường shell là LD_LIBRARY_PATH. Tuy nhiên, cách nay có thể không thích hợp đối với các system library, vì có thể người dùng sẽ chỉnh sửa sai biến LD_LIBRARY_PATH này.
+
+Cách còn lại là tạo index gồm tên các library và thư mục lưu trữ chúng. File /etc/ld.so.cache chứa thông tin index này. Đây là file nhị phân, vì thế ld.so có thể nhanh chóng đọc nội dung của file này.
+
+Để thêm mới index của library vào file cache trên, đầu tiên bạn thêm thư mục chứa library đó vào file /etc/ld.so.conf, đây là file cấu hình chứa các thư mục sẽ được tạo index bởi tiện ích ldconfig. Sau đó, chạy lệnh ldconfig với cú pháp như sau:
+
+	# ldconfig [options] lib_dirs
+	chỉ có 2 options để lựa chọn
+	-p chỉ hiện thị nội dung hiện tại của cache, không tạo tại cache
+	-v: hiển thị quá trình thực hiện việc tạp lại cache
+Để xem nội dung của ld.so.cache : ldconfig -p
+
+![hinh 29](https://user-images.githubusercontent.com/74639473/100116911-db157f00-2ea6-11eb-972a-0be6b4a86591.png)
+
+Để tìm kiếm một library trong cache : ldconfig -p | grep < ...>
+
+![hinh 210](https://user-images.githubusercontent.com/74639473/100116927-dd77d900-2ea6-11eb-99ba-c28dda9a58fd.png)
+
+tạo lại cache :ldconfig : 
+
+[trở về mục luc](#mucluc)
+
+<a name="P23"> </a>
+
+## 2.3. Scheduling processes with cron
+
+### 2.3.1. Định nghĩa về Cron
+
+Cron là một tiện ích giúp lập lịch chạy những dòng lệnh bên phía server để thực thi một hoặc nhiều công việc nào đó theo thời gian được lập sẵn. Một số người gọi những công việc đó là Cron job hoặc Cron task.
+
+Cron là một chương trình daemon, tức là nó được chạy ngầm mãi mãi một khi nó được khởi động lên. Như các daemon khác thì bạn cần khởi động lại nó nếu như có thay đổi thiết lập gì đó. Chương trình này nhìn vào file thiết lập có tên là crontab để thực thi những task được mô tả ở bên trong.
+
+Lợi ích của việc sử dụng Cron:
+
+	có thể cài đặt để cron job thực thi việc quét xem những user trial nào đã bị expired và delete hoặc set inactive tài khoản của họ
+	Gửi đi những email tới user sử dụng hệ thống hàng ngày hay hàng tuần
+	Xoá bỏ những file cache hàng tháng khi nó quá lớn
+	Kiểm tra hàng ngày xem những link nào của website bị hỏng hay không để nhanh chóng khắc phục
+	Backup cơ sở dữ liệu
+	
+### 2.3.2. Sử dụng Cron
+
+- cú pháp của Cron
+
+Ví dụ :
+
+	20 *  * * * /usr/bin/php /var/html/dailycron.php > /home/yourname/logs/phplogs.txt
+
+Đây là đoạn mô tả cron task đơn giản, nó có 2 phần chính
+
+Đoạn 20  *  * * * là nơi chứa cài đặt về lịch biểu chạy của cron, chi tiết ở mục sau.
+
+Đoạn sau đó là những lệnh sẽ thực thi. Tùy mục đích mà có thể cài đặt khác nhau:
+
+/usr/bin/php vì mã mã PHP không thể tự chạy mà phải có parser nên có khai báo này giúp cron biết nó cần vào đâu để tìm
+
+/var/www/html/dailycron.php/ là đường dẫn đến file chứa các mã lệnh PHP sẽ được chạy.
+
+> /home/yourname/logs/phplog.txt là nếu cần output của các mã lệnh thì sẽ khai báo xem chúng sẽ được ghi ở đâu
+
+- Cú pháp cài đặt lịch biểu
+
+Như ví dụ ở trên, lịch biểu của Cron bao gồm 5 phần có thể khai báo hoặc không, cụ thể là :
+
+	phút : giá trị từ 0 đến 59
+	giờ : giá  trị từ 0 đến 23
+	ngày của tháng : từ 1 đến 31
+	tháng : từ tháng 1 đến 12
+	ngày trong tuần: từ 0 (chủ nhật) đến 6 (thứ 2)
+	
+Nếu không khai báo số cụ thể thì khai báo *, kí hiệu thay cho các con số trên. Có thể một số ký  hiệu khác có ý nghĩa như  sau:
+
+	dùng dấu phẩy để thiết lập số cho nhiều thời điểm.
+	dùng dấu / để chia điều khoảng cách thời gian được chạy
+	dùng dấu  - để chỉ khoảng thời gian
+	@reboot để chạy lệnh nào đó khi server boot lại
+	@hourly : chạy hàng giờ vào phút thứ 0
+	@daily : chạy hàng ngày vào 00:00
+	@monthy: chạy hàng tháng vào 00:00 của ngày đầu tiên của tháng
+	@yearly chạy hàng năm vào 00:00 của ngày đầu tiên của năm
+	
+### 2.3.3. Những lệnh và khai báo cơ bản của Cron task.
+
+Dùng lệnh crontab -e để  mở file crontab rồi thiết lập những lịch biểu
+
+Nếu có nhiều texteditor thì sẽ có xác nhận xem chọn cái nào để chỉnh sửa file crontab. Và nếu bạn chưa từng thiết lập gì trước đó thì 1 file mới sẽ được tạo với nội dung trống (có thể có nhưng chỉ là comment của Cron, bắt đầu bằng dấu #). Hãy thử điền nội dung và save lại.
+
+Để xem nội dung file có những gì : crontab -l
+
+Nếu muốn xóa nội dung file thiết lập crontab đi thì dùng : crontab -r
+
+Nếu mỗi lần chạy với > thì kết quả sau sẽ ghi đè lên kết quả chạy trước. Do đó nếu muốn lấy kết quả của tất cả các lần chạy thì bạn cần phải append vào file bằng cách dùng 2 dấu >>. Nhưng lưu ý là file của bạn có thể sẽ rất lớn nếu cron task được chạy hàng ngày.
+
+Khai báo
+
+
+	SHELL là shell mà cron chạy. Nếu không có chỉ định thì  mặc định sẽ những  shell ở trong file /etc/passwd
+	PATH: để dùng đi dùng lại nhiều lần
+	MAILTO: sẽ chỉ định xem ai sẽ nhận được email về những output của mỗi lệnh. Nếu không có chỉ định thì output sẽ được gửi đến người sở hữu tiến trình mà tạo ra output đó.
+	HOME: là thư mục home  được sử dụng cho cron. Nếu không khai báo thì mặc định là thư mục /etc/passwd
+
+
 
