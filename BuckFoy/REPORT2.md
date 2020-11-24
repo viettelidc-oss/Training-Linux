@@ -1,7 +1,11 @@
 #Report 2
-[muc lục ] (#mucluc)
+<a name="mucluc"> </a>
+[muc lục ] 
+
 [1.  SYSTEM STARTUP AND SHUTDOWN](#P1)
+
 [1.1. System startup process ](#P11)
+
 <a name="P1"> </a>
 #1. SYSTEM STARTUP AND SHUTDOWN
 <a name="P11"> </a>
