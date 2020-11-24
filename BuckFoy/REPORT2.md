@@ -2,7 +2,7 @@
 
 <a name="mucluc"> </a>
 
-# [muc lục ]
+[muc lục ]
 
 [1.  SYSTEM STARTUP AND SHUTDOWN](#P1)
 
@@ -184,6 +184,10 @@ VD: tập lệnh khởi động cài đặt và khởi động máy chủ Apache
 	</body></html>
 	EOF
 
+[trở về mục lục](#mucluc)
+
+<a name="P13" > </a>
+
 ## 1.3. Managing services using
 
 ### 1.3.1. Service là gì
@@ -211,4 +215,151 @@ thư mục
 	- /etc/init.d/NetworkManager restart
 	- /etc/init.d/NetworkManager stop
 
+![hinh 111](https://user-images.githubusercontent.com/74639473/100113303-c2a36580-2ea2-11eb-8bdf-88425e457ad9.png)
+
+### 1.3.3.	Managing service with update-rc.d
+
+Sử dụng update-rc.d là giúp nó sẽ tự động thực hiện các việc thêm/ gỡ bỏ các symbolic link cần thiết trong /etc/init.d
+
+![hinh 112](https://user-images.githubusercontent.com/74639473/100113313-c46d2900-2ea2-11eb-8c94-2cd70f0967ca.png)
+
+Các runlevel 0,1,6 được bắt đầu bởi chữ K(Kill), các runlevel 2,3,4,5 được bắt đầu bằng chữ S(Start).
+
+Xóa một service : Nếu muốn vô hiệu hóa một Service khi khởi động, có thể thực hiện bằng tay bằng cách xóa hết symbolic links liên quan đến service trong thư mục /etc/rcX.d/ hoặc là sử dụng dụng update-rc.d với câu lệnh
+
+update-rc.d -f <service name> remove
+	
+với -f là yêu cầu update-rc.d xóa hết symbolic links của service đó
+
+ Thêm một service: muốn thêm một service chạy khi khởi động máy. thực hiện bằng câu lệnh sau: sudo update-rc.d <service name> defaults
+
+[trở về mục lục] (#mucluc)
+
+<a name=P15">  </a>
+
+# 1.5. Managing services with system/service/systemctl
+## 1.5.1 Managing service with System V init
+
+Liệt kê tất cả các service đang chạy trên hệ thống SysV init: service  --status-al
+
+![hinh 113](https://user-images.githubusercontent.com/74639473/100113323-c6cf8300-2ea2-11eb-8131-4bc692ef7e72.png)
+
+Lệnh trên liệt kê tất cả các service đang chạy trong hệ thống. Trong trường hợp các service đang chạy rất nhiều, bạn có thể sử dụng các tham số bổ sung - more và less để liệt kê các service trong chế độ xem một cách có tổ chức và rõ ràng
+
+sử dụng lệnh service  --status-al | less
+
+![hinh 114](https://user-images.githubusercontent.com/74639473/100113343-cc2ccd80-2ea2-11eb-80f0-f0d3a11cb5d1.png)
+
+Để chỉ liệt kê các service hiện đang chạy trên hệ thống, hãy thực thi lệnh bên dưới: service --status-al | grep running
+
+![hinh 115](https://user-images.githubusercontent.com/74639473/100113352-cfc05480-2ea2-11eb-8048-e9de4fa03d11.png)
+
+Để xem trạng thái của một service cụ thể, hãy thực thi lệnh bên dưới:
+
+service --status-al | grep <service name>
+
+hoặc 
+
+service <service name> status
+
+![hinh 116](https://user-images.githubusercontent.com/74639473/100113369-d2bb4500-2ea2-11eb-927d-eedd7679ed04.png)
+
+Để liệt kê tất cả các Service được kích hoặc trong boot
+
+![hinh 117](https://user-images.githubusercontent.com/74639473/100113377-d51d9f00-2ea2-11eb-919d-c58b7d8559bf.png)
+
+### 1.5.2 kiểm tra service trong hệ thống systemd init
+
+Để liệt kê tất cả các service trên máy Linux đang chạy hệ thống Systemd init, hãy thực thi lệnh dưới đây: systemctl
+
+Bạn cũng có thể liệt kê các service đang chạy dựa trên loại của chúng bằng lệnh sau :
+
+	systemctl list-units --type service
+	
+Bạn cũng có thể liệt kê các service dựa trên trạng thái hiện tại của chúng. Kết quả tương đối giống với đầu ra của lệnh trước nhưng đơn giản hơn một chút.
+ 	
+	systemctl list-unit-files --type service
+
+Để liệt kê trạng thái của một service cụ thể, hãy thực thi lệnh bên dưới:
+	
+	systemctl status [service_name]
+	 e.g
+	 systemctl status acpid.path
+Để chỉ liệt kê các service hiện đang chạy trên hệ thống, hãy thực thi lệnh bên dưới:
+	
+	systemctl | grep running
+Để liệt kê tất cả các service được kích hoạt trong khi boot, hãy thực thi lệnh bên dưới:
+	
+	systemctl list-unit-files | grep enabled
+
+Bạn cũng có thể xem các control group (nhóm điều khiển) hàng đầu và việc sử dụng tài nguyên hệ thống của chúng như I/O, CPU, Tasks và Memory bằng lệnh systemd-cgtop.
+systemd-cgtop
+
+Cũng có thể sử dụng pstree để liệt kê tất cả các service đang chạy trong hệ thống. Pstree lấy thông tin này từ đầu ra hệ thống Systemd. 
+	pstree
+
+[trở về mục lục](#mucluc)
+
+<a name="P16"> </a>
+
+# 1.6. Shutdowns and rc
+
+## 1.6.1. lệnh Shutdown 
+
+lệnh shutdown linux có thể dùng để tắt, khởi động lại, và tạm dừng hệ thống. Cú pháp của lệnh shutdown linux như sau:
+	
+	Shutdown [options] [time] [wall]
+
+trong đó [option] có thể là mốc thời gian. sau đó gõ thêm thông báo để báo máy sắp tắt
+
+định dạng thời gian là hh:mm (giờ: phút) theo dạng 24h. Nó sẽ xác định thời gian chính xác để thực thi lệnh shutdown. Ngoài ra bạn có thể dùng +m với m là số phút, là thời gian chờ để shutdown.
+
+Có thể sử dụng chữ  now hay là +0 để tắt máy ngay. Nếu không đặt tham số [time] , mặc định Linux sẽ hiểu là chờ 1 phút trước khi tắt.
+
+Tham số time là bắt buộc khi nếu muốn hiển thị thông báo. File /run/nologin sẽ được tạo  5 phút trước khi hệ thống tắt  , nếu  đã nhập tham số này, nó cản trở không  cho đăng nhập nữa.
+
+- sử dụng lệnh shutdown trong centos
+
+Lệnh shutdown cơ bản cho cả CentOS như sau: shutdown
+
+Nó sẽ không tắt máy ngay mà sẽ chờ 1 phút.
+
+Để tắt  máy ngay lập tức bạn gõ lệnh sau
+		
+		shutdown now
+Để tắt máy tại thời điểm nhất định, gõ lệnh sau  và nhấn enter
+
+	shutdown hh:mm
+để thay thế sau vài phút hoặc vài giờ , gõ lệnh sau:
+
+	shutdown +m
+Để tạo thông báo cho cho những ai đang đăng nhập, cú pháp:
+	
+	Shutdown +m “thông báo tắt máy”
+
+Để khởi động máy : shutdown -r
+
+Lệnh này nó sẽ chờ sau 1 phút trước khi  khởi động lại để nếu có quên lưu dữ liệu.
+
+Để khởi động ngay lập tức, hãy thêm option now
+	
+	shutdown -r now
+Để hẹn giờ khởi động lại máy:
+	
+	showdown -r hh:mm
+Để khởi động sau một khoảng thời gian nhất định:
+	
+	showdown -r +m
+- một số tùy cho cho lệnh shutdown linux 
+		
+		-poweroff, -P : ngắt điện hệ thống
+		-reboot, -r : khởi động lại hệ thống
+		-halt, -h: tạm hoãn sau khi thực thi lệnh tắt máy
+
+- Để hủy hẹn giờ trong shutdown: 		shutdown -c
+## 1.6.2. rc
+
+## 1.6.3. Tài liệu tham khảo
+
+[1] Cách dùng lệnh shutdown linux trong máy Ubuntu 18.04 và CentOS 7
 
