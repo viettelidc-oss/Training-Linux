@@ -11,8 +11,11 @@
 [1.2. The startup script framework](#P12)
 
 [1.3. Managing services using](#P13)
+
 [1.5. Managing services with system/service/systemctl)(#P15)
+
 [1.6 Shutdowns and rc](#P16)
+
 <a name="P1"> </a>
 # 1. SYSTEM STARTUP AND SHUTDOWN
 <a name="P11"> </a>
@@ -363,4 +366,32 @@ Lệnh này nó sẽ chờ sau 1 phút trước khi  khởi động lại để 
 ## 1.6.3. Tài liệu tham khảo
 
 [1] Cách dùng lệnh shutdown linux trong máy Ubuntu 18.04 và CentOS 7
+
+[trở về muc luc](#mucluc)
+
+
+
+
+
+
+# 2. PROCESS MONITORING AND SCHEDULING
+
+## 2.1.	Monitoring processes
+
+### 2.1.1. tiến trình là gì ?
+
+Tiến trình là được hiểu đơn giản là một chương trình đang chạy trong hệ điều hành. Một tiến trình có thể phân thành một hay nhiều tiến trình con khác.
+
+### 2.1.2. Phân loại tiến trình
+
+- Init process
+
+Init process là tiến trình đầu tiên được khởi động sau khi bạn lựa chọn hệ điều hành trong boot loader. Trong cây tiến trình, init process là tiến trình cha của các tiến trình khác. Init process có các đặc điểm sau:
+
+	PID =1
+	không thể kill init process
+	
+- Parents process - Child process
+
+Trong hệ điều hành  linux các tiến trình được phân thành parents process và child process.Một tiến trình khi thực hiện lệnh fork() để tạo ra một tiến trình mới thì được gọi là parents process. Tiến trình mới tạo được gọi là child process.
 
