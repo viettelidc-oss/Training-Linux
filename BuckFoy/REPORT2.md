@@ -1,7 +1,7 @@
 # Report 2
 
 <a name="mucluc"> </a>
-[muc lục]
+#  muc lục
 
 [1.  SYSTEM STARTUP AND SHUTDOWN](#P1)
 
@@ -14,9 +14,13 @@
 [1.5. Managing services with system/service/systemctl](#P15)
 
 [1.6 Shutdowns and rc](#P16)
+
 [2.  PROCESS MONITORING AND SCHEDULING](#P2)
+
 [2.1 Monitoring processes](#P21)
+
 [2.2 Shared Libraries](#P22)
+
 [2.3 Scheduling processes with cron](#P23)
 
 
