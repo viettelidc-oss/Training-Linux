@@ -1,10 +1,16 @@
 #Report 2
+
 <a name="mucluc"> </a>
-[muc lục ] 
+
+# [muc lục ]
 
 [1.  SYSTEM STARTUP AND SHUTDOWN](#P1)
 
 [1.1. System startup process ](#P11)
+
+[1.2. The startup script framework](#P12)
+
+[1.3. Managing services using] (#P13)
 
 <a name="P1"> </a>
 # 1. SYSTEM STARTUP AND SHUTDOWN
@@ -177,4 +183,32 @@ VD: tập lệnh khởi động cài đặt và khởi động máy chủ Apache
 	<p>This page was created from a startup script.</p>
 	</body></html>
 	EOF
+
+## 1.3. Managing services using
+
+### 1.3.1. Service là gì
+
+Service là các chương trình hoặc quy trình luôn chạy trên máy chủ, thường là từ khi máy chủ khởi động. Chúng được sử dụng để cung cấp hỗ trợ liên tục cho các yêu cầu và giám sát, từ các quy trình khác hoặc khách hàng bên ngoài. 
+
+Được gọi với tên là daemons
+
+thường được kết thúc bằng ký tự d. ví dụ: httpd,sshd,named, ftpd,...
+
+được khởi tạo tự động bởi tiến trình init- chương trình đầu tiên được thự hiện sau kernel được nạp
+
+### 1.3.2. Các mô hình quản lý dịch vụ
+
+Mỗi dịch vụ có một tập tin script /etc/init.d để tương tác với dịch vụ. Init sẽ khởi tạo các dịch vụ thông qua các tập tin scripts trong /etc/init.d
+
+ /etc/init.d/script-file{stop/start/restart}
+ 
+Có nhiều chương trình init khác nhau tùy thuộc vào sự lựa chọn của distributor.
+
+thư mục 
+
+	Ví dụ khởi tạo, khởi tạo lại, và kết thúc dịch vụ quản trị mạng
+	-sudo /etc/init.d/NetworkManager start
+	- /etc/init.d/NetworkManager restart
+	- /etc/init.d/NetworkManager stop
+
 
