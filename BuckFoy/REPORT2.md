@@ -10,8 +10,9 @@
 
 [1.2. The startup script framework](#P12)
 
-[1.3. Managing services using] (#P13)
-
+[1.3. Managing services using](#P13)
+[1.5. Managing services with system/service/systemctl)(#P15)
+[1.6 Shutdowns and rc](#P16)
 <a name="P1"> </a>
 # 1. SYSTEM STARTUP AND SHUTDOWN
 <a name="P11"> </a>
