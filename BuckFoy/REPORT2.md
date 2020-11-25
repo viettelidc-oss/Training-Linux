@@ -943,13 +943,11 @@ Sử dụng 2 cặp khóa là Public Key và Private key. Đây là một phươ
 
 ![](./Images/Report2/315.png)
 
-Cấu hình SSH Key chi tiết  
-< a name="P32">  </a> 
-[tại đây]
+Cấu hình SSH Key chi tiết   [tại đây](#P32)
 
 [trở về mục lục](#mucluc)
 
-<a name="P32"> </a>
+<a name="P32"></a>
 	 
 ## 3.2 Public/private key authentication
 
