@@ -123,6 +123,7 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
    
    ## 3. Managing services using <a name="manaservice"></a>
    
-   
-   
+   ## 4. Starting and stopping services dynamically <a name="servicedynamic"></a>
+   ## 5. Managing services with systemctl <a name="systemctl"></a>
+   ## 6. Shutdown and rc <a name="shut"></a>
    
