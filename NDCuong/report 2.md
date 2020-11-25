@@ -1,9 +1,9 @@
-## SYSTEM STARTUP AND SHUTDOWN
+# SYSTEM STARTUP AND SHUTDOWN
 1. [System startup process](#startup)
 2. The startup script framework
 3. Managing services using
 
-#### System startup process <a name="startup"></a>
+## 1. System startup process <a name="startup"></a>
 Quá trình khởi động của hệ điều hành Linux từ lúc mở máy đến khi hiển thị màn hình đăng nhập bao gồm các bước:
 - [BIOS](#bios)
 - [MBR (Master Boot Record)](#mbr)
@@ -13,10 +13,12 @@ Quá trình khởi động của hệ điều hành Linux từ lúc mở máy đ
 - [Init (parent process)](#init)
 - [Login with Graphical User Interface](#login)
 ***
-Quy trình chi tiết các bước:
+### Quy trình chi tiết:
 - **BIOS:** <a name="bios"></a> là một phần mềm được cài đặt sẵn (embedded) vào các chíp PROM, EPROM hay bộ nhớ flash nằm trên bo mạch chủ, được chạy đầu tiên khi bạn nhấn nút nguồn hoặc nút reset trên máy tính. 
   
   > Chương trình được thực hiện đầu tiên là POST (Power-on Self-test) nhằm kiểm tra thông số và trạng thái của các phần cứng máy tính (CPU, RAM, DISK v.v.). Nếu quá trình POST kết thúc và k phát hiện lỗi phần cứng, BIOS sẽ tìm kiếm và khởi chạy một (trong những) hệ điều hành chứa trong ổ cứng (hoặc CD/DVD, USB v.v.). 
+  
+  > ![](./images/report2/post.png)
   
   Người dùng có thể truy cập vào giao diện cài đặt BIOS để thay đổi các thiết lập, cấu hình máy tính, thay đổi thứ tự ưu tiên của các thiết bị lưu trữ.
 
@@ -24,11 +26,17 @@ Quy trình chi tiết các bước:
   
   > Sau khi BIOS xác định được thiết bị lưu trữ nào được ưu tiên, BIOS sẽ đọc trong MBR (hoặc UEFI) của thiết bị đó để nạp vào bộ nhớ chương trình được lưu trữ trong đó. 
   
+  > ![](./images/report2/mbr.png)
+  
   Đến giai đoạn này, máy tính sẽ không truy cập vào phương tiện lưu trữ nào. Thông tin về ngày tháng, thời gian và các thiết bị ngoại vi quan trọng nhất được nạp từ CMOS.
   
 - **Boot loader:** <a name="bootloader"></a> là chương trình chịu trách nhiệm cho việc tìm và nạp nhân (kernel) của hệ điều hành.
   
   > Có 2 bootloader phổ biến trên Linux là GRUB và LILO (tiền thân của GRUB). Cả 2 chương trình này đều có chung mục đích: cho phép bạn lựa chọn một trong các hệ điều hành có trên máy tính để khởi động, sau đó chúng sẽ nạp kernel của hệ điều hành đó vào bộ nhớ và chuyển quyền điều khiển máy tính cho kernel này. Trình khởi động giai đoạn 2 nằm trong /boot. Màng hình hiển thị cho chúng ta chọn hệ điều hành để khởi động. Tiếp đến bộ nạp khởi động sẽ tải hệ điều hành vào RAM và chuyển quyền kiểm soát cho RAM.
+  
+  > File grub:
+  
+  > ![](./images/report2/grub.png)
   
   GRUB hay LILO đều có thể khởi động cho cả Linux và Windows, nhưng ngược lại các bootloader trên Windows như (NTLDR, BOOTMGR) thì không hỗ trợ khởi động cho các hệ điều hành Linux.
   
@@ -43,6 +51,8 @@ Quy trình chi tiết các bước:
   Hệ thống hình ảnh tập tin initramfs chứa các chương trình và tệp nhị phân thực hiện các hành động cần thiết để gắn kết hệ thống tệp gốc thích hợp, cung cấp chức năng hạt nhân cho hệ thống tệp và trình điều khiển thiết bị cần thiết cho bộ điều khiển lưu trữ hàng loạt với cơ sở được gọi là udev (cho thiết bị người dùng). Thiết bị nào có mặt, định vị các trình điều khiển thiết bị mà chúng cần để hoạt động chính xác và tải chúng. Sau khi hệ thống tập tin gốc đã được tìm thấy, nó được kiểm tra lỗi và được gắn kết. 
   
   Chúng ta có thể thấy tệp kernel và initramfs trong thư mục /boot.
+  
+  > ![](./images/report2/initramfs.png)
   
 - **Init:** <a name="init"></a>Tiến trình Init là cha của tất cả các tiến trình khác mà có trên hệ thống Linux, luôn có PID = 1 
   
@@ -60,6 +70,7 @@ Quy trình chi tiết các bước:
   
   >Gần cuối quá trình khởi động, init sẽ bắt đầu một chế độ đăng nhập text mode. Nhập tên người dùng và mật khẩu của bạn để đăng nhập và xuất hiện các dấu nhắc lệnh shell. Subsystem cuối cùng được init khởi động lên là X Window.
   
+  > ![](./images/report2/login.png)
   - **Sau khi đăng nhập thành công:**
   Một chương trình shell (có thể là bash, sh, csh…, mặc định là bash) sẽ được bắt đầu và sẵn sàng nhận các lệnh. Tất cả các chương trình mà bạn chạy và mọi thao tác khác mà bạn thực hiện trong suốt phiên làm việc sẽ được thực hiện bởi shell đó hoặc bởi chương trình khác mà được shell khởi động.
 
