@@ -609,6 +609,34 @@ Khai báo
 	PATH: để dùng đi dùng lại nhiều lần
 	MAILTO: sẽ chỉ định xem ai sẽ nhận được email về những output của mỗi lệnh. Nếu không có chỉ định thì output sẽ được gửi đến người sở hữu tiến trình mà tạo ra output đó.
 	HOME: là thư mục home  được sử dụng cho cron. Nếu không khai báo thì mặc định là thư mục /etc/passwd
+[trở về mục lục](#mucluc)
+
+<a name="P24"> </a>
+## 2.4 crontab command options
+
+Crontab là danh sách các tác vụ được lên lịch chạy theo các khoảng thời gian đều đặn trên hệ thống.
+
+Daemon đọc crontab và thực hiện các lệnh vào đúng thời điểm được gọi là cron
+
+Lệnh crontab được sử dụng để xem hoặc chỉnh sửa bảng lệnh được chạy bởi cron.
+
+## 2.4.1 Cú pháp
+
+crontab [-u user] file
+
+crontab [-u user] [-l | -r | -e] [-i] [-s]
+- option
+
+options | chức năng |
+------- | ----------|
+file | Tải dữ liệu crontab từ tệp được chỉ định. Nếu tệp là một dấu gạch ngang ("-"), thì dữ liệu crontab được đọc từ đầu vào chuẩn.|
+-u user | Chỉ định người dùng có crontab sẽ được xem hoặc sửa đổi. Nếu tùy chọn này không được đưa ra, crontab sẽ mở crontab của người dùng đã chạy crontab. Lưu ý: sử dụng su để chuyển đổi người dùng có thể nhầm lẫn với crontab, vì vậy nếu bạn đang chạy nó bên trong su, hãy luôn sử dụng tùy chọn -u để tránh bị sai. |
+-l | hiện thi crontab hiện tại |
+-r | xóa crontab hiện tại |
+-e | Chỉnh sửa crontab hiện tại, sử dụng trình chỉnh sửa được chỉ định trong biến môi trường VISUAL hoặc EDITOR |
+-i | Tương tự như -r, nhưng cung cấp cho người dùng lời nhắc xác nhận có / không trước khi xóa crontab. |
+-s | Chỉ SELinux: nối chuỗi ngữ cảnh bảo mật SELinux hiện tại dưới dạng cài đặt MLS_LEVEL vào tệp crontab trước khi tiến hành chỉnh sửa hoặc thay thế. Xem tài liệu SELinux của bạn để biết thông tin chi tiết. |
+
 
 
 
