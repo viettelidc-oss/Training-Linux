@@ -1,7 +1,10 @@
 # SYSTEM STARTUP AND SHUTDOWN
 1. [System startup process](#startup)
-2. The startup script framework
-3. Managing services using
+2. [The startup script framework](#startupscript)
+3. [Managing services using](#manaservice)
+4. [Starting and stopping services dynamically ](#servicedynamic)
+5. [Managing services with system/service/systemctl ](#systemctl)
+6. [Shutdown and rc](#shut)
 
 ## 1. System startup process <a name="startup"></a>
 Quá trình khởi động của hệ điều hành Linux từ lúc mở máy đến khi hiển thị màn hình đăng nhập bao gồm các bước:
@@ -116,8 +119,9 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
    
    > ![](./images/report2/systemd2.png)
    
+   ## 2. The startup script framework <a name="startupscript"></a>
    
-   
+   ## 3. Managing services using <a name="manaservice"></a>
    
    
    
