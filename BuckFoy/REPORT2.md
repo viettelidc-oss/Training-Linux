@@ -805,4 +805,13 @@ Sau đó hiện thị thông tin user và cần nhập password để thực hi�
 
 Vậy là quá trình truy cập SSH đã thành công!
 
+-  một số thư mục cấu hình mặc định có trong SSH :
 
+	/etc/ssh/sshd_config : Cấu hình OpenSSH Server
+	/etc/ssh/ssh_config : Cấu hình OpenSSH Client
+	~/.ssh/ : Thực mục SSH user
+	~/.ssh/authorized_keys hoặc ~/.ssh/authorized_keys : Thư mục chứa public key (RSA hoặc DSA) dùng để cấu hình SSH auth
+	/etc/nologin : Nếu file này tồn tại , SSH sẽ từ chối mọi user trừ root
+	/etc/host.allow và /etc/hosts.deny : Thư mục AcessList của SSH
+	
+### Bước 3. Cấu hình nâng cao
