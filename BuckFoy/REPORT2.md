@@ -5,23 +5,23 @@
 
 [1.  SYSTEM STARTUP AND SHUTDOWN](#P1)
 
-[1.1. System startup process ](#P11)
+ * [1.1. System startup process ](#P11)
 
-[1.2. The startup script framework](#P12)
+* [1.2. The startup script framework](#P12)
 
-[1.3. Managing services using](#P13)
+* [1.3. Managing services using](#P13)
 
-[1.5. Managing services with system/service/systemctl](#P15)
+* [1.5. Managing services with system/service/systemctl](#P15)
 
-[1.6 Shutdowns and rc](#P16)
+* [1.6 Shutdowns and rc](#P16)
 
 [2.  PROCESS MONITORING AND SCHEDULING](#P2)
 
-[2.1 Monitoring processes](#P21)
+* [2.1 Monitoring processes](#P21)
 
-[2.2 Shared Libraries](#P22)
+* [2.2 Shared Libraries](#P22)
 
-[2.3 Scheduling processes with cron](#P23)
+* [2.3 Scheduling processes with cron](#P23)
 
 
 <a name="P1"> </a>
@@ -638,5 +638,55 @@ file | Tải dữ liệu crontab từ tệp được chỉ định. Nếu tệp 
 -s | Chỉ SELinux: nối chuỗi ngữ cảnh bảo mật SELinux hiện tại dưới dạng cài đặt MLS_LEVEL vào tệp crontab trước khi tiến hành chỉnh sửa hoặc thay thế. Xem tài liệu SELinux của bạn để biết thông tin chi tiết. |
 
 
+### 2.4.2 OverView
+
+Lệnh crontab được sử dụng để xem hoặc chỉnh sửa bảng lệnh được chạy bởi cron.
+
+Mỗi người dùng trên hệ thống của bạn có thể có một crontab cá nhân.
+
+Các tệp Crontab được đặt trong /var/spool/ (hoặc một thư mục con như /var/spool/cron/crontabs), nhưng chúng không nhằm mục đích chỉnh sửa trực tiếp. Thay vào đó, chúng được chỉnh sửa bằng cách chạy crontab.
+
+- Crontab command entries
+
+Mỗi mục nhập lệnh cron trong tệp crontab có năm trường thời gian và ngày tháng (theo sau là tên người dùng, chỉ khi đó là tệp crontab của hệ thống), theo sau là một lệnh.
+
+Các lệnh được thực thi bởi cron khi các trường phút, giờ và tháng khớp với thời gian hiện tại và ít nhất một trong hai trường ngày (ngày trong tháng hoặc ngày trong tuần) khớp với ngày hiện tại.
+
+Trình nền cron kiểm tra crontab mỗi phút một lần.
+
+- Trường ngày và giờ
+
+fiend | allowed values |
+------| ------------|
+minute | 0- 59 |
+hour | 0 -23 |
+day of month | 0 -31 |
+month | 0 -12 |
+day of week | 0 -7 |
+
+- Contab file 
+
+Mỗi dòng của tệp crontab là "hoạt động" hoặc "không hoạt động". Dòng "hoạt động" là cài đặt môi trường hoặc mục nhập lệnh cron. Dòng "không hoạt động" là bất kỳ thứ gì bị bỏ qua, bao gồm cả nhận xét.
+
+Các dòng trống và khoảng trắng ở đầu và tab bị bỏ qua. Các dòng có ký tự không phải khoảng trắng đầu tiên là dấu thăng (#) được hiểu là các chú thích và bị bỏ qua. Chú thích không được phép trên cùng một dòng với lệnh cron, vì chúng sẽ được hiểu là một phần của lệnh. Vì lý do tương tự, nhận xét không được phép trên cùng một dòng với cài đặt biến môi trường
+
+- Môi trường thiết lập 
+
+Một dòng thiết lập môi trường trong crontab có thể đặt các biến môi trường cho bất cứ khi nào cron chạy một công việc.
+
+Môi trường thiết lập crontab được định dạng như sau:
+	
+	name = value
+
+Các khoảng trắng xung quanh dấu bằng (=) là tùy chọn và bất kỳ khoảng trắng nào không đứng đầu sau đó trong giá trị sẽ là một phần của giá trị được gán cho tên. Chuỗi giá trị có thể được đặt trong dấu ngoặc kép (đơn hoặc kép, nhưng phù hợp) để giữ các khoảng trống ở đầu hoặc cuối.
+
+Một số biến môi trường được đặt tự động bởi cron:
+
+	SHELL được đặt thành / bin / sh.
+	LOGNAME và HOME được đặt từ dòng / etc / passwd của chủ sở hữu crontab. 
+	HOME và SHELL có thể bị ghi đè trong thời gian chạy bởi các cài đặt trong crontab; LOGNAME có thể không.
+	Biến LOGNAME đôi khi được gọi là USER trên hệ thống BSD. Trên các hệ thống này, USER cũng sẽ được đặt.
+	
+- Cấu hình
 
 
