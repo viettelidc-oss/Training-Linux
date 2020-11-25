@@ -66,7 +66,7 @@ Quy trình chi tiết các bước:
 Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của nó sẽ bị kết thúc. Sau đó init (hoặc XDM/GDM/KDM/Entrance) sẽ “thức tỉnh” và bắt đầu một lời nhắc nhở đăng nhập mới.
 
 **Minh họa quá trình khởi động hệ thống Linux:**
-> ![](.images/report2/boot-process.png)
+> ![](./images/report2/boot-process.png)
 
 **2 loại init:**
  - **Unix System V** <a name="usv"></a>
@@ -79,17 +79,17 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
    - Runlevel 5: Đa người dùng đầy đủ dịch vụ (có GUI).
    - Runlevel 6: Reboot hệ thống.
    
-   > ![](.images/report2/runlevel.png)
+   > ![](./images/report2/runlevel.png)
    
  Sau khi xác định run level. Chương trình /sbin/init sẽ thực thi các file statup script được đặt trong các thư mục con của thư mục /etc/rc.d.
    
-   > ![](.images/report2/runlevel1.png)
+   > ![](./images/report2/runlevel1.png)
    
    Trong file script theo từng level. Các tên tập tin bắt đầu bằng từ khóa "S" có nghĩa là tập tin này sẽ được thực thi lúc khởi động hệ thống. Nếu tập tin bắt đầu bằng từ khóa "K" nghĩa là tập tin đó được thực thi khi hệ thống shutdown. Số theo sau từ khóa "S" và "K" để chỉ định trình tự khởi động các script, kế tiếp là tên file script cho từng dịch vụ.
   - **Systemd** <a name="systemd"></a>   
    Đối với các bản Linux hiện đại gần đây thì init và runlevel được thay thế bởi systemd và cũng thực hiện nhiệm vụ tương ứng. Systemd cũng giống như init là tiến trình chạy đầu tiên trên hệ thống với ID = 1.
    
-   > ![](.images/report2/systemd1.png)
+   > ![](./images/report2/systemd1.png)
    
    Systemd đọc tệp liên kết bởi /etc/systemd/system/default.target để xác định đích hệ thống mặt định. Tệp mục tiêu trong hệ thống xác định các dịch vụ mà systemd bắt đầu. Systemd sẽ bắt đầu mọi thứ trong /etc/systemd/system/basic.target trước khi bắt đầu multi-user service.
    
@@ -103,7 +103,7 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
    
    > systemctl set-default [target]
    
-   > ![](.images/report2/systemd2.png)
+   > ![](./images/report2/systemd2.png)
    
    
    
