@@ -796,3 +796,13 @@ Bấm vào nút SSH sẽ hiện thị giao diện sao và thêm các thông số
 Hostname (or IP address ) : Nhập IP của Server
 Port : 22 ( Đây là port mặc định của SSH )
 Sau đó ta bấm Open
+
+![32](https://user-images.githubusercontent.com/74639473/100181056-10a08380-2f0c-11eb-8666-6137cc70749b.png)
+
+Sau đó hiện thị thông tin user và cần nhập password để thực hiện truy cập từ xa thông qua SSH
+
+![33](https://user-images.githubusercontent.com/74639473/100181064-14340a80-2f0c-11eb-9ae0-3d297d0a4112.png)
+
+Vậy là quá trình truy cập SSH đã thành công!
+
+
