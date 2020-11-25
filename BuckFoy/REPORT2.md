@@ -817,5 +817,133 @@ Vậy là quá trình truy cập SSH đã thành công!
 	
 ### Bước 3. Cấu hình nâng cao
 
+Truy cập vào file cấu hình của SSH: 
+	
+	#vi /etc/ssh/sshd_config
+- 1. Đổi Port SSH: (số port >1024)
+
+Mặc định dịch vụ SSH sử dụng port 22, bạn nên thay đổi cổng mặc định này để tránh các mối nguy hại từ các cuộc tấn công khai thác qua port 22.
+
+ví dụ port =2222
+
 ![](./Images/Report2/34.png)
+
+Sau đó, tiến hành mở port trên firewall vầ đổi port 22 thành 2222
+
+	#vi /etc/sysconfig/iptable
+	
+Tiếp đến restart lại ssh và firewall
+
+	#service sshd restart
+	#service iptable restart
+
+- 2. Giới hạn IP truy cập SSH
+
+Trong iptable, tiến hành đặt rule cho phép 1 ip truy cập cổng SSH
+VD . IP client là 192.168.1.168 được phép SSH vào server với port  2222, còn các ip khác không đượ phép truy cập vào port đấy sẽ bị DROP
+
+  	-A INPUT -m state –state NEW -m tcp -p tcp –dport 2222 -s 192.168.1.168 -j ACCEPT
+	-A INPUT -m state –state NEW -m tcp -p tcp –dport 2222 -j DROP	
+
+![](./Images/Report2/38.png)
+
+- 3. Giới hạn số lần đăng nhập sai và số phiên SSH
+
+Giới hạn số lần đăng nhập sai:
+
+MaxAuthTries 3 //Sau 3 lần đăng nhập sai sẽ thoát khỏi session, dùng để tránh dò mật khẩu
+
+MaxSessions 1 //Chỉ được phép duy nhất 1 phiên kết nối SSH
+
+![](./Images/Report2/39.png)
+
+- 4. Tắt truy cập bằng tài khoản root
+
+root là user có quyền cao nhất trong server. Nếu bạn là một quản trị máy chủ web đang sử dụng máy chủ Linux (Centos, Ubuntu …), chắc hẳn bạn sẽ gặp phải trường hợp tài khoản root của mình bị tấn công bruteforce mật khẩu (nôm na là dò mật khẩu) qua SSH. Những cuộc tấn công bruteforce này có thể kéo dài hàng tháng thậm chí tới hàng năm bởi các hệ thống tấn công tự động và rất mạnh mẽ. Nếu tài khoản root không được cài đặt một password đủ mạnh, hacker có thể dễ dàng chiếm được quyền cao nhất của hệ thống.
+
+Vì vậy, tốt hơn hết bạn nên sử dụng một tài khoản riêng khác để đăng nhập SSH vào hệ thống và vô hiệu hóa quyền SSH qua root trên máy chủ.
+
+Truy cập vào file sshd_config, và chỉnh 
+
+![](./Images/Report2/310.png)
+
+Nếu server có nhiều user, cấu hình Deny và allow
+
+![](./Images/Report2/311.png)
+
+- 5. Sử dụng SSH  Protocol 2
+
+SH có hai version giao thức, giao thức cũ Protocol 1 kém an toàn nên có một giao thức mới giúp tăng khả năng đảm bảo bảo mật trên đường truyền đó là Protocol 2. Chính vì vậy OpenSSH luôn sử dụng Protocol 2 để sử dụng cho các máy chủ SSH để đảm bảo an toàn
+
+So sánh giữa protocol 1 và protocol 2
+
+protocol 2 | protocol 1 |
+---------| --------|
+Các giao thức vận chuyển, kết nối và xác thực tách biệt |  Sử dụng một giao thức đơn khối|
+Sử dụng thuật toán kiểm tra tính toàn vẹn mạnh| Sử dụng CRC-32 để kiểm tra tính toàn vẹn yếu |
+ Hỗ trợ thay đổi mật khẩu | không hỗ trợ |
+  Sử dụng các phương thức xác thực sau:
+public key (DSA, RSA*, OpenPGD) hostbased password | Hỗ trợ nhiều phương thức: public key (RSA) RhostRSA password TIS Kerberos |
+Sử dụng thuật toán Diffie-Hellman để phân phối khóa loại bỏ sự phụ thuộc vào một server key | Server key được sử dụng để chuyển tiếp khóa phiên|
+Hỗ trợ chứng chỉ Public-key | không hỗ trợ | 
+trao đổi chứng thực người dùng linh hoạt hơn, cho phép yêu cầu nhiều hình thức xác thực để truy cập | Chỉ cho phép một kiểu xác thực cho mỗi phiên |
+Thay thế các khóa phiên theo định kỳ | không hỗ trợ |
+
+- 6. Cấu hình Logout SSH nếu phiên đang Idle
+
+Trong file sshd_config :
+
+	ClientAliveInterval 300 //Sau 300s = 5’ , sẽ bị logout nếu phiên đang Idle
+	ClientAliveCountMax 0 //Khoảng thời gian chờ nếu không có dữ liệu sẽ gửi 1 thông điệp yêu cầu phản hồi
+
+- 7. Bật cảnh báo trong Banner
+
+vi /etc/bannerssh
+
+them canh cao
+
+Tiếp tục truy vấn
+vi /etc/ssh/sshd_config
+
+![](./Images/Report2/312.png)
+
+- 8 sử dụng mật khẩu mạnh
+
+Việc đặt mật khẩu mạnh giúp hạn chế việc bị dò password.
+
+Để tạo thư viện “Random Password” bằng cách
+
+	#vi ./báh_generate
+thêm dòng sau vào: 
+
+	genpasswd() {
+
+	local l=$1
+
+	[ “$l” == “” ] && l=20
+
+	tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
+
+	}
+
+Chạy tiếp lệnh thực thi 
+	
+	#source ./bash_generate
+	# genpasswd
+
+![](./Images/Report2/314.png)
+
+- 9. Cấu  hình SSH key
+
+Sử dụng 2 cặp khóa là Public Key và Private key. Đây là một phương pháp khá an toàn giúp đảm bảo kết nối SSH
+
+![](./Images/Report2/315.png)
+
+Cấu hình SSH Key chi tiết  < a name="P32">  </a> [tại đây]
+
+## 3.2 
+
+
+
+
 
