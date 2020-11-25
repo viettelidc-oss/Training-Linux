@@ -776,8 +776,7 @@ c. SSH: ý tưởng tương tự telnet, lấy những gì ta gõ và gửi qua 
  Kiểm tra SSH bằng câu lệnh
  	
 	#service sshd retstart
-
-hinh30
+![30](https://user-images.githubusercontent.com/74639473/100179465-b18d3f80-2f08-11eb-8b0e-95388f904096.png)
 
 Nếu trả về kết quả starting sshd [ok] là đã có SSH rồi
 
@@ -785,6 +784,15 @@ Nếu chưa có sử dụng lênh sau để cài đặt
 
 	#yum install openssh-server -y
 	
-hinh 31
+![31](https://user-images.githubusercontent.com/74639473/100179478-b6ea8a00-2f08-11eb-8407-ea6109781c3c.png)
 
 #### Bước 2. Trên máy Client tiến hành cài đặt phần mềm truy cập SSH (MobaXterm)
+
+Để cài đặt MobaXterm  truy cập vào https://mobaxterm.mobatek.net/download-home-edition.html
+
+Sau khi cài đặt xong MobaXterm thì thực hiện SSH .
+
+Bấm vào nút SSH sẽ hiện thị giao diện sao và thêm các thông số sau: 
+Hostname (or IP address ) : Nhập IP của Server
+Port : 22 ( Đây là port mặc định của SSH )
+Sau đó ta bấm Open
