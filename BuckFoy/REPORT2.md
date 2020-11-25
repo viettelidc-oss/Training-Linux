@@ -70,7 +70,8 @@ Sau khi BIOS xác định được thiết bị lưu trữ thì BIOS sẽ đọc
 Đến giai đoạn này, máy tính sẽ không truy cập vào phương tiện lưu trữ. Thông tin về ngày tháng, thời gian và các thiết bị quan trọng nhất được nạp từ CMOS
 
 ![hinh11](https://user-images.githubusercontent.com/74639473/100110342-69860280-2e9f-11eb-91aa-468d7f0e9291.png)
-![] (./33.png)
+
+![] (./34.png)
 #### Bước 3. Boot Loader
 
 Linux có 2 boot loader phổ biến trên Linux là GRUB và ISOLINUX.
