@@ -25,7 +25,11 @@
 
 * [2.4 Crontab command options](#P24)
 
-[3.  
+[3.  SYSTEM SECURITY AND ENCRYPTION](#P3)
+
+*  [3.1 The secure shell OpenSSH](#P31)
+
+* [3.2. Public / Private key authentication](#P32)
 
 
 <a name="P1"> </a>
@@ -945,7 +949,7 @@ Cấu hình SSH Key chi tiết
 
 [trở về mục lục](#mucluc)
 
-<a name="P32  > </a>
+<a name="P32"> </a>
 	 
 ## 3.2 Public/private key authentication
 
