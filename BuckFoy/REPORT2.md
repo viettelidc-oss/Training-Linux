@@ -616,7 +616,7 @@ Khai báo
 [trở về mục lục](#mucluc)
 
 <a name="P24"> </a>
-## 2.4 crontab command options
+## 2.4 rontab command options
 
 Crontab là danh sách các tác vụ được lên lịch chạy theo các khoảng thời gian đều đặn trên hệ thống.
 
@@ -658,9 +658,28 @@ Các lệnh được thực thi bởi cron khi các trường phút, giờ và t
 
 Trình nền cron kiểm tra crontab mỗi phút một lần.
 
+ví du:
+
+ chạy tập lệnh shell /home/melissa/backup.sh vào ngày 2/6 lúc 7h10
+ 	
+	10 7 2 6 /home/melissa/backup.sh
+	
+Cũng như ví dụ trên , chạy tập lệnh vào 12h30 vào thứ 2 hàng tuần tháng 6
+	
+	30 12 * Jun Monday /home/melissa/backup.sh
+	
+Chạy /home/carl/hourly-archive.sh hàng giờ, vào giờ, từ 9 giờ sáng(09:00) đến 6 giờ chiều (18:00), mỗi ngày:
+
+	00 09-18 * * * /home/carl/hourly-archive.sh
+	
+Tương tự như ở trên, nhưng chạy nó hai mươi phút một lần
+
+	*/20 09-18 * * * /home/carl/hourly-archive.sh
+
+
 - Trường ngày và giờ
 
-fiend | allowed values |
+field | allowed values |
 ------| ------------|
 minute | 0- 59 |
 hour | 0 -23 |
@@ -691,6 +710,81 @@ Một số biến môi trường được đặt tự động bởi cron:
 	HOME và SHELL có thể bị ghi đè trong thời gian chạy bởi các cài đặt trong crontab; LOGNAME có thể không.
 	Biến LOGNAME đôi khi được gọi là USER trên hệ thống BSD. Trên các hệ thống này, USER cũng sẽ được đặt.
 	
-- Cấu hình
+### 2.4.3. Cấu hình
 
+- Cho phép người dùng chạy cron
 
+Các công việc Cron có thể được phép hoặc không được phép đối với người dùng cá nhân, như được định nghĩa trong các tệp /etc/cron.allow và /etc/cron.deny. Nếu cron.allow tồn tại, một người dùng phải được liệt kê ở đó để được phép sử dụng một lệnh nhất định. Nếu tệp cron.allow không tồn tại nhưng tệp cron.deny thì có, thì người dùng không được liệt kê ở đó để sử dụng lệnh đã cho. Nếu không có tệp nào trong số các tệp này tồn tại, chỉ người dùng cấp cao mới được phép sử dụng một lệnh nhất định.
+
+Các quyền của cron cũng có thể được xác định bằng cách sử dụng xác thực PAM (mô-đun xác thực có thể cắm được) để thiết lập người dùng có thể hoặc không sử dụng crontab và công việc cron hệ thống. Cấu hình PAM nằm trong /etc/cron.d/. 
+
+- Cấu hình thư mục tạm thời
+
+Thư mục tạm thời cho các công việc cron có thể được đặt trong các biến môi trường được liệt kê bên dưới. Nếu các biến này không được xác định, thư mục tạm thời mặc định / tmp được sử dụng
+
+[trở về mục lục](#mucluc)
+
+<a name="P3"> </a>
+# 3. SYSTEM SECURITY AND ENCRYPTION
+
+<a name="P31"> </a>
+## 3.1. The secure shell OpenSSH
+
+### 3.1.1 Khái niệm SSH
+
+SSH (Secure Shell) là giao thức mạng dùng để thiết lập kết nối mạng một cách bảo mật. SSH hoạt động ở lớp ứng dụng của phân lớp TCP/IP. 
+
+Các công cụ SSH (như OpenSSH, PuTTy, etc.) cung cấp cho người dùng cách thức để thiết lập kết nối mạng được mã hóa để tạo kênh kết nối riêng tư.
+
+Tính năng tunneling (port forwarding) cho phép chuyển tải các giao vận theo các giao thức khác.
+
+### 3.1.2. Một số khái niệm liên quan
+
+-  Encryption
+
+a. Shared secrets
+
+Khái niệm chỉ sự chia sẻ thông tin bí mật, trường hợp thường thấy là sử dụng "password" ở cả 2 phía để mã hóa và giải mã.
+
+b. Public keys
+
+Thực chất có một cặp keys. Thông tin bị mã hóa với một key nhưng có thể giải mã với một key khác. Thông thường một key sẽ giữ bí mật trong khi key kia sẽ được phân tán công khai.
+
+** Public key authentication
+
+Nếu bạn có public key, bạn có thể sử dụng để kiểm tra liệu các đầu cuối khác có đang giữa private key không
+** Fingerprints
+
+Khi nhận được một public key, ta không biết được nó có thuộc về người mà ta muốn "nói chuyện" hay không. Phương thức để xác nhận keys ở đây là thông qua fingerprints. Nếu có được fingerprint ahead của key, ta có thể kiểm tra lại lần nữa key đang giữ.
+
+- Truy cập máy tính từ xa
+
+a. Truy cập cục bộ
+
+Thực hiện các command trực tiếp trên shell mọi thứ ta gõ lên terminal
+
+b. Telnel: mô phỏng tương tự như truy cập cục bộ nhưng thông qua mạng. Mọi thứ ta gõ đều có thể lấy được, gửi qua mạng và gửi tới shell trên máy remote. Telnet gửi mọi thứ thông qua mạng và mọi người đều có thể thấy được chính xác những gì ta đã gõ, bao gồm cả việc ta thấy gì trên màn hình (ví dụ password)
+
+c. SSH: ý tưởng tương tự telnet, lấy những gì ta gõ và gửi qua mạng tới shell trên máy remote, truy nhiên thông tin trước khi gửi đi được mã hóa. Mọi người theo dõi phiên ssh trên mạng sẽ chỉ thấy những ký tự vô nghĩa
+
+### 3.1.3. Cấu hình SSH
+ 
+ #### Bước 1. Tiến hành cấu hình trên Server
+ 
+ Theo mặc định, khi tiến hành cài Linux trên Server, SSH sẽ được đi kèm trong hệ điều hành.
+ 
+ Kiểm tra SSH bằng câu lệnh
+ 	
+	#service sshd retstart
+
+hinh30
+
+Nếu trả về kết quả starting sshd [ok] là đã có SSH rồi
+
+Nếu chưa có sử dụng lênh sau để cài đặt
+
+	#yum install openssh-server -y
+	
+hinh 31
+
+#### Bước 2. Trên máy Client tiến hành cài đặt phần mềm truy cập SSH (MobaXterm)
