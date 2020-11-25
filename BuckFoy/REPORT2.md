@@ -816,5 +816,6 @@ Vậy là quá trình truy cập SSH đã thành công!
 	/etc/host.allow và /etc/hosts.deny : Thư mục AcessList của SSH
 	
 ### Bước 3. Cấu hình nâng cao
-> ![](./Images/Report 2/34.png)
+
+![](./Images/Report2/34.png)
 
