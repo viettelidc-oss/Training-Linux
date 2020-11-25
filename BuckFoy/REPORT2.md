@@ -939,9 +939,124 @@ Sử dụng 2 cặp khóa là Public Key và Private key. Đây là một phươ
 
 ![](./Images/Report2/315.png)
 
-Cấu hình SSH Key chi tiết  < a name="P32">  </a> [tại đây]
+Cấu hình SSH Key chi tiết  
+< a name="P32">  </a> 
+[tại đây]
 
-## 3.2 
+[trở về mục lục](#mucluc)
+
+<a name="P32  > </a>
+	 
+## 3.2 Public/private key authentication
+
+### 3.2.1. Giới thiệu về SSH key
+
+Tuy SSH là giao thức mã hóa an toàn, tuy nhiên ta vẫn phải sử dụng mật khẩu để truy cập. Và nếu trong quá trình sử dụng mà các gói tin của bạn bị bắt lại, các phiên trao đổi khóa giữa SSH server và client sẽ bị lộ và attacker có thể dùng nó để giải mã dữ liệu. Hơn nữa, việc này cũng tạo điều kiện cho các cuộc tấn công Brute Force mật khẩu.
+
+SSH hỗ trợ sử dụng cặp khóa Private Key và Public Key được chia sẻ với nhau từ trước. Nghĩa là đã có sẵn Private Key để trao đổi với server mà không cần đến quá trình trao đổi khóa, điều này sẽ hạn chế khả năng bị bắt gói. Hơn nữa cặp khóa này còn có một mật khẩu riêng của nó, gọi là passphrase (hay keyphrase). Mật khẩu này được dùng để mở khóa Private Key (được hỏi khi bạn SSH vào server) và tạo lớp xác thực thứ 2 cho bộ khóa. Nghĩa là:
+
++ Nếu attacker không có Private Key, việc truy cập vào server gần như không thể, chỉ cần bạn giữ kĩ Private Key.
+
++ Tuy nhiên trong trường hợp Private Key bị lộ, bạn vẫn khá an toàn vì đối phương không có passphrase thì vẫn chưa thể làm được gì, tuy nhiên đó chỉ là tạm thời. Bạn cần truy cập server thông qua cách trực tiếp hoặc qua VNC của nhà cung cấp nếu đó là một VPS để thay đổi lại bộ khóa.
+
+### 3.2.2. Cấu hình SSH key
+
+- tạo khóa trên server
+
+tạo 1 cặp khóa key bằng câu lệnh sau:
+	
+	-ssh-keygen -t rsa
+
+![](./Images/Report2/h320)
+
+theo mặc định, khi sử dụng câu lệnh trên OpenSSH sẽ sử dụng RSA 2048bit
+
+	/root/.ssh/id_rsa : đây là file chứa Private key
+	/root/.ssh/id_rsa.pub : Đây là file chưa Public key
+	Passphrase : mật khẩu đi cùng để mã hóa/ giải mã private key
+
+
+- chỉnh sửa cấu hình  trên server
+
+ Vào #vi /etc/ssh/sshd_config
+ 
+ thay đổi các dòng sau :
+ 
+	 RSAAuthentication yes
+
+	PubkeyAuthentication yes
+
+	AuthorizedKeysFile      /root/.ssh/id_rsa.pub
+ 
+	PasswordAuthentication no
+
+- Copy nội dung private key ra máy tính, khởi động lại ssh
+
+dùng lệnh cat để xem nội ding private key đã tạo ở mục mặc định : cat /root/.ssh/id_rsa
+
+![](./Images/Report2/h322.png)
+
+coppy toàn bộ nội dung ra file  notepad
+
+Sau đó, tiến hành khởi động lại sshd : #service sshd restart
+
+### 3.2.3. thực hiện cài đặt trên Client window
+
+Sau khi coppy key về máy tính và lưu lại tên ( mình lưu là id_rsa)
+
+- load key với MobaXterm 
+
+trên MobaXterm, click vào tab Tools  , kích vào MobaKeyGen
+
+![](./Images/Report2/h323.png)
+
+tiếp đến chọn Load để load private key
+
+![](./Images/Report2/h324.png)
+
+Chọn đường dẫn đến file copy key từ server đã lưu ở phần trên. Sau đó sẽ có 1 của sổ hiện ra như bên dưới, nhập vào mật khẩu Passphrase sau đó chọn Ok để tiếp tục.
+
+![](./Images/Report2/h325.png)
+
+Như vậy ta đã load xong. Tiếp tục chọn Save private key để lưu lại private key, sau này dùng cho việc ssh.
+
+![](./Images/Report2/h326.png)
+
+- kiểm tra sử dụng ssh key
+
+Để kiểm tra, ta cần sử dụng key và ssh vào server. Hãy làm theo các bước sau :
+
+Trên server chọn tab Session sau đó chọn New session
+
+Tại đây làm theo các bước sau :
+
+Chọn giao thức là SSH
+
+Nhập vào IP của server để tiến hành ssh đến
+
+Tích chọn sử dụng private key để xác thực ssh bằng key
+
+Sau đó chọn vào biểu tượng file để chọn đường dẫn private key.
+
+![](./Images/Report2/h327.png)
+
+Chọn private key vừa lưu có tên là privateky_user sau đó chọn Open để xác nhận.
+
+Sau khi chọn file, chọn Ok để bắt đầu ssh tới server
+
+![](./Images/Report2/h328.png)
+
+Ta sẽ ssh vào bằng user thuctap, sau khi nhập vào user ta sẽ không xác thực bằng mật khẩu của user đó mà sẽ sử dụng mật khẩu của Passphrase key.
+
+![](./Images/Report2/h321.png)
+
+Sau khi nhập mật khẩu, ta sẽ login được vào bằng user và thao tác như bình thường.
+
+![](./Images/Report2/h329.png)
+
+Vậy quá trình cấu hình ssh  key đến đây là thành công và bắt đầu sử dụng máy tính từ xa
+
+ [trở về mục lục)(#mucluc)
 
 
 
