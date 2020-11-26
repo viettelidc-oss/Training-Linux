@@ -1119,7 +1119,126 @@ Bất kể sử dụng GUI nào trên máy chủ Linux, GNOME hay KDE, cả hai 
 <a name="P41"> </a>
 ##  4.1. Archiving with tar
 
+### 4.1.1. Khái niệm và ưu điểm của Tar
 
+- Khái niệm
+
+Tar là chữ viết tắt của Tape archive, là một lệnh phổ biến nhất để nén và giải nén file và thư mục trong Linux. Có rất nhiều lợi ích khi dùng lệnh tar, người dùng chuyên nghiệp rất thích lệnh này.
+
+Trong hầu hết các trường hợp, nén file bằng tar sẽ cho kết quả là file .tar. Còn nén mạnh hơn thì dùng gzip với file sau cùng là .tar.gz.
+
+Với tar command, bạn có thể nén và giải nén file. Tar có nhiều lựa chọn cách thực hiện hành động nên có thể bạn cần nhớ những tùy chọn này.
+
+- Ưu điểm của Tar linux
+
+Tar, nói về việc nén thì nó có khả năng nén 50%, tức là khá hiệu quả
+
+Giảm thiểu kích cỡ của file và folder
+
+Tar không thay đổi tính năng của file và thư mục. Quyền và những tính năng khác không bị ảnh hưởng sau khi nén
+
+Tar được dùng rộng khắp mọi phiên bản Linux. Nó cũng dùng được trên firmware Android và được hỗ trợ bởi những hệ điều hành Linux cũ hơn nữa.
+
+Nén và giải nén nhanh
+
+Dễ sử dụng
+
+- Khi nào cần sử dụng Tar command
+
+Nếu làm việc với hệ điều hành Linux và cần nén file và giải nén file
+
+Cần chuyển file và thư mục lớn từ server này sang server khác
+
+Tạo backup cho website, data,...
+
+Giảm dung lượng sử dụng của hệ điều hành xuống, vì sau khi nén nó sẽ tiết kiệm được không gian
+
+Upload và download thư mục.
+
+### 4.1.2. Cấu hình sử dụng Tar
+
+- Tạo file nén Tar
+
+ + Tạo filec .tar linux
+Bạn có thể nén file nén .tar cho file và thư mục. Cấu trúc để lệnh tar để nén file như sau:
+	
+	tar -cvf <filename .tar > /đường dẫn đến file bị nén 
+	trong tùy chon -cvf có nghĩa  là :
+		 c- : tạo file .tar mới
+		 v : hiện thị quá trình nén lên màn hình
+		 f : tên file
+ví dụ:  tar  -cvf /home/attt/TestTar/Test1.tar /home/attt/TestTar/Test1
+
+![](./Images/Report2/40.png)
+
+ + Tạo file nen .tar.gz trong linux
+ 
+ Nếu bạn muốn nén mạnh hơn, bạn cũng có thể dùng file .tar.gz. Cấu trúc cơ bản để nén file bằng lệnh tar là:
+ 
+	tar -cvzf <filename .tar > /đường dẫn đến file bị nén
+	Tùy chọn z có nghĩa là sử dụng gzip để nén, cách nén này cho file ra còn nhỏ hơn. Ngoài ra, tên file cũng có thể đặt .tgz
+	
+ví dụ : tar -cvzf /home/attt/TestTar/Test1.tar.bz /home/attt/TestTar/Test1
+
+![](./Images/Report2/41.png)
+
+ + tạo file nén .tar.bz2 trong Linux băng tar
+ 
+File .bz2 sẽ nén nhiều hơn so với gzip. Tuy nhiên, nó cần nhiều thời gian hơn để nén và giải nén. Để nén file .tar.bz2, bạn sẽ cần thêm tùy chọn -j. Ví dụ như sau :  tar -cvjf /home/attt/TestTar/Test1.tar.bz2 /home/attt/TestTar/Test1
+
+![](./Images/Report2/42.png)
+
+- Giải nén Tar
+
+Lệnh tar cũng có thể dùng để giải nén file. Cấu trúc lệnh giải nén như sau:
+
+	tar -xvf /home/attt/TestTar/Test1.tar
+	
+Nếu bạn muốn giải nén sang thư mục khác hãy dùng tùy chọn -C, ví dụ như sau	
+
+	tar -xvf /home/attt/TestTar/Test1.tar -C /home/attt/
+
+Lệnh giải nén file .tar.gz cũng tương tự:
+
+	tar -xvf /home/attt/TestTar/Test1.tar.gz
+	tar -xvf /home/attt/TestTar/Test1.tar.gz -C /home/attt/
+	
+và để giải nén .tar.bz2 .tar.tbz hoặc .tar.tb2 thì dùng cấu trúc sau:
+
+	tar -xvf /home/attt/TestTar/Test1.tar.bz2
+
+- Liệt kê nội dung của file nén linux
+
+Sau khi file archive được tạo, bạn có thể liệt kê nội dung của nó ra bằng lệnh tar theo cấu trúc: 
+	
+	tar -tvf /home/attt/TestTar/Test1.tar
+
+Nó sẽ hiển thị toàn bộ danh sách file và mốc thời gian, cùng quyền hạn của file. Tương tự, đối với file .tar.gz, .tar.bz2 bạn dùng lệnh sau:
+	
+	tar -tvf /home/attt/TestTar/Test1.tar.gz
+	tar -tvf /home/attt/TestTar/Test1.tar.bz2
+
+![](./Images/report2/44.png)
+
+- Giải nén 1 file trong file .tar
+
+	tar  -xvf  /home/attt/TestTar/Test1.tar test1.txt
+ở đây file test1.txt là file lẻ được giải nến bên trong file Test1.tar
+hoặc sử dụng lệnh :
+	
+	tar --extract --file= .tar example.sh
+
+- giải nén nhiều file trong file .tar
+
+	 - tar -xvf <file .tar.gz> "file1" "file2"
+	 - tar -xvf <file .tar> "file1" "file2"
+	 - tar -xvf <file .tar.bz2> "file1" "file2"
+
+- Giải nén nhiều file theo mẫu
+
+Nếu muốn giải nén nhiều file chỉ có định dạng theo mẫu, nên dùng wildcards.
+
+Ví dụ :
 
 [trở về mục lục](#mucluc)
 
