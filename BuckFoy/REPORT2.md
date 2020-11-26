@@ -25,10 +25,22 @@
 
 * [2.4 Crontab command options](#P24)
 
-[3.  
+[3.  SYSTEM SECURITY AND ENCRYPTION](#P3)
 
+*  [3.1 The secure shell OpenSSH](#P31)
 
-<a name="P1"> </a>
+* [3.2. Public / Private key authentication](#P32)
+
+* [3.3. X11 Forwarding](#P33)
+
+[4.  BACKUP AND RESTORE](#P4)
+
+* [4.1. Archiving with tar](#P41)
+
+* [4.2. Using the dd command](#P42)
+
+* [4.3. Mirroring data between systems: rsync](#P43)
+
 # 1. SYSTEM STARTUP AND SHUTDOWN
 <a name="P11"> </a>
 ## 1.1.	System startup process
@@ -939,13 +951,11 @@ Sử dụng 2 cặp khóa là Public Key và Private key. Đây là một phươ
 
 ![](./Images/Report2/315.png)
 
-Cấu hình SSH Key chi tiết  
-< a name="P32">  </a> 
-[tại đây]
+Cấu hình SSH Key chi tiết   [tại đây](#P32)
 
 [trở về mục lục](#mucluc)
 
-<a name="P32  > </a>
+<a name="P32"></a>
 	 
 ## 3.2 Public/private key authentication
 
@@ -1057,8 +1067,71 @@ Sau khi nhập mật khẩu, ta sẽ login được vào bằng user và thao t�
 Vậy quá trình cấu hình ssh  key đến đây là thành công và bắt đầu sử dụng máy tính từ xa
 
  [trở về mục lục)(#mucluc)
+ 
+ <a name="P33"> </a>
+ ## 3.3.  X11 forwarding
+ 
+ ### 3.3.1. X11 forwarding là gì? 
+ 
+ X11 forwarding là phương pháp cho phép người dùng khởi động ứng dụng đồ họa được cài đặt trên hệ thống Linux từ xa và chuyển tiếp các cửa sổ ứng dụng (màn hình) đó đến hệ thống cục bộ. Hệ thống từ xa không cần phải có máy chủ X hoặc môi trường máy tính để bàn đồ họa. Do đó, việc định cấu hình chuyển tiếp X11 bằng SSH cho phép người dùng chạy các ứng dụng đồ họa một cách an toàn qua phiên SSH.
+
+Để diễn đạt điều này trong thuật ngữ chuyên môn,
+
+Chúng được kết nối với hệ thống từ xa qua SSH,
+
+Và sau đó chúng khởi chạy ứng dụng GUI (được cài đặt trong hệ thống từ xa) từ phiên SSH đó,
+
+Bây giờ, ứng dụng GUI chạy trên hệ thống từ xa, nhưng cửa sổ ứng dụng xuất hiện trên hệ thống cục bộ . Vì vậy,có thể sử dụng chương trình GUI từ xa này trên hệ thống cục bộ của bạn như cách chúng tôi sử dụng chương trình được cài đặt cục bộ.
+
+### 3.3.2. Cấu hình X11 forwarding  trong SSH linux
+
+Trước khi cấu hình X11 forwarding thì cần phải cài đặt 'xauth' từ hệ thống tìm kiếm  từ xa. Nếu chưa cài đặt thì  sử dụng câu lênh sau để cài đặt : # yum install xorg-x11-xauth
+
+![](./Images/Report2/330.png)
+Để thử nghiệp X11 forwarding xem có hoạt động không. Ta cài đặt : xeyes
+
+![](./Images/Report2/333.png)
+
+Tiếp đến chỉnh sủa trong file ssh_cònig và thêm X11Forwarding yes
+
+![](./Images/Report2/331.png)
+
+Khởi động lại ssh : # service sshd restart
+
+- Cấu hình X11 forwarding trên mobaXterm
+
+![](./Images/Report2/332.png)
+
+Nhập tên người dùng và mật khẩu của máy chủ từ xa. Sau khi bạn kết nối với hệ thống từ xa qua mobaXterm, hãy khởi chạy bất kỳ ứng dụng X nào được cài đặt trong máy chủ từ xa.
+
+Để thử nghiệp x11 forwarding , sử dụng câu lệnh xeyes. Nếu xuất hiện đôi mắt ở tại con trỏ xung quanh màn hình
+
+![](./Images/Report2/334.png)
+
+Bây giờ đã thấy nó hoạt động, có lẽ đã đến lúc chia sẻ cách hoạt động của tất cả.
+
+Bất kể sử dụng GUI nào trên máy chủ Linux, GNOME hay KDE, cả hai đều có cái được gọi là trình quản lý xdisplay làm nền tảng cho phần GUI của màn hình. Nó là một giao thức mạng được thiết kế ngay từ đầu để cho phép các mục được chuyển tiếp đến bất kỳ đích nào được yêu cầu
+[trở về mục lục](#mucluc)
+
+<a name="P4"> </a>
+# 4. BACKUP AND RESTORE
+
+<a name="P41"> </a>
+##  4.1. Archiving with tar
 
 
 
+[trở về mục lục](#mucluc)
+
+<a name="P42"> </a>
+## 4.2 Using the dd command
 
 
+[trở về mục lục](#mucluc)
+
+
+<a name="P43"> </a>
+## 4.3. Mirroring data between systems: rsync
+
+
+[trở về mục lục](#mucluc)
