@@ -21,7 +21,7 @@
 
 * [2.2 Shared Libraries](#P22)
 
-* [2.3 Scheduling processes with cron](#P23)
+* [2.3 Scheduling processes with cron]khác3)
 
 * [2.4 Crontab command options](#P24)
 
@@ -1316,7 +1316,6 @@ Câu lệnh dd trong linux là một trong những câu lệnh thường xuyên 
 ```
 trong đó:
 
-[trở về mục lục](#mucluc)
 - if=<soure> địa chỉ nguồn của dữ liệu nó sẽ bắt đầu đọc
 - of=<targer> viết đầu ra của file
 - option : các tùy chọn cho câu lệnh
@@ -1414,7 +1413,7 @@ dd if=/root/test.doc of=/root/test1.doc conv=ucase
 
 - Chuyển chứ hoa thành chứ thường
 ```
-dd if=/root/test1.doc of=/test2.doc conv=scase,sycn
+dd if=/root/test1.doc of=/test2.doc conv=case,sycn
 
 ```
 ##### d. Tạo một file có dung lượng cố định 
@@ -1480,5 +1479,122 @@ Lúc này đến 10h hàng ngày quá trình sao chép dữ liệu giữa ổ sd
 <a name="P43"> </a>
 ## 4.3. Mirroring data between systems: rsync
 
+### 4.3.1. Khái niệm về
+
+Remote Sync (Rsync) là một công cụ dùng để sao lưu và phục hồi dữ liệu trong Linux. Với câu lệnh rsync bạn có thể sao lưu và đồng bộ dữ liệu remote từ các máy sử dụng hệ điều hành Linux một cách dễ dàng và thuận tiện.
+
+Một số đặc điểm nổi bật khi dùng Rsync
+
+- hiệu quả trong việc sao lưu và đồng bộ file từ 1 hệ thống khác
+- hỗ  trợ sao chếp link, devices, owners, groups, permissions
+- nhanh hơn sử dụng secure copy
+- Rsync tiêu tốn ít bandwidth vì nó sử dụng cơ chế nén khi truyền tải và nhận dử liệu
+
+### 4.3.2. Cú pháp cơ bản trong Rsync
+```
+rsync options source détination
+```
+###### Các tùy chọn trong rsync
+
+```
+-v: verbose
+-r: sao chép dữ  liệu theo cách đệ quy.
+-a: chế độ lưu trữ cho phép sao chép các tệp đệ quy và giữ các liên kết, quyề sở hữu, nhóm và mốc thời gian
+-z: nén dữ liệu
+-h: định dạng số
+```
+
+###### Cài đặt Rsync
+
+```
+yum install rsync (On Red Hat based systems)
+apt-get install rsync (on Debian based systems)
+```
+![](./Images/Report2/413.png)
+
+######  -  Sao lưu , đồng bộ file trên local 
+
+Để copy file Test1.tar sang thư mục /home/attt/ ta làm như sau
+
+![](./Images/Report2/414.png)
+
+Khi thư mục đích chưa tồn tại thì rsync sẽ tự động tạo thư mục đích cho bạn Sao lưu đồng bộ thư mục trên local.
+
+có thể đồng bộ toàn bộ file trong một thư mục tới 1 thư mục khác trên local, ví dụ bạn muốn dồng bộ thư mục /folder1 tới /folder2/
+
+```
+#rsync -avzh /folder1 /folder2/
+```
+![](./Images/Report2/415.png)
+
+###### -  Sao lưu, đồng bộ dữ liệu từ Server về local và từ local lên Server
+
+- Copy dữ liệu từ local lên server
+
+Sao chép thư mục từ local lên Remote Server
+
+Bạn có 1 thư mục chứa ảnh trên local images/ và bạn muốn đồng bộ lên server có IP x.x.x.x :
+```
+$ rsync -avz images/ root@x.x.x.x:/home/
+```
+- Copy dữ liệu từ server về local
+
+Bạn có 1 thư mục chứa ảnh trên server là images/ và bạn muốn đồng bộ về máy local của bạn :
+
+```
+# rsync -avzh root@x.x.x.x:/home/images /home/images/
+```
+###### - Rsync qua SSH
+
+Sử dụng SSH khi truyền tải file để đảm bảo file của bạn được bảo mật và không ai có thể đọc được dữ liệu khi dữ liệu được truyền tải qua internet.
+
+Nên cần cấp quyền user/root mật khẩu để hoàn thành tác vụ. Copy File từ Remote Server về local với SSH
+
+thêm option "-e" khi sử dụng SSH với rsync để truyền tải file.
+
+```
+# rsync -avzhe ssh root@x.x.x.x:/root/install.log /tmp/
+
+```
+copy File từ Local lên Remote Server với SSH
+
+```
+# rsync -avzhe ssh backup.tar root@x.x.x.x:/backups/
+```
+
+###### - Hiển thị quá trình truyền dữ liệu khi dùng rsync
+
+Để hiển thị tiến trình truyền dữ liệu ta sử dung ‘–progress’. Nó sẽ hiển thị file và thời gian còn lại cho tới khi hoàn thành truyền dữ liệu.
+```
+# rsync -avzhe ssh --progress /home/folder root@x.x.x.x:/root/folder
+```
+
+###### - Sử dụng -include và -exclude
+
+Sử dụng  2 option này để bạn có thể chỉ định các file cần được sync hoặc bỏ quan không sync
+
+```
+# rsync -avze ssh --include 'R*' --exclude '*' root@x.x.x.x:/var/lib/rpm/ /root/rpm
+```
+###### - Sử dụng -delete
+
+Nếu file hoặc thư mục không tồn tại ở thư mục synx nhưng lại tồn tại ở thư mục đích, bạn cần xóa chúng khi sync, sử dụngk "-delete"
+```
+# rsync -avz --delete root@x.x.x.x:/var/lib/rpm/
+```
+##### - Do a Dry Run with rsync
+Nếu mới dùng rsync, ta có thể sử dụng "-dry-run" để đảm bảo những tao tác của bạn
+
+```
+# rsync --dry-run --remove-source-files -zvh backup.tar /tmp/backups/
+```
+###### - Cấu hình băng thông cho file truyền tải
+
+Sử dụng ‘–bwlimit‘ để giới hạn bandwidth khi truyền tải file.
+```
+# rsync --bwlimit=100 -avzhe ssh  /var/lib/rpm/  root@x.x.x.x:/root/tmprpm/
+
+# rsync -zvhW backup.tar /tmp/backups/backup.tar
+```
 
 [trở về mục lục](#mucluc)
