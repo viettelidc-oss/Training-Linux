@@ -1556,11 +1556,14 @@ thêm option "-e" khi sử dụng SSH với rsync để truyền tải file.
 # rsync -avzhe ssh root@x.x.x.x:/root/install.log /tmp/
 
 ```
+![](./Images/Report2/416.png)
+
 copy File từ Local lên Remote Server với SSH
 
 ```
 # rsync -avzhe ssh backup.tar root@x.x.x.x:/backups/
 ```
+![](./Images/Report2/416.png)
 
 ###### - Hiển thị quá trình truyền dữ liệu khi dùng rsync
 
