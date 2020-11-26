@@ -1270,15 +1270,212 @@ tar -czf - /home/attt/TestTar/Test1.tar.gz | wc -c
 
 tar -czf - /home/attt/TestTar/Test1.tar.bz2 | wc -c
 
+- Nối 2 tập tin .tar
+
+Chúng ta có thể dễ dàng hợp nhiều tập tin tar với nhau bằng tùy chọn -A. Giả sử rằng chúng ta có 2 tarball là file1.tar và file2.tar. Chúng ta có thể nối nội dung của file2.tar vào file1.tar như sau
+
+	tar -Af file1.tar  file2.tar
+	
+Kiểm tra nó bằng cách liệt kê nội dung:
+
+	tar -tvf file1.tar 
+
+- So sánh các tập tin trong tar với bên ngoài 
+
+Chúng ta có thể so sánh các tập tin bên trong tập tin lưu trữ với các tập tin có cùng tên nằm bên ngoài, trong cùng 1 hệ thống tập tin để kiểm tra xem chúng có giống nhau hoặc có điểm gì khác nhau không. Việc này đôi khi rất hữu ích khi chúng ta cần kiểm tra xem 1 tập tin nào đó đã được đưa vào tập tin lưu trữ chưa.
+
+Để thực hiện việc so sánh này, sử dụng tùy chọn -d trong lệnh tar. Cờ -d sẽ in ra các điểm khác nhau như sau: tar -df file.tar
+
+- xóa tập tin trong file .tar
+
+Có thể xóa tập tin  bên trong file .tar bằng cách sử dụng câu lệnh detete như sau: 
+
+	$ tar -f file.tar --delete file1 file2 ..
 
 [trở về mục lục](#mucluc)
 
 <a name="P42"> </a>
 ## 4.2 Using the dd command
 
+### 4.2.1. khái niệm
+
+Câu lệnh dd trong linux là một trong những câu lệnh thường xuyên được sử dụng. Câu lệnh dd dùng để sử dụng trong các trường hợp sau:
+
+- Sao lưu và phục hồi toàn bộ dữ liệu ổ cứng hoặc một partition 
+- Chuyển đổi định dạng dữ liệu từ ASCII sang EBCDIC hoặc ngược lại
+- Sao lưu lại MBR trong máy (MBR là một file dữ liệu rất quan trong nó chứa các lệnh để LILO hoặc GRUB nạp hệ điều hanh)
+- Chuyển đổi chữ thường sang chữ hoa và ngược lại
+- Tạo một file với kích cơ cô định
+- Tạo một file ISO 
+
+### 4.2.2. Cú pháp và các trường hợp tùy chọn
+
+#### a. Cú pháp
+```
+#dd if=<địa chỉ đầu vào> of=<địa chỉ đầu ra> option
+```
+trong đó:
 
 [trở về mục lục](#mucluc)
+- if=<soure> địa chỉ nguồn của dữ liệu nó sẽ bắt đầu đọc
+- of=<targer> viết đầu ra của file
+- option : các tùy chọn cho câu lệnh
 
+#### b. Tùy chọn
+
+|Tùy chọn | Ý nghĩa |
+|---------|---------|
+|bs=Bytes |Quá trình đọc (ghi) bao nhiêu byte một lần đọc (ghi) |
+|cbs=Bytes|Chuyển đổi bao nhiêu byte một lần |
+|count=Blocks | thực hiện bao nhiêu Block trong quá trình thực thi câu lệnh |
+|if | Chỉ đường dẫn đọc đầu vào |
+|of | Chỉ đường dẫn ghi đầu ra|
+|ibs=bytes | Chỉ ra số byte một lần đọc |
+|obs=bytes | Chỉ ra số byte một lần ghi |
+|skip=blocks | Bỏ qua bao nhiêu block đầu vào |
+|conv=Convs | Chỉ ra tác vụ cụ thể của câu lệnh, các tùy chọn được ghi dưới bảng sau đây |
+
+**Các tùy chọn của conv**
+
+|Tùy chọn | Tác dụng  |
+|-----------|----------|
+|ascii | Chuyển đôi từ mã EBCDIC sáng ASCII |
+|ebcdic | Chuyển đổi từ mã ASCII sang EBCDIC |
+|lcase | Chuyển đổi từ chữ thường lên hết thành chữ in hoa |
+|ucase | Chuyển đổi từ chữ in hoa sang chữ thường |
+|nocreat | Không tạo ra file đầu ra |
+|noerror | Tiếp tục sao chép dữ liệu khi đầu vào bị lỗi |
+|sync | Đồng bộ dữ liệu với ổ đang sao chép sang |
+
+
+*Lưu ý:* Khi bạn định dạng số lượng byte mỗi lần đọc. Mặc định nó được tính theo đơn vị là kb. Bạn có thể thêm một số trường sau để báo định dạng khác:
+
+- c = 1 byte
+- w = 2 byte
+- b = 512 byte
+- kB = 1000 byte 
+- K = 1024 byte 
+- MB = 1000000 byte
+- M = (1024 * 1024) byte
+- GB = (1000 * 1000 * 1000) byte
+- G = (1024 * 1024 * 1024) byte
+
+### 4.2.3. ví dụ hay được sử dụng trong thực thế
+
+##### a. Sao lưu và phục hồi toàn bộ ổ cứng hoặc phân vùng trong ổ cứng
+
+- Sao lưu toàn bộ dữ liệu ổ cứng sao ổ cứng khác:
+```
+#dd if=/dev/sda of=/dev/sdb conv=noerror,sync
+```
+Câu lệnh này dùng dể sao lưu toàn bộ dữ liệu của ổ sda sang ổ sdb với tùy chọn trong trường conv=noerrom.sync với ý ngĩa vẫn tiếp tục sao lưu nếu dữ liệu đầu vào bị lỗi và tự động đồng bộ với dữ liệu sdb
+
+- Tạo một file image cho ổ sda1. Các này sẽ nhanh hơn là viêc chuyển dữ liệu sao ổ khác
+```
+dd if=/dev/sda1 of=/root/sda1.img 
+```
+- Nếu muốn nén ảnh file anh vào bạn có thể sử dụng command sau
+```
+dd if=/dev/sda1 | grip > /root/sda1.img.gz
+```
+-Sao lưu dữ liệu từ một phân vùng này đến một phân vùng khác
+```
+dd if=/dev/sda2 of=/dev/sdb2 bs=512 conv=noerror,sync
+```
+*Đối với câu lệnh này bs=512 có ý nghĩa mỗi lần đọc ghi nó đọc và ghi 512 byte*
+- Phục hồi dữ liệu 
+```
+dd if=/root/sda1.img of=/dev/sda1
+```
+- Sao lưu từ đĩa CDroom
+```
+dd if=/dev/cdrom of=/root/cdrom.img conv=noerror
+```
+
+##### b. Sao lưu phục hồi MBR
+
+Việc sao lưu lại mbr là việc làm cần thiết đối với hệ thống linux. nó đề phòng cho việc khi virut có thể nhảy được hẳn vào vùng MBR. Lúc bày bất kì một phần mềm diệt virut nào cũng không diệt được con virut này. Cách hay nhất là cài đặt lại mbr và lúc đó việc sao chép MBR lúc trước khi nhiễm sẽ phát huy tác dụng:
+- Sao chép MBR
+```
+dd if=/dev/sda1 of=/root/mbr.txt bs=512 count=1
+```
+- Phục hồi lại MBR
+```
+dd if=/root/mbr.txt of=/dev/sda1
+```
+
+##### c. chuyển đổi chữ thường thành chữ hoa
+
+-  Chuyển chữ thường thành chữ in hoa
+```
+dd if=/root/test.doc of=/root/test1.doc conv=ucase
+```
+![](./Images/Report2/46.png)
+
+- Chuyển chứ hoa thành chứ thường
+```
+dd if=/root/test1.doc of=/test2.doc conv=scase,sycn
+
+```
+##### d. Tạo một file có dung lượng cố định 
+Tạo ra một file có kích thước 100M
+```
+dd if=/dev/zero of=/home/attt/file1 bs=100M count=1
+```
+![](./Images/Report2/47.png)
+
+### 4.2.4. Một số tình huống áp dụng trong thực tế
+
+VD1: Kết hợp với câu lệnh mkswap để tạo phân vùng swap cho máy
+
+- Sử dụng câu lênh dd để tạo một phân vùng trống có kích cỡ 512M:
+```
+dd if=/dev/zero of=/root/swap bs=512M count=1
+```
+![](./Images/Report2/48.png)
+
+- Gắn quyền cho nó chỉ mới root vào xem đượ
+```
+chmod 600 /root/swap
+```
+![](./Images/Report2/49.png)
+
+- chỉ cho đến vùng swap
+```
+mkswap /root/swap
+swapon /root/swap
+```
+![](./Images/Report2/410.png)
+
+kiểm tra thành công hay chưa. Sử dụng lệnh
+```
+swapon -s
+```
+![](./Images/Report2/411.png)
+
+kiểm tra tổng dung lượng vùng swap
+
+![](./Images/Report2/412.png)
+
+Nếu bạn muốn tạo vùng swap không bị mất khi reboot lại máy. Bạn vào file này rồi chỉnh sửa như sau:
+
+	vi /etc/fstab
+	rồi chỉnh sửa:
+	/root/swap                 swap                    swap                defaults        0  0
+
+VD2: Ngoài ra bạn còn có thể kết hợp với câu lênh crontab để có thể lâp lịch sao chép dữ liêu ổ cứng của bạn theo định kì Đầu tiên vào một file sh để chạy
+
+	vi dd_command.sh
+	với nội dung là:
+	dd if=/dev/sda1 of=/dev/sdb1 conv=noerror,sync
+
+Tạo một crotab cho file chạy
+
+	crontab 0 10 * * * sh dd_command.sh
+
+Lúc này đến 10h hàng ngày quá trình sao chép dữ liệu giữa ổ sda1 sang ổ sdb1 được thực hiện
+
+[trở về mục lục](#mucluc)
 
 <a name="P43"> </a>
 ## 4.3. Mirroring data between systems: rsync
