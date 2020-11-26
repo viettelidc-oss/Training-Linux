@@ -176,4 +176,9 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
    - SUB: trạng thái cấp thấp (lower level) của unit (đã khởi động hay đã bị kill)
    - DESCRIPTION: mô tả ngắn gọn
    ## 6. Shutdown and rc <a name="shut"></a>
-   
+   Khi hệ thống nhận lệnh ngừng hoạt động (command reboot, halt), hoặc khi nào init được báo hiệu để làm như vậy hoặc khi lệnh dừng do bàn phím yêu cầu được đưa ra, rc(là 1 script startup, được gọi khi tắt máy) được gọi với đối số "shutdown". Đầu tiên, nó lưu dữ liệu ngẫu nhiên để gửi lại bộ tạo số ngẫu nhiên hạt nhân trong lần khởi động tiếp theo. Sau đó, nó dừng bất kỳ daemon nào được khai báo pkg_scripts trong rc.conf.local, bằng cách chuyển cho chúng tham số "stop".
+
+  rc sau đó chạy rc.shutdown ( File /etc/rc.shutdown chạy ngay trước khi tắt hệ thống). Quản trị viên có thể đặt vào tệp này bất kỳ lệnh nào họ muốn thực hiện trong khi tắt máy.
+
+Nếu init đang thoát khỏi chế độ một người dùng, nó cũng sẽ chạy phần đầu tiên của quá trình tắt (lưu dữ liệu ngẫu nhiên), mặc dù không chạy phần sau.
+  
