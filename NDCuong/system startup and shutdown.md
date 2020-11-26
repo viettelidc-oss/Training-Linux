@@ -95,7 +95,7 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
    
    > ![](./images/report2/runlevel.png)
    
- Sau khi xác định run level. Chương trình /sbin/init sẽ thực thi các file statup script được đặt trong các thư mục con của thư mục /etc/rc.d.
+ Sau khi xác định run level. Chương trình /sbin/init sẽ thực thi các file statup script được đặt trong các thư mục con của thư mục /etc/rc.d
    
    > ![](./images/report2/runlevel1.png)
    
@@ -120,10 +120,52 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
    > ![](./images/report2/systemd2.png)
    
    ## 2. The startup script framework <a name="startupscript"></a>
-   
+   Startup script là các chương trình tự động khởi chạy khi hệ thống khởi động. 
+    
+   Với hệ thống Unix System V, sau khi xác định được run level, chương trình /sbin/init sẽ thực thi các file statup script được đặt trong các thư mục con của thư mục /etc/rc.d. Các script này có tên bắt đầu bằng "S" và theo sau là số để chỉ định trình tự khởi động, kế tiếp là tên file script cho từng dịch vụ.
+    
+   Với hệ thống Systemd, init đọc tệp liên kết bởi /etc/systemd/system/default.target để xác định đích hệ thống mặt định. Và tệp mục tiêu trong hệ thống đó sẽ xác định các dịch vụ mà systemd bắt đầu.
+    
+   >Trong ảnh là các startup service trong hệ thống systemd (các dòng màu xanh lam)
+   > ![](./images/report2/systemd1.png)
    ## 3. Managing services using <a name="manaservice"></a>
    
    ## 4. Starting and stopping services dynamically <a name="servicedynamic"></a>
+   Có nhiều cách để khởi động hay tắt service nào đó, 2 cách phổ biến là:
+   - *Sử dụng systemctl*
+   
+   Để khởi động/đóng service, sử dụng lệnh > systemctl [option] [service]
+   
+   Với [option] là start hoặc stop, [service] là tên service cần thao tác.
+   
+   Để kiểm tra tình trạng của service: > systemctl status [service]
+   
+   > ![](./images/report2/systemdctl1.png)
+   
+   - *Sử dụng command service của deb init-system-helpers*
+   
+   Để khởi động/đóng service, sử dụng lệnh > service [service] [option] 
+   
+   Với [option] là start hoặc stop, [service] là tên service cần thao tác.
+   
+   Để kiểm tra tình trạng của service: > systemctl [service] status
+   
+   > ![](./images/report2/service.png)
    ## 5. Managing services with systemctl <a name="systemctl"></a>
+   *Systemctl* là một tiện ích systemd chịu trách nhiệm điều khiển hệ thống systemd và service. Systemd là một tập hợp các daemon, tiện ích và thư viện quản lý hệ thống, dùng để thay thế cho System V init daemon. 
+   
+   Cách sử dụng: cách sử dụng *systemctl* đã được giới thiệu qua ở phần [4. Starting and stopping services dynamically](#servicedynamic), với cú pháp là 
+   
+   > systemctl [option] [service]
+   
+   Tuy nhiên ngoài các chức năng stop, start và status, *systemctl* còn có 1 vài chức năng khác như:
+   - reload, restart, reload-or-restart (khởi động lại, tải lại) sử dụng khi service gặp lỗi, hoặc cần làm mới lại service
+   > ![](./images/report2/reloadservice.png)
+   - enable, disable (bật/tắt) 
+   > ![](./images/report2/enableservice.png)
+   - is-enabled, is-active, is-failed (kiểm tra trạng thái) trả về kết quả ngắn gọn trạng thái của service
+   > ![](./images/report2/checkservice.png)
+   - Hiển thị danh sách service với command: > systemctl list-units [option]
+   > ![](./images/report2/list-units.png)
    ## 6. Shutdown and rc <a name="shut"></a>
    
