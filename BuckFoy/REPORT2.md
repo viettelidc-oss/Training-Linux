@@ -1111,6 +1111,7 @@ Nhập tên người dùng và mật khẩu của máy chủ từ xa. Sau khi b�
 Bây giờ đã thấy nó hoạt động, có lẽ đã đến lúc chia sẻ cách hoạt động của tất cả.
 
 Bất kể sử dụng GUI nào trên máy chủ Linux, GNOME hay KDE, cả hai đều có cái được gọi là trình quản lý xdisplay làm nền tảng cho phần GUI của màn hình. Nó là một giao thức mạng được thiết kế ngay từ đầu để cho phép các mục được chuyển tiếp đến bất kỳ đích nào được yêu cầu
+
 [trở về mục lục](#mucluc)
 
 <a name="P4"> </a>
@@ -1239,6 +1240,36 @@ hoặc sử dụng lệnh :
 Nếu muốn giải nén nhiều file chỉ có định dạng theo mẫu, nên dùng wildcards.
 
 Ví dụ :
+	
+	tar -xvf /home/attt/TestTar/Test1.tar --wildcards '*.jpg'
+	tar -zxvf /home/attt/TestTar/Test1.tar.gz --wildcards '*.jpg'
+	tar -jxvf /home/attt/TestTar/Test1.tar.bz2 --wildcards '*.jpg'
+
+- thêm file vào file .tar
+
+Để làm vậy, bạn sẽ cần dùng tùy chọn -r (viết theo từ append – thêm vào). Tar có thể thêm cả file và thư mục vào.
+
+Ví dụ: 
+	
+	tar -rvf home/attt/TestTar/Test1.tar newtest.jpg
+	
+Để  thêm thư mục vào là:
+
+	tar -rvf sampleArchive.tar new
+Không thể thêm file hay thư mục vào file .tar.gz hoặc .tar.bz2
+
+- Để xem kích thước file
+
+Sau khi tạo một file archive, bạn cũng có thể xem kích thước của nó. Kích thước sẽ được hiển thị dưới dạng KB (Kilobytes).
+
+Bên dưới là ví dụ kiểm tra kích thước của nhiều file archive khác nhau:
+
+tar -czf - /home/attt/TestTar/Test1.tar | wc -c
+
+tar -czf - /home/attt/TestTar/Test1.tar.gz | wc -c
+
+tar -czf - /home/attt/TestTar/Test1.tar.bz2 | wc -c
+
 
 [trở về mục lục](#mucluc)
 
