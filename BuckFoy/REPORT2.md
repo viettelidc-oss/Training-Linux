@@ -1119,6 +1119,55 @@ Bất kể sử dụng GUI nào trên máy chủ Linux, GNOME hay KDE, cả hai 
 <a name="P41"> </a>
 ##  4.1. Archiving with tar
 
+### 4.1.1. Khái niệm và ưu điểm của Tar
+
+- Khái niệm
+
+Tar là chữ viết tắt của Tape archive, là một lệnh phổ biến nhất để nén và giải nén file và thư mục trong Linux. Có rất nhiều lợi ích khi dùng lệnh tar, người dùng chuyên nghiệp rất thích lệnh này.
+
+Trong hầu hết các trường hợp, nén file bằng tar sẽ cho kết quả là file .tar. Còn nén mạnh hơn thì dùng gzip với file sau cùng là .tar.gz.
+
+Với tar command, bạn có thể nén và giải nén file. Tar có nhiều lựa chọn cách thực hiện hành động nên có thể bạn cần nhớ những tùy chọn này.
+
+- Ưu điểm của Tar linux
+
+Tar, nói về việc nén thì nó có khả năng nén 50%, tức là khá hiệu quả
+
+Giảm thiểu kích cỡ của file và folder
+
+Tar không thay đổi tính năng của file và thư mục. Quyền và những tính năng khác không bị ảnh hưởng sau khi nén
+
+Tar được dùng rộng khắp mọi phiên bản Linux. Nó cũng dùng được trên firmware Android và được hỗ trợ bởi những hệ điều hành Linux cũ hơn nữa.
+
+Nén và giải nén nhanh
+
+Dễ sử dụng
+
+- Khi nào cần sử dụng Tar command
+
+Nếu làm việc với hệ điều hành Linux và cần nén file và giải nén file
+
+Cần chuyển file và thư mục lớn từ server này sang server khác
+
+Tạo backup cho website, data,...
+
+Giảm dung lượng sử dụng của hệ điều hành xuống, vì sau khi nén nó sẽ tiết kiệm được không gian
+
+Upload và download thư mục.
+
+### 4.1.2. Cấu hình sử dụng Tar
+
+- Tạo file nén Tar
+
+Tạo filec .tar linux
+Bạn có thể nén file nén .tar cho file và thư mục. Cấu trúc để lệnh tar để nén file như sau:
+	
+	tar -cvf <filename .tar > /đường dẫn đến file bị nén 
+	trong tùy chon -cvf có nghĩa  là :
+		 c- : tạo file .tar mới
+		 v : hiện thị quá trình nén lên màn hình
+		 f : tên file
+ví dụ tar  -cvf 
 
 
 [trở về mục lục](#mucluc)
