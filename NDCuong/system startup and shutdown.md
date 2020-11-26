@@ -168,11 +168,12 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
    - Hiển thị danh sách service với command: > systemctl list-units [option]
    > ![](./images/report2/list-units.png)
    
-   Chú thích: 
-    - UNIT: system unit name
-    - LOAD: unit đã được tải hay chưa, thông tin của unit đã được tải sẽ lưu trong bộ nhớ 
-    - ACTIVE: trạng thái bật, tắt của unit
-    - SUB: trạng thái cấp thấp (lower level) của unit (đã khởi động hay đã bị kill)
-    - DESCRIPTION: mô tả ngắn gọn
+   Chú thích:
+   
+   - UNIT: system unit name
+   - LOAD: unit đã được tải hay chưa, thông tin của unit đã được tải sẽ lưu trong bộ nhớ 
+   - ACTIVE: trạng thái bật, tắt của unit
+   - SUB: trạng thái cấp thấp (lower level) của unit (đã khởi động hay đã bị kill)
+   - DESCRIPTION: mô tả ngắn gọn
    ## 6. Shutdown and rc <a name="shut"></a>
    
