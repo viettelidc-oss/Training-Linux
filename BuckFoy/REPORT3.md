@@ -4,13 +4,13 @@
 
 [1. CONNECTING LINUX TO THE NETWORK](#P1)
 
-* [Basic network configuration](#p11)
+* [1.1. Basic network configuration](#p11)
 
-* [IPv4 addressing (dhcp/static)](#p12)
+* [1.2. IPv4 addressing (dhcp/static)](#p12)
 
-* [Network protocols](#p13)
+* [1.3. Network protocols](#p13)
 
-* [Network services and port numbers](#p14)
+* [1.4. Network services and port numbers](#p14)
 
 * [Managing network devices](#p15)
 
@@ -42,11 +42,25 @@
 
 
 <a name="P1"> </a>
-1. CONNECTING LINUX TO THE NETWORK
+# 1. CONNECTING LINUX TO THE NETWORK
 
-• Basic network configuration
+<a name="p11"></a>
+## 1.1. Basic network configuration
 
-• IPv4 addressing (dhcp/static)
+Các bước cơ bản để thêm một máy tính mới vào một mạng cục bộ là như sau:
+
+- Gán địa chỉ IP và tên máy chủ duy nhất.
+
+-  Đảm bảo giao diện mạng được cấu hình đúng tại thời điểm khởi động.
+
+- Thiết lập một tuyến đường mặc định và có lẽ định tuyến fancier.
+
+- Trỏ đến một máy chủ tên DNS để cho phép truy cập vào phần còn lại của Internet
+
+### 1.1.1. Hostname and IP address assignment
+
+
+## 1.2. IPv4 addreding(dhcp/static)
 
 • Network protocols
 
