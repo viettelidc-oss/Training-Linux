@@ -20,9 +20,8 @@
 
 * [Routing under Linux](p18)
 
-* [Configuring network time](#p19)
+* [1.9. Configuring network time & The time zone](p19)
 
-* [The time zone](p110)
 
 [2.SYSTEM LOGGING](#P2)
 
@@ -74,10 +73,40 @@ Các bước cơ bản để thêm một máy tính mới vào một mạng cụ
 
 • Routing under Linux
 
-• Configuring network time
+<a name="p19"> </a>
+## 1.9. Configuring network time &  The time zone
 
-• The time zone
+Trong tất cả hệ điều hành, thời gian hệ thống là một phần không thể thiếu bởi nó ảnh hưởng đến rất nhiều công việc như: Ghi Log, lập lịch công việc, Backup…. 
 
+Các thành phần bắt buộc
+
+- Giao thức Network Time Protocol (NTP)
+
+- Tập tin Timezone data.
+
+### 1.9.1. Giao thức Network Time Protocol(NTP)
+
+NTP là một giao thức đồng bộ thời gian qua mạng, là một giao thức đồng bội đồng hồ của các hệ thống thông tin máy tính thông qua mạng dữ  liệu chuyển mạch gói với độ trễ biến đổi
+
+- Cơ chế hoạt động của NTP:
+  * NTP client gửi một gói tin, trong đó chứa một thẻ thời gian tới cho NTP server
+  
+  * NTP server nhận được gói tin, gửi trả lại NTP client một gói tin khác, có thẻ thời gian là thời điểm nó gửi gói  tin đó đi
+  
+  * NTP client nhận được gói tin đó, tính toán độ trễ, dựa vào thẻ thời gian mà nó nhận được cùng với độ trễ đường truyền, NTP client sẽ set lại thời gian của nó.
+  
+  - Cài đặt NTP
+  
+  ```
+  #yum install ntp -y
+  # /etc/init.d/ntpd start
+  # chkconfig ntpd on
+  ```
+ Như vậy là đã hoàn thành cài đặt Network Time Protocol, tiếp theo chúng ta thực hiện lựa chọn Timezone cho hệ thống.
+ 
+ ### 1.9.2. Cấu hình Timezone
+ 
+ Trong centos, các tập tịn Timezone nằm ở thư mục /use/share/zoneinfo/, ca
 [2.SYSTEM LOGGING](#P2)
 
 • Rsyslog/syslog configuration
