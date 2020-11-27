@@ -21,7 +21,7 @@
 
 * [2.2 Shared Libraries](#P22)
 
-* [2.3 Scheduling processes with cron]khác3)
+* [2.3 Scheduling processes with cron](#P23)
 
 * [2.4 Crontab command options](#P24)
 
