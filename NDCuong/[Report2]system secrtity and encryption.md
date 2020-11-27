@@ -35,7 +35,7 @@ Máy ảo sẽ tự động kết nối đến server bằng phương thức ssh
  *Các cấu hình thường dùng:*
   - Thay đổi cổng (port) truy cập(mặc định là 22): > Port [new port]
   
-  Các 
+  Port phải nằm trong khoảng từ 0 đến 65535 và phải khả dụng (k có service khác sử dụng)
   Ví dụ:Port 27
  
 ## 2. Public/private key authentication<a name="key"></a>
