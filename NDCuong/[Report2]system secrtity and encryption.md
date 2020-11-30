@@ -1,8 +1,10 @@
  # SYSTEM SECURITY AND ENCRYPTION
  
- [1. The secure shell OpenSSH](#openssh)
- [2. Public/private key authentication](#key)
- [3.	X11 forwarding](#x11)
+ ## [1. The secure shell OpenSSH](#openssh)
+ 
+ ## [2. Public/private key authentication](#key)
+ 
+ ## [3.	X11 forwarding](#x11)
 
 ## 1.	The secure shell OpenSSH <a name="openssh"></a>
 > Giao thức SSH (còn được gọi là Secure Shell) là một phương pháp để đăng nhập từ xa an toàn từ máy tính này sang máy tính khác, sử dụng mã hóa để bảo mật kết nối giữa máy khách và máy chủ. Tất cả xác thực người dùng, lệnh, đầu ra và truyền tệp được mã hóa để bảo vệ chống lại các cuộc tấn công trong mạng. Nó cung cấp một số tùy chọn thay thế để xác thực mạnh mẽ và nó bảo vệ tính toàn vẹn và bảo mật thông tin liên lạc bằng mã hóa mạnh mẽ. Đây là một giải pháp thay thế an toàn cho các giao thức đăng nhập không được bảo vệ (chẳng hạn như telnet , rlogin) và các phương thức truyền tệp không an toàn (chẳng hạn như FTP ).
