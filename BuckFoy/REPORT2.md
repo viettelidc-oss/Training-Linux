@@ -21,7 +21,7 @@
 
 * [2.2 Shared Libraries](#P22)
 
-* [2.3 Scheduling processes with cron]khác3)
+* [2.3 Scheduling processes with cron](#P23)
 
 * [2.4 Crontab command options](#P24)
 
@@ -65,6 +65,9 @@ Bước 7. Đăng nhập giao diện đồ họa
 
 Bước 8. Đăng nhập thành công vào hệ thống
 
+![hinh11](https://user-images.githubusercontent.com/74639473/100110342-69860280-2e9f-11eb-91aa-468d7f0e9291.png)
+
+
 #### Bước 1.	BIOS
 
 BIOS là chương trình chạy đầu tiên khi nhấn nút nguồn hoặc reset lại máy tính.
@@ -81,7 +84,7 @@ Sau khi BIOS xác định được thiết bị lưu trữ thì BIOS sẽ đọc
 	
 Đến giai đoạn này, máy tính sẽ không truy cập vào phương tiện lưu trữ. Thông tin về ngày tháng, thời gian và các thiết bị quan trọng nhất được nạp từ CMOS
 
-![hinh11](https://user-images.githubusercontent.com/74639473/100110342-69860280-2e9f-11eb-91aa-468d7f0e9291.png)
+![hinh12](https://user-images.githubusercontent.com/74639473/100110366-6e4ab680-2e9f-11eb-897c-cfbf8cbafd3b.png)
 
 
 #### Bước 3. Boot Loader
@@ -92,7 +95,7 @@ Mục đích là cho phép lựa chọn hệ điều hành có trên máy tính 
 
 Ví dụ file cấu hình grub.cfg: “/boot/grub/grub.conf ”
 
-![hinh12](https://user-images.githubusercontent.com/74639473/100110366-6e4ab680-2e9f-11eb-897c-cfbf8cbafd3b.png)
+![hinh13](https://user-images.githubusercontent.com/74639473/100110375-70147a00-2e9f-11eb-8c81-0b3d7367f3f7.png)
 
 Hệ thống sử dụng BIOS/MBR , bộ tải khởi động nằm ở khu vực đầu tiên của đĩa cứng. Kích thước của MBR chỉ là 512 byte. Bộ nạp khởi  động kiểm tra bảng phân vùng và tìm một phân vùng có khả năng khởi động. Nó tìm thấy 1 phân vùng có khả năng khởi động, nó sẽ tìm kiếm bộ tải khởi động giai đoạn thứ 2.
 
@@ -100,7 +103,6 @@ Với hệ thống sử dụng EFI / UEFI, phần mềm UEFI đọc dữ liệu 
 
 Trình khởi động giai đoạn 2 nằm trong /boot. Hiển thị cho chúng ta chọn hệ điều hành để khởi động. Tiếp đến bộ nạp khởi động sẽ tải hệ điều hành vào RAM và chuyển quyền kiểm soát cho RAM.
 
-![hinh13](https://user-images.githubusercontent.com/74639473/100110375-70147a00-2e9f-11eb-8c81-0b3d7367f3f7.png)
 
 #### Bước 4. Linux kernel được nạp và khởi chạy
 
@@ -1556,11 +1558,14 @@ thêm option "-e" khi sử dụng SSH với rsync để truyền tải file.
 # rsync -avzhe ssh root@x.x.x.x:/root/install.log /tmp/
 
 ```
+![](./Images/Report2/416.png)
+
 copy File từ Local lên Remote Server với SSH
 
 ```
 # rsync -avzhe ssh backup.tar root@x.x.x.x:/backups/
 ```
+![](./Images/Report2/416.png)
 
 ###### - Hiển thị quá trình truyền dữ liệu khi dùng rsync
 
