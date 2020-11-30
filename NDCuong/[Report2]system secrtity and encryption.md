@@ -113,4 +113,4 @@ X11 forwarding là phương thức giúp cho người dùng có thể khởi ch�
 VD: > gedit
 
 Máy client hiển thị 1 cửa sổ cho phép thao tác trực tiếp vào ứng dụng GUI của server
-> ![](./images/report2/gedit.)
+> ![](./images/report2/gedit.gif)
