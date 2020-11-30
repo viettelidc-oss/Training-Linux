@@ -16,7 +16,7 @@ Một số *process* có thể được liên kết với cùng một chương t
 The Linux terminal có một số lệnh hữu ích có thể hiển thị các *process* đang chạy, hủy chúng và thay đổi mức độ ưu tiên của chúng.
 
 ### 1.2. Monitoring processes
-- Hiển thị
+###### 1.2.1. Hiển thị
 
   - Ps
   
@@ -41,7 +41,7 @@ Command `top` là lệnh hiển thị các process đang chạy trong thời gia
   
 Htop tương tự như lệnh top, nhưng được bổ sung các chức năng để sắp xếp, thay đổi mức độ ưu tiên hay kill process (v.v.). Htop cũng có giao diện dễ nhìn hơn top. Tuy nhiên htop thường k được cài đặt sẵn trong hệ điều hành và cần được cài đặt với lệnh > apt install htop
 
-- Quản lý
+###### 1.2.2. Quản lý
   - Kill
   
   `kill [PID]` sẽ kill process dựa vào PID được cung cấp. PID có thể lấy bằng các lệnh hiển thị (ps, top) hoặc lệnh pgrep
