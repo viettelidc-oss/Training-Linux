@@ -98,7 +98,7 @@ Htop tương tự như lệnh top, nhưng được bổ sung các chức năng �
   
   > ![](./images/report2/ldd.png)
   
-    - Thêm library mới
+   - Thêm library mới
     Khi các chương trình ở dạng executable có sử dụng dynamic linking được chạy, thì tiện ích **ld.so** sẽ chịu trách nhiệm tìm kiếm và nạp vào bộ nhớ các shared library cần thiết cho chương trình đó. Nếu **ld.so** không thể tìm thấy các library đó thì chương trình sẽ gặp lỗi và không thể chạy được.
 
 Thường thì các library được đặt trong các thư mục như /lib, /usr/lib, /usr/local/lib. Để hướng dẫn cho ld.so tìm kiếm library trong các thư mục này cũng như là các thư mục khác: 
