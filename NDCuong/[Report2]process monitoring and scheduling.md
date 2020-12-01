@@ -136,7 +136,7 @@ Các hành động của cron được điều khiển bởi một tệp crontab
   
   - Remove: `crontab -r` xóa file crontab của user (hoặc của root với lệnh `sudo crontab -r`)
 
-> ![](./images/report2/removecron.png)
+  > ![](./images/report2/removecron.png)
 
 - Lập lịch:
 Các công việc được lập lịch thực hiện với cú pháp: `[minute] [hour] [day] [month] [weekday] [command]`
