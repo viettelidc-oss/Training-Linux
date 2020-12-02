@@ -13,6 +13,9 @@
       - c: Tạo mới một file nén .tar
       - v: Hiển thị quá trình nén
       - f: Loại file nén
+      
+      > ![](./images/report2/tar.png)
+      
    - Create tar.gz Archive File: `tar cvzf example.tar.gz /home/example` hoặc `tar cvzf example.tgz /home/example`
       - z: Nén dạng gzip
    - Create tar.bz2 Archive File: bz2 có độ nén cao hơn gz và tar nhưng cũng mất nhiều thời gian để nén và giải nén hơn. Nén file với định dạng bz2 với lệnh: `tar cvfj example.bz2 /home/example` hoặc `tar cvfj example.tbz /home/example` hoặc `tar cvfj example.tb2 /home/example`
@@ -20,12 +23,27 @@
 #### 1.3. Uncompress <a name="Uncompress"></a>
    - Untar tar Archive File: Để giải nén file tar, sử dụng option x(extract) trong lệnh tar: `tar -xvf example.tar`
       - x: Giải nén
-     Ngoài ra có thể thêm vào option -C ở sau để đặt vị trí dữ liệu sau khi giải nén: `tar -xvf example.tar -C Desktop/`
+      
+      > ![](./images/report2/untar.png)
+         
+      > ![](./images/report2/rsuntar.png)
+   
+   Ngoài ra có thể thêm vào option -C ở sau để đặt vị trí dữ liệu sau khi giải nén: `tar -xvf example.tar -C Desktop/`
    - Uncompress tar.gz Archive File & Uncompress tar.bz2 Archive File: Tương tự như uncompress với tar
 #### 1.4. List Content of tar Archive File
    - Để hiển thị danh sách file có trong file nén tar, sử dụng option -t: `tar -tvf example.tar` . Câu lệnh này hoạt động với cả file .gz và .bz2
+   
+   > ![](./images/report2/readtar.png)
+   
+   
 #### 1.5. Untar Multiple files from tar
    - Tar còn có chức năng giải nén một (số) file theo mục đích người dùng. Tương tự như [Uncompress](#Uncompress), Untar Multiple files cũng sử dụng option -x để giải nén, tuy nhiên sẽ có thêm tên file (file con bên trong file nén tar) cần giải nén ở phía sau tên file nén: `tar -xvf example.tar [file1] [file2]...`
+      
+   > ![](./images/report2/untar1.png)
+   
+      
+   > ![](./images/report2/rsuntar1.png)
+   
    - Đối với file nén .gz và .bz2, sử dụng các option -z(đối với .gz) và -j(đối với .bz2) ở phía trước -x 
 #### 1.6. Extract Group of Files using Wildcard
    Sử dụng từ khóa wildcards để chọn ra nhóm file cần giải nén. Tính năng này hoạt động như 1 filter để search theo tên file chứa trong file nén. 
@@ -33,14 +51,22 @@
    Ví dụ : `tar -xvf example.tar --wildcards '*.docx'` lệnh này sẽ giải nén các file word có phần mở rộng .docx
    
    Hoặc một ví dụ khác: `tar -xvf example.tar --wildcards 't*'` lệnh này giải nén các file, folder có tên bắt đầu bằng 't'
+      
+   > ![](./images/report2/wildcard.png)
+   
 #### 1.7. Add Files or Directories to tar Archive File
    Sử dụng option -r để thêm một file hay folder vào file nén tar: `tar -rvf example.tar [file/directory]`
    Ví dụ: `tar -rvf tar.tar google.rpm`
+      
+   > ![](./images/report2/append.png)
    
    > File nén dạng .gz và .bz2 không thể thêm file vào sau khi đã nén
 #### 1.8. Check the Size of the tar Archive File
    Kiểm tra dung lượng file nén bằng lệnh : `tar -cvf - example.tar | wc -c`
    Ví dụ : `tar -cvf - tar.tar | wc -c`
+      
+   > ![](./images/report2/checksize.png)
+   
 ## 2. Using the dd command <a name="2"></a>
 #### 2.1. dd command
  -  Command dd là lệnh dùng để chuyển đổi và sao chép tệp, một số đặc điểm của command dd:
