@@ -94,3 +94,7 @@
       - Command dd cho phép tạo một tệp iso từ một tệp nguồn. Vì vậy, chúng ta có thể chèn đĩa CD và nhập lệnh dd để tạo tệp iso của nội dung CD. Option bs chỉ định kích thước tệp (cả nguồn và đích), ở đây chỉ định file iso có dung lượng 2048 byte
     - Các option: Có 1 số option bổ sung cho dd command, tham khảo tại <a href="https://github.com/hocchudong/command-linux/blob/master/command-dd.md#b-c%C3%A1c-t%C3%B9y-ch%E1%BB%8Dn">đây</a>
 ## 3. Mirroring data between systems: rsync <a name="3"></a>
+#### 3.1. rsync
+> rsync là một tiện ích(utility) để truyền và đồng bộ hóa hiệu quả các tệp giữa máy tính với ổ cứng ngoài và giữa các máy tính nối mạng bằng cách so sánh thời gian sửa đổi và kích thước của tệp, thường được sử dụng trên các hệ thống Unix. rsync được viết bằng ngôn ngữ C dưới dạng ứng dụng đơn luồng.
+
+Đồng bộ folder hoặc copy files thủ công thường rất tốn thời gian. Tính năng rsync lại có thể làm được hầu hết mọi công việc đó, giúp tiết kiệm được nhiều thời gian. Thậm chí là khi bị ngắt kết nối trong qua trình chuyển đổi, công cụ này sẽ tạm ngưng, và được mở lại tại điểm tạm ngưng đó khi kết nối lại.
