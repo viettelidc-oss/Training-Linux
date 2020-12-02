@@ -16,6 +16,10 @@
       
       > ![](./images/report2/tar.png)
       
+      > ![](./images/report2/rstar.png)
+      
+      > ![](./images/report2/rstar1.png)
+      
    - Create tar.gz Archive File: `tar cvzf example.tar.gz /home/example` hoặc `tar cvzf example.tgz /home/example`
       - z: Nén dạng gzip
    - Create tar.bz2 Archive File: bz2 có độ nén cao hơn gz và tar nhưng cũng mất nhiều thời gian để nén và giải nén hơn. Nén file với định dạng bz2 với lệnh: `tar cvfj example.bz2 /home/example` hoặc `tar cvfj example.tbz /home/example` hoặc `tar cvfj example.tb2 /home/example`
@@ -59,6 +63,8 @@
    Ví dụ: `tar -rvf tar.tar google.rpm`
       
    > ![](./images/report2/append.png)
+   
+   > ![](./images/report2/rsappend.png)
    
    > File nén dạng .gz và .bz2 không thể thêm file vào sau khi đã nén
 #### 1.8. Check the Size of the tar Archive File
