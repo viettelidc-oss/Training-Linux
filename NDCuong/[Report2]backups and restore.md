@@ -97,4 +97,62 @@
 #### 3.1. rsync
 > rsync là một tiện ích(utility) để truyền và đồng bộ hóa hiệu quả các tệp giữa máy tính với ổ cứng ngoài và giữa các máy tính nối mạng bằng cách so sánh thời gian sửa đổi và kích thước của tệp, thường được sử dụng trên các hệ thống Unix. rsync được viết bằng ngôn ngữ C dưới dạng ứng dụng đơn luồng.
 
-Đồng bộ folder hoặc copy files thủ công thường rất tốn thời gian. Tính năng rsync lại có thể làm được hầu hết mọi công việc đó, giúp tiết kiệm được nhiều thời gian. Thậm chí là khi bị ngắt kết nối trong qua trình chuyển đổi, công cụ này sẽ tạm ngưng, và được mở lại tại điểm tạm ngưng đó khi kết nối lại.
+Đồng bộ folder hoặc copy files thủ công thường rất tốn thời gian. Tính năng rsync lại có thể làm được hầu hết mọi công việc đó, giúp tiết kiệm được nhiều thời gian. Thậm chí là khi bị ngắt kết nối trong qua trình chuyển đổi, công cụ này sẽ tạm ngưng, và được mở lại tại điểm tạm ngưng đó khi kết nối lại. Trong lần thực hiện đầu tiên, rsync chỉ đơn giản là copy file từ thư mục nguồn đến thư mục đích được cung cấp trong command, những lần sau đó nó sẽ thực hiện đồng bộ. Rsync k tự động thực hiện, do đó nó thường được sử dụng cùng với crontab.
+
+Cú pháp chung: `rsync [option] [SRC] [DEST]`
+
+#### 3.2. Sử dụng rsync trên máy local
+   Tạo 2 thư mục làm mẫu, gồm thư mục src chứa 5 file(file{1..5}) + 1 thư mục con src1 cũng chứa 5 file tương tự và thư mục dest rỗng.
+   
+   > ![](./images/report2/mkdir.png)
+   
+   Đây là kết quả:
+   
+   > ![](./images/report2/ls.png)
+   
+   Thực hiện copy file từ thư mục src sang thư mục dest: `rsync src/* dest/`
+   
+   > ![](./images/report2/rsync1.png)
+   
+   Lệnh này sẽ chỉ copy file và bỏ qua các thư mục con, do đó src1 sẽ bị bỏ qua(skipping). Khi tạo mới 1 file trong src và thực hiện lại lệnh này, rsync sẽ thực hiện đồng bộ(chỉ có thư mục mới được copy sang)
+   
+   > ![](./images/report2/rsync2.png)
+   
+   Để thực hiện rsync toàn bộ dữ liệu(cả thư mục con), sử dụng option -r: `rsync -r src/* dest/`
+   
+   > ![](./images/report2/rsync3.png)
+   
+   Rsync một số dữ liệu tùy chọn: `rsync [src1] [src2] .. [dest]`. Ví dụ: `rsync src/file1 src/file2 .. dest`
+   
+   > ![](./images/report2/rsync4.png)
+   
+   Đồng bộ 2 thư mục, nhưng xóa những files ở thư mục đích không có trong thư mục nguồn (-–delete), lệnnh rsync Linux sẽ như sau: `rsync -av --delete  src/ dest/`
+   
+   > ![](./images/report2/rsync5.png)
+   
+   Có thể loại trừ file hoặc thư mục con nhất định khi đồng bộ bằng cách dùng option --exclude: `rsync -av --exclude=file1  src/ dest/`
+   
+   > ![](./images/report2/rsync6.png)
+  
+   Chạy thử nghiệm với option --dry-run: `rsync -vr --dry-run src/ dest/`
+   
+   > ![](./images/report2/rsync7.png)
+   
+   Câu lệnh này sẽ không thực hiện copy mà chỉ hiển thị các hành động được thực hiện
+   
+   Ngoài ra có các option hữu ích khác: 
+      - -a || --archive: k chỉ copy dữ liệu mà còn copy các thuộc tính như quyền hạn, thời gian chỉnh sửa v.v.
+      - -v || --verbose: hiển thị quá trình ra màn hình
+      - -z || --compress: nén dữ liệu trong quá trình copy/sync
+      - -p || --progress: hiển thị tiến trình trong thời gian thực
+   Gõ `rsync --help` để tham khảo thêm.
+   
+   > ![](./images/report2/option.png)
+   
+   #### 3.2. Sử dụng rsync giữa các hệ thống được kết nối
+   - Pull: `rsync [option] [USER]@[HOST]:[SRC] [DEST]`
+   - Push: `rsync [option] [SRC] [USER]@[HOST]:[DEST]`
+   - Sử dụng với các giao thức(ví dụ: ssh): `rsync -e ssh [USER]@[HOST]:[SRC] [DEST]` hoặc `rsync -e ssh [SRC] [USER]@[HOST]:[DEST]` 
+   
+   
+   
