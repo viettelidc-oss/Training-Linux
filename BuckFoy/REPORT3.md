@@ -37,7 +37,7 @@
 
 * [The troubleshooting process](#31)
 
-* [Booting the rescue system/recovery password]((#31)
+* [Booting the rescue system/recove7y password]((#31)
 
 
 <a name="P1"> </a>
@@ -170,7 +170,7 @@ Lease: Thời gian “cho thuê” hoặc tồn tại của địa chỉ IP đ�
 
 - chuẩn bị  
  + Server: Centos 7, ip : 192.168.2.2/24
- + Client: Centos6, dhcp
+ + Client: Centos6, Centos 
  
  - Đặt Ip tĩnh cho DHCP Server
  
@@ -206,7 +206,7 @@ câu lệnh vào file cấu hình: #vi /etc/dhcp/dhcp.conf
 
 ![](./Images/Report3/Network_protocol/DHCP/2.18.png)
 
-![](./Images/Report3/Network_protocol/DHCP/2.17.png)
+![](./Images/Report3/Network_protocol/DHCP/2.19.png)
 
 khởi dộng lại dhcp
 
@@ -225,6 +225,22 @@ kiểm tra ở client được cấp phát ip từ DHCP Server chưa : # ifconfg
 Ta đã thấy ip client là 192.168.2.110 nằm trong dãy địa chỉ ip từ 192.168.2.110 đến 192.168.2.150 của dhcp server cấp phát
 
 Như vậy đã  cấp  hình thành công DHCP 
+
+- kiểm tra các client được cấp phát : # cat /var/lib/dhcpd/dhcp.leases
+
+![](./Images/Report/Network_protocol/DHCP/2.22.png)
+
+- Cấp phát 1 ip của thể cho một máy  
+
+Trường hợp này là bạn đang muốn dành riêng 1 địa chỉ IP trong range IP DHCP cho một máy tính cụ thể trong hệ thống mạng
+
+Phần khai báo cấu hình này nằm trong nội dung cấu hình “subnet” của DHCP Server nhé. 
+![](./Images/Report/Network_protocol/DHCP/2.23.png)
+
+kiểm tra ở client centos7 đã đặt ip của  máy thông qua dhcp chưa
+
+![](./Images/Report/Network_protocol/DHCP/2.24.png)
+
 
 • Network services and port numbers
 
