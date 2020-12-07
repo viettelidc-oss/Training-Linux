@@ -80,6 +80,8 @@ Các bước cấu hình ip một cách thủ công trong hệ thống ubuntu:
 #### 3.1. Network protocol
 > Giao thức mạng(Network protocols) là một tập hợp các quy tắc được thiết lập để xác định cách dữ liệu được truyền giữa các thiết bị khác nhau trong cùng một mạng. Về cơ bản, nó cho phép các thiết bị được kết nối giao tiếp với nhau, bất kể bất kỳ sự khác biệt nào về quy trình, cấu trúc(phần cứng) hoặc thiết kế nội bộ của chúng.
 
+> ![](./images/report3/np.png)
+
 Các giao thức mạng có ba hành động chính: giao tiếp(Communication), quản lý (Network management) và bảo mật(Security)
 - Communication: Các giao thức truyền thông cho phép các thiết bị mạng khác nhau giao tiếp với nhau. Các loại giao thức truyền thông phổ biến bao gồm:
   - Tự động hóa : Các giao thức này được sử dụng để tự động hóa các quy trình khác nhau trong cả cài đặt thương mại và cá nhân, chẳng hạn như trong các tòa nhà thông minh, công nghệ đám mây hoặc xe tự lái.
@@ -96,6 +98,8 @@ Các giao thức mạng có ba hành động chính: giao tiếp(Communication),
   
   #### 3.2. Mô hình OSI
  > Mô hình OSI (Open Systems Interconnection Reference Model)còn được gọi với cái tên: mô hình kết nối hệ thống mở.Khác với TCP/IP(là mô hình được phát triển dựa trên giao thức), OSI là một chuẩn giao thức độc lập. Mô hình này chia giao tiếp mạng thành 7 lớp. Trong đó, lớp 1 đến 4 là những cấp thấp và chỉ thực hiện nhiệm vụ truyền tải dữ liệu. Lớp 5 đến lớp 7 sẽ là lớp cấp cao, có nhiệm vụ đặc phù, xử lý các vấn đề ứng dụng và tham gia vào chuỗi mắt xích truyền tải dữ liệu đến những lớp tiếp theo.
+ 
+ > ![](./images/report3/osi.png)
  
  Mô hình OSI phân chia chức năng của một giao thức ra thành một chuỗi các tầng cấp. Một hệ thống cài đặt các giao thức bao gồm một chuỗi các tầng nói trên được gọi là "chồng giao thức" (protocol stack).  Chồng giao thức có thể được cài đặt trên phần cứng, hoặc phần mềm, hoặc là tổ hợp của cả hai. Thông thường thì chỉ có những tầng thấp hơn là được cài đặt trong phần cứng, còn những tầng khác được cài đặt trong phần mềm. Mỗi một tầng cấp có một đặc tính là nó chỉ sử dụng chức năng của tầng dưới nó, đồng thời chỉ cho phép tầng trên sử dụng các chức năng của mình. Mỗi tầng đảm nhiệm một công việc rất cụ thể và sau đó chuyển dữ liệu cho tầng tiếp theo.
  
@@ -114,7 +118,7 @@ Các giao thức mạng có ba hành động chính: giao tiếp(Communication),
 #### 3.3. Mô hình TCP/IP
 > TCP/IP (Transmission Control Protocol và Internet Protocol- giao thức điều khiển giao vận dữ liệu và giao thức kết nối internet) là giao thức mà hầu hết các mạng máy tính ngày nay đều sử dụng để kết nối. Cơ chế hoạt động của mô hình này là IP đóng vai trò kết nối và TCP truyền dữ liệu giữa các thiết bị đã được kết nối và kiểm soát dữ liệu được truyền đi đó, đảm bảo rằng dữ liệu được truyền đi 1 cách đầy đủ, toàn vẹn
 
-> ![](./images/report3/np.png)
+> ![](./images/report3/tcpip.png)
 
 Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng thấp nhất là:
 - Tầng vật lý (Physical) : chịu trách nhiệm truyền dữ liệu giữa hai thiết bị trong cùng một mạng. Tại đây, các gói dữ liệu được đóng vào khung (gọi là Frame) và được định tuyến đi đến đích đã được chỉ định ban đầu.
