@@ -228,18 +228,19 @@ Như vậy đã  cấp  hình thành công DHCP
 
 - kiểm tra các client được cấp phát : # cat /var/lib/dhcpd/dhcp.leases
 
-![](./Images/Report/Network_protocol/DHCP/2.22.png)
+![](./Images/Report3/Network_protocol/DHCP/2.22.png)
 
 - Cấp phát 1 ip của thể cho một máy  
 
 Trường hợp này là bạn đang muốn dành riêng 1 địa chỉ IP trong range IP DHCP cho một máy tính cụ thể trong hệ thống mạng
 
 Phần khai báo cấu hình này nằm trong nội dung cấu hình “subnet” của DHCP Server nhé. 
-![](./Images/Report/Network_protocol/DHCP/2.23.png)
+
+![](./Images/Report3/Network_protocol/DHCP/2.23.png)
 
 kiểm tra ở client centos7 đã đặt ip của  máy thông qua dhcp chưa
 
-![](./Images/Report/Network_protocol/DHCP/2.24.png)
+![](./Images/Report3/Network_protocol/DHCP/2.24.png)
 
 
 • Network services and port numbers
