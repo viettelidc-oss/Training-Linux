@@ -247,7 +247,99 @@ kiểm tra ở client centos7 đã đặt ip của  máy thông qua dhcp chưa
 
 • Managing network devices
 
-• Hostnames and DNS
+## 1.6.  Hostnames and DNS
+
+### 1.6.1. Hostname
+
+- khái niệm 
+
+Hostname là tên dùng để xác định vị trí của một thiết bị cuối hay end-point trong một mạng máy tính (hay network), endpoint ở đây có thể là một máy tính, một thiết bị USB... được kết nối trong mạng nội bộ.
+
+Hostname cũng được sử dụng bởi các DNS server để bạn có thể truy cập trang web bằng một tên phổ biến, dễ nhớ, tránh việc phải “vật lộn” với một chuỗi số (địa chỉ IP) chỉ để mở trang web.
+
+Thay vào đó, hostname của máy tính có thể được gọi là tên máy tính, tên trang web hoặc tên node. Hostname còn có một cách viết khác là host name.
+
+Có 3 loại hostname
+
+static – Tên máy chủ truyền thống, có thể được đặt bởi người dùng và được lưu trữ trong file /etc/hostname.
+
+pretty – Tên máy chủ UTF8 dạng tự do được sử dụng để trình bày cho người dùng. Ví dụ “VPS Của HOSTVN”.
+
+transient – Tên máy chủ động được duy trì bởi kernel có thể được thay đổi bởi máy chủ DHCP hoặc mDNS trong thời gian chạy. Theo mặc định, nó giống như tên máy chủ tĩnh.
+
+- kiểm tra tên hostname
+
+kiểm tra hostname hiện tại : #hostname
+
+![](./images/Report3/HostnameDNS/Hostname/1.1.png)
+
+- Thay đổi và kiểm tra trạng thái của hostname
+
+câu lệnh # hostnamectl set-hostname <hostname>
+ 
+ kiểm tra trạng thái # hostnamectl
+ 
+ ![](./Images/Report3/HostnameDNS/Hostname/1.2.png)
+ 
+ ###  1.6.2.  DNS
+ 
+ - khái niệm DNS
+ 
+ DNS là tên viết tắt của Domain Name System hay còn gọi là dịch vụ phân giải tên miền, có tác dụng phân giải địa chỉ tên miền thành địa chỉ IP
+ 
+ DNS chủ yếu hoạt động trên giao thức UDP và cổng 53. Một số hoạt động khác có sử dụng giao thức TCP.
+
+### 1.6.3. Cấu hình DNS SERVER
+
+##### Chuẩn bị
+
+Cấu hình DNS Server cần 3 máy . Trong đó 1 máy làm DNS server chính (Master DNS) ,1 máy làm DNS server phụ (Slave DNS), 1 máy dùng làm Client 
+
+- Máy 1 :DNS Server Master
+ 
+ Hệ điều hành: Centos7
+ 
+ ip : 192.168.237.254/24
+ 
+ hostname: masterdns.vuongbac.com
+ 
+ - Máy 2.DNS Server Slave
+ 
+ Hệ điều hành: Centos7
+ 
+ ip : 192.168.237.120/24
+ 
+ hostname: slavedns.vuongbac.com
+
+- Máy 3: DNS Server Client
+
+Hệ điều hành: Centos6
+ 
+ ip : 192.168.237.110/24
+ 
+ hostname: client.vuongbac.com
+
+#### Cài đặt DNS Server Matster
+
+- Đầu tiên cài đặt gói blind
+`yum install bind bind-utils –y
+`
+- cấu hình DNS Server
+
+Tìm và sửa file /etc/naned.conf
+`#vi /etc/named.conf`
+
+![](./Images/Report3/HostnameDNS/DNS/1.1.png)
+
+![](./Images/Report3/HostnameDNS/DNS/1.2.png)
+
+
+- Tiến hành tạo Zone File :
+
+Như đã thấy ở trên file ‘/etc/named.conf’, chúng ta có thêm vào vài dòng trong đó có đề cập đến 2 file Forward và Reserve :
+
+
+
 
 • Searching domains
 
