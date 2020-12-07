@@ -94,20 +94,50 @@ Các giao thức mạng có ba hành động chính: giao tiếp(Communication),
   - Mã hóa
   - Xác thực danh tính
   
+  #### 3.2. Mô hình OSI
+ > Mô hình OSI (Open Systems Interconnection Reference Model)còn được gọi với cái tên: mô hình kết nối hệ thống mở.Khác với TCP/IP(là mô hình được phát triển dựa trên giao thức), OSI là một chuẩn giao thức độc lập. Mô hình này chia giao tiếp mạng thành 7 lớp. Trong đó, lớp 1 đến 4 là những cấp thấp và chỉ thực hiện nhiệm vụ truyền tải dữ liệu. Lớp 5 đến lớp 7 sẽ là lớp cấp cao, có nhiệm vụ đặc phù, xử lý các vấn đề ứng dụng và tham gia vào chuỗi mắt xích truyền tải dữ liệu đến những lớp tiếp theo.
+ 
+ Mô hình OSI phân chia chức năng của một giao thức ra thành một chuỗi các tầng cấp. Một hệ thống cài đặt các giao thức bao gồm một chuỗi các tầng nói trên được gọi là "chồng giao thức" (protocol stack).  Chồng giao thức có thể được cài đặt trên phần cứng, hoặc phần mềm, hoặc là tổ hợp của cả hai. Thông thường thì chỉ có những tầng thấp hơn là được cài đặt trong phần cứng, còn những tầng khác được cài đặt trong phần mềm. Mỗi một tầng cấp có một đặc tính là nó chỉ sử dụng chức năng của tầng dưới nó, đồng thời chỉ cho phép tầng trên sử dụng các chức năng của mình. Mỗi tầng đảm nhiệm một công việc rất cụ thể và sau đó chuyển dữ liệu cho tầng tiếp theo.
+ 
+ Mộ hình OSI gồm 7 tầng:
+  - Tầng vật lý (Physical) : truyền tải luồng bit, xung điện, tín hiệu radio hoặc ánh sáng thong qua mạng ở mức điện hoặc máy móc. Nó chỉ đến các chi tiết kỹ thuật của phần cứng. Lớp vật lý định nghĩa các đặc điểm như định thời và điện áp. Lớp này cũng định nghĩa các chi tiết kỹ thuật phần cứng được sử dụng bởi các adapter mạng và bởi cáp mạng. Để đơn giản hóa, lớp vật lý định nghĩa những gì để nó có thể truyền phát và nhận dữ liệu.
+  - Tầng Data Link: các gói dữ liệu được mã hóa thành các bit. Nó cho biết giao thức truyền tải, quản lý và xử lý lỗi trong lớp vật lý Physical, điều khiển luồng và đồng bộ khung. Lớp liên kết dữ liệu Data Link có thể được chia nhỏ thành hai lớp khác; Media Access Control (MAC) và Logical Link Control (LLC). MAC về cơ bản thiết lập sự nhận dạng của môi trường trên mạng thông qua địa chỉ MAC(được gán cho adapter mạng ở mức phần cứng) của nó. Đây là địa chỉ được sử dụng cuối cùng khi gửi và nhận các gói. Lớp LLC điều khiển sự đồng bộ khung, điều khiển luồng và cung cấp một mức kiểm tra lỗi.
+  - Tầng Network: quyết định xem dữ liệu sẽ đến máy nhận như thế nào. Lớp này nắm những thành phần như việc định địa chỉ, định tuyến, và các giao thức logic. Lớp mạng này tạo các đường logic được biết đến như các mạch ảo giữa máy nguồn và máy đích. Mạch ảo này cung cấp các gói dữ liệu riêng lẻ, gán vào mỗi gói nhỏ này một số thứ tự nhận dạng để chúng có thể đến được đích của chúng, sau khi đến đích số thứ tự này sẽ được dùng để sắp xếp và kiểm tra lại dữ liệu. Bên cạnh đó lớp mạng cũng chịu trách nhiệm cho việc quản lý lỗi của chính nó, cho việc điều khiển xếp chuỗi và điều khiển tắc nghẽn.
+  - Tầng Transport: chịu trách nhiệm chuyển dữ liệu giữa các hệ thống đầu cuối hoặc máy chủ (host). Hệ điều hành Windows cho phép người dùng có thể chạy nhiều ứng dụng một cách đồng thời, chính vì vậy mà nhiều ứng dụng, và bản thân hệ điều hành cần phải truyền thông trên mạng đồng thời. Lớp Transport lấy dữ liệu từ mỗi ứng dụng và tích hợp tất cả dữ liệu đó vào trong một luồng. Lớp này cũng chịu trách nhiệm cho việc cung cấp vấn đề kiểm tra lỗi và thực hiện khôi phục dữ liệu khi cần thiết. Bản chất mà nói, tầng Transport chịu trách nhiệm cho việc bảo đảm tất cả dữ liệu được truyền từ máy gửi đến máy nhận.
+  - Tầng Session: khi dữ liệu đã được biến đổi thành định dạng chuẩn, máy gửi đi sẽ thiết lập một phiên – session với máy nhận. Đây chính là tầng sẽ đồng bộ hoá quá trình liên lạc của hai máy và quản lý việc trao đổi dữ liệu. Tầng này chịu trách nhiệm cho việc thiết lập, quản lý và chấm dứt session với máy từ xa. 
+  - Tầng Presentation: lấy dữ liệu đã được cung cấp bởi tầng ứng dụng(Application), biến đổi chúng thành một định dạng chuẩn để tầng khác có thể hiểu được định dạng này. Tương tự như vậy tầng này cũng biến đổi dữ liệu mà nó nhận được từ tầng session thành dữ liệu mà tầng Application có thể hiểu được. Lý do lớp này cần thiết đến vậy là vì các ứng dụng khác nhau có dữ liệu khác nhau. Để việc truyền thông mạng được thực hiện đúng cách thì dữ liệu cần phải được cấu trúc theo một chuẩn nào đó.
+  - Tầng Application: hỗ trợ ứng dụng và các tiến trình liên quan đến người dùng cuối. Đối tác truyền thông, chất lượng dịch vụ, xác thực người dùng, quyền riêng tư và bất cứ ràng buộc nào về cú pháp dữ liệu sẽ được xem xét và xác định tại lớp này. Tất cả mọi thứ ở tầng này được cụ thể thành ứng dụng. Lớp này cung cấp các dịch vụ ứng dụng cho truyền file, email và các dịch vụ phần mềm mạng khác. Telnet, FTP là các ứng dụng nằm hoàn toàn trong trong tầng Application.
   
-#### 3.2. Mô hình TCP/IP
-> TCP/IP (Transmission Control Protocol và Internet Protocol- giao thức điều khiển giao vận dữ liệu và giao thức kết nối internet) là giao thức mà hầu hết các mạng máy tính ngày nay đều sử dụng để kết nối. Cơ chế hoạt động của mô hình này là IP đóng vai trò kết nối, truyền dữ liệu giữa các thiết bị kết nối internet và TCP kiểm soát dữ liệu được truyền đi đó, đảm bảo rằng dữ liệu được truyền đi 1 cách đầy đủ, toàn vẹn
+  > Khi quá trình truyền dữ liệu bắt đầu, dữ liệu sẽ đi từ tầng Application đi dần xuống tầng Physical của máy gửi, sau đó được truyền sang máy nhận và đi ngược từ tầng Physical lên Application.
+  
+
+#### 3.3. Mô hình TCP/IP
+> TCP/IP (Transmission Control Protocol và Internet Protocol- giao thức điều khiển giao vận dữ liệu và giao thức kết nối internet) là giao thức mà hầu hết các mạng máy tính ngày nay đều sử dụng để kết nối. Cơ chế hoạt động của mô hình này là IP đóng vai trò kết nối và TCP truyền dữ liệu giữa các thiết bị đã được kết nối và kiểm soát dữ liệu được truyền đi đó, đảm bảo rằng dữ liệu được truyền đi 1 cách đầy đủ, toàn vẹn
 
 > ![](./images/report3/np.png)
 
-Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng được chồng lên nhau, bắt đầu từ tầng thấp nhất là:
+Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng thấp nhất là:
 - Tầng vật lý (Physical) : chịu trách nhiệm truyền dữ liệu giữa hai thiết bị trong cùng một mạng. Tại đây, các gói dữ liệu được đóng vào khung (gọi là Frame) và được định tuyến đi đến đích đã được chỉ định ban đầu.
 - Tầng 2: Tầng mạng (Network, Internet): đảm nhận việc truyền tải dữ liệu một cách hợp lý. Các giao thức bao gồm IP (Internet Protocol), ICMP (Internet Control Message Protocol), IGMP (Internet Group Message Protocol).
 - Tầng 3: Tầng giao vận (Transport): hoạt động thông qua hai giao thức chính là TCP (Transmisson Control Protocol) và UDP (User Datagram Protocol). TCP sẽ đảm bảo chất lượng truyền gửi gói tin, tuy nhiên lại mất thời gian khá lâu để thực hiện các thủ tục kiếm soát dữ liệu. Ngược lại, UDP lại cho tốc độ truyền tải nhanh nhưng lại không đảm bảo được chất lượng dữ liệu. Ở tầng này, TCP và UDP sẽ hỗ trợ nhau phân luồng dữ liệu.
 - Tầng 4: Tầng ứng dụng (Application): đảm nhận vai trò giao tiếp dữ liệu giữa 2 máy khác nhau thông qua các dịch vụ mạng khác nhau (duyệt web, các giao thức trao đổi dữ liệu SMTP, SSH, FTP, HTTP…).
 
- #### 3.3. Mô hình OSI
- > Mô hình OSI (Open Systems Interconnection Reference Model)còn được gọi với cái tên: mô hình kết nối hệ thống mở. Mô hình này chia giao tiếp mạng thành 7 lớp. Trong đó, lớp 1 đến 4 là những cấp thấp và chỉ thực hiện nhiệm vụ truyền tải dữ liệu. Lớp 5 đến lớp 7 sẽ là lớp cấp cao, có nhiệm vụ đặc phù, xử lý các vấn đề ứng dụng và tham gia vào chuỗi mắt xích truyền tải dữ liệu đến những lớp tiếp theo.
+ #### 3.4. So sánh TCP/IP và OSI
+ > Mô hình TCP/IP và OSI có một số đặc điểm chung như đều sử dụng cấu trúc phân tầng, cùng sử dụng kỹ thuật chuyển dữ liệu dạng Packet
+ 
+ Bảng so sánh:
+ |Nội dung|TCP/IP|OSI|
+ |--------|------|---|
+ |Mức độ phổ biến|Được chuẩn hóa, là lựa chọn đáng tin cậy hơn OSI và được sử dụng phổ biến trên toàn cầu|Là mô hình có trên hệ điều hành Window và hầu hết các hệ điều hành mạng khác, tuy nhiên nhiều người cho rằng đây là mô hình cũ, chỉ để tham khảo, số người sử dụng hạn chế hơn so với TCP/IP|
+ |Tính quy tắc|Cho phép “nới lỏng” các quy tắc, cung cấp các nguyên tắc chung được đáp ứng|Giao thức và ranh giới chặt chẽ|
+ |Phương pháp tiếp cận|Chiều ngang|Chiều dọc|
+ |Mô hình phân tầng|4 tầng, tầng Application đảm nhiệm chức năng Presentation và Session|7 tầng và mỗi tầng thực hiện 1 chức năng riêng biệt|
+ |Thiết kế|Thiết kế giao thức trước, sau đó mô hình được phát triển dựa theo giao thức|Thiết kế mô hình trước và giao thức được xây dựng theo các tầng của mô hình|
+ |Tính phụ thuộc|Phụ thuộc vào giao thức|Là 1 chuẩn giao thức độc lập|
+ |Ưu điểm|Được sử dụng rộng rãi hơn, k chịu sự kiểm soát nên có thể tự do sử dụng, có khả năng tương thích với các mạng, hệ điều hành và phần cứng máy tính, hoạt động độc lập với hệ điều hành, có khả năng định tuyến, mở rộng và nhận định được đường dẫn tốt nhất thông qua mạng.|Phân thành nhiều tầng nhỏ và đơn giản, mỗi tầng có 1 cấu trúc và chức năng riêng nên dễ dàng xây dựng và sửa chữa, có thể tích hợp trong nhiều mạng lưới khác nhau|
+ |Nhược điểm|Một tầng có nhiều chức năng nên phức tạp hơn, khó khăn trong việc thay thế các giao thức mới|Tầng Presentation và Session thường không được sử dụng nhiều so với các tầng khác vì chức năng hạn hẹp của nó, không hỗ trợ các giao thức, không định nghĩa bất kì giao thức nào, nhiều dịch vụ trùng lặp tại các tầng, các tầng không thể hoạt động song song, tầng dưới phải chờ dữ liệu từ tầng trên(và ngược lại)|
+ 
+ #### 3.5. Cài đặt và sử dụng giao thức DNS 
 ## 5. Managing network devices<a name="5"></a>
 ## 6. Hostnames and DNS<a name="6"></a>
 ## 7. Searching domains<a name="7"></a>
