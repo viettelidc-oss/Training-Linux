@@ -149,6 +149,83 @@ giao thức lớp Datalink | Các gói tin khung. Phát hiện và sửa lỗi t
 giao  thức lớp Physical | Giao diện giữa phương tiện mạng và thiết bị.  Xác định các đặc tính quang học, điện và cơ học|
 
 ### 1.3.2. Giao thức DHCP 
+
+- Khái niệm
+
+`DHCP viết tắt của từ Dynamic Host Configuration Protocol – Giao thức cấu hình Host động, giúp giảm khối lượng công việc cho quản trị hệ thống mạng. DHCP là một dịch vụ được chạy trên một máy chủ DHCP server. Nó có chức năng quản lý việc cấp phát địa chỉ IP động và các cấu hình TCP/IP. DHCP client là dịch vụ có sẵn trên các máy client. Nó dùng để yêu cầu cấp phát địa chỉ IP và các thông tin DNS cho chính máy client đó`
+
+- Một DHCP server bao gồm bốn mục chính sau:
+
+Options: các thông tin như địa chỉ IP, địa chỉ Subnet Mask, địa chỉ Gateway, địa chỉ DNS,… sẽ được DHCP Server cung cấp đầy đủ thông tin.
+
+Scope: một dãy hay một đoạn địa chỉ IP đã được quy hoạch và chỉ định rõ ràng cho DHCP Server được phép cấp phát IP động thông qua DHCP cho máy tính client.\
+
+Reservation: là những thông tin địa chỉ IP đã được “để dành”, tức cấu hình sẵn địa chỉ IP đó cho một số loại máy tính client.
+
+Lease: Thời gian “cho thuê” hoặc tồn tại của địa chỉ IP động đối với mỗi máy client.
+
+- Quá trình hoạt động DHCP
+
+![](./Images/Report3/Network_protocol/DHCP/2.13.png)
+
+- chuẩn bị  
+ + Server: Centos 7, ip : 192.168.2.2/24
+ + Client: Centos6, dhcp
+ 
+ - Đặt Ip tĩnh cho DHCP Server
+ 
+ ` #vi /etc/sysconfig/network-scripts/ifcfg-ens33`
+ 
+ ![](./Images/Report3/Network_protocol/DHCP/2.12.png)
+ 
+ - Cài đặt dhcp server 
+  
+  câu lệnh: yum install -y dhcp 
+  
+  kiểm tra cài đặt thành công hay chưa : rpm -qa | grep dhcp
+  
+  ![](./Images/Report3/Network_protocol/DHCP/2.17.png)
+  
+ – Cấu trúc các file/thư mục của dịch vụ DHCP Server mà bạn cần biết:
+
+`/etc/dhcp/dhcpd.conf : file cấu hình dịch vụ DHCP.
+
+/var/lib/dhcpd/dhcpd.leases : file chứa thông tin các IP động đang cấp qua DHCP.
+
+/var/log/message : log mặc định chứa quá trình DHCP 4 bước.
+ `
+ - Cài đặt DHCP Server
+ 
+  Sau khi đã cài đặt gói dịch vụ thành công chúng ta chép file cấu hình mẫu tới thư mục /etc/dhcp
+  
+ `# cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcpd.conf
+`
+Nội dung cấu hình DHCP Server
+
+câu lệnh vào file cấu hình: #vi /etc/dhcp/dhcp.conf
+
+![](./Images/Report3/Network_protocol/DHCP/2.18.png)
+
+![](./Images/Report3/Network_protocol/DHCP/2.17.png)
+
+khởi dộng lại dhcp
+
+`#systemctl start dhcpd
+`
+- cấu hình dhcp ở client
+
+câu lệnh: #vi /etc/sysconfig/network-script/ifcfg-eth0
+
+![](./Images/Report3/Network_protocol/DHCP/2.20.png)
+
+kiểm tra ở client được cấp phát ip từ DHCP Server chưa : # ifconfg
+
+![](./Images/Report3/Network_protocol/DHCP/2.21.png).
+
+Ta đã thấy ip client là 192.168.2.110 nằm trong dãy địa chỉ ip từ 192.168.2.110 đến 192.168.2.150 của dhcp server cấp phát
+
+Như vậy đã  cấp  hình thành công DHCP 
+
 • Network services and port numbers
 
 • Managing network devices
