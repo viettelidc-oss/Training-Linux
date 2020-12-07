@@ -141,10 +141,15 @@ Cú pháp chung: `rsync [option] [SRC] [DEST]`
    Câu lệnh này sẽ không thực hiện copy mà chỉ hiển thị các hành động được thực hiện
    
    Ngoài ra có các option hữu ích khác: 
-      - -a || --archive: k chỉ copy dữ liệu mà còn copy các thuộc tính như quyền hạn, thời gian chỉnh sửa v.v.
-      - -v || --verbose: hiển thị quá trình ra màn hình
-      - -z || --compress: nén dữ liệu trong quá trình copy/sync
-      - -p || --progress: hiển thị tiến trình trong thời gian thực
+   
+   -a || --archive: k chỉ copy dữ liệu mà còn copy các thuộc tính như quyền hạn, thời gian chỉnh sửa v.v.
+      
+   -v || --verbose: hiển thị quá trình ra màn hình
+      
+   -z || --compress: nén dữ liệu trong quá trình copy/sync
+   
+   -p || --progress: hiển thị tiến trình trong thời gian thực
+   
    Gõ `rsync --help` để tham khảo thêm.
    
    > ![](./images/report2/option.png)
