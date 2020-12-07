@@ -43,13 +43,13 @@ Các bước cấu hình ip một cách thủ công trong hệ thống ubuntu:
   - B2: Mở và tiến hành cấu hình thủ công ethernet interface với file config:
     > Với các hệ thống ubuntu 17.10 trở lên, netplan là công cụ quản lý mạng mặc định. Để chỉnh sửa file config: `vi /etc/netplan/01-network-manager-all.yaml`
     
-    > ![](./images/report2/dfnetplan.png)
+    > ![](./images/report3/dfnetplan.png)
     
     Với hệ thống trên, 3 từ khóa network, version và renderer là 3 thuộc tính mặc định. Tiếp theo, ethernets là loại thiết bị được cấu hình (loại thiết bị có thể là ethernets, bonds, bridges, hoặc vlans. Với mỗi loại thiết bị có thể chỉ định nhiều ethernet interface, ở đây có 1 giao diện là ens38 được cấu hình để lấy ip từ máy chủ dhcp: `dhcp4: yes`
     
     Để cấu hình ip tĩnh:
     
-    > ![](./images/report2/cfnetplan.png)
+    > ![](./images/report3/cfnetplan.png)
     
     - dhcp4: no : k sử dụng ip từ máy chủ dhcp
     - addresses : địa chỉ ip tĩnh đặt cho ethernet interface, không được trùng với các ip của máy khác.
@@ -58,7 +58,7 @@ Các bước cấu hình ip một cách thủ công trong hệ thống ubuntu:
     //error
     > Hoặc sử dụng ifconfig cho mọi hệ thống ubuntu: `vi /etc/network/interfaces`
     
-    > ![](./images/report2/dfif.png)
+    > ![](./images/report3/dfif.png)
     
     - auto: interface sẽ được cấu hình khi khởi động
     - iface: interface
@@ -66,7 +66,7 @@ Các bước cấu hình ip một cách thủ công trong hệ thống ubuntu:
     
     Để cấu hình ip tĩnh:
     
-    > ![](./images/report2/cfif.png)
+    > ![](./images/report/cfif.png)
     
     - inet static: sử dụng địa chỉ ip tĩnh
     - address: địa chỉ ip tĩnh đặt cho ethernet interface, không được trùng với các ip của máy khác.
