@@ -143,12 +143,21 @@ Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng th�
  
  
  #### 3.5. Cài đặt và sử dụng giao thức DNS 
- > DNS là một trong những khái niệm căn bản của kết nối Internet. Về cơ bản DNS là viết tắt của Domain Name Servers, với nhiệm vụ dịch một tên miền thành địa chỉ IP để các máy tính sử dụng nhận dạng trên hệ thống mạng. Khi chúng ta truy cập vào trang web như quantrimang.com, địa chỉ URL này sẽ được biên dịch sang địa chỉ IP dạng số và truy cập tới trang web.Trong lĩnh vực công nghệ thông tin hiện này, DNS được áp dụng rất rộng rãi và phổ biến, đặc biệt trong việc giúp truy cập những trang web bị chặn như truy cập Facebook bị chặn, duy trì kết nối ổn định và tăng tốc độ kết nối mạng
+ > DNS(Domain Name Servers) có nhiệm vụ dịch một tên miền thành địa chỉ IP để các máy tính sử dụng nhận dạng trên hệ thống mạng. Khi chúng ta truy cập vào trang web như google.com, địa chỉ URL này sẽ được biên dịch sang địa chỉ IP dạng số và truy cập tới trang web. DNS được áp dụng rất rộng rãi và phổ biến, đặc biệt trong việc giúp truy cập những trang web bị chặn 🙄(nhà mạng chặn ip trả về của máy chủ dns nên máy client k truy cập được), duy trì kết nối ổn định và tăng tốc độ kết nối mạng
  
  Cài đặt và cấu hình giao thức DNS với công cụ bind9:
   - Cài đặt bind9 : `apt install bind9 bind9-doc bind9utils`
   -  <a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configDNS.md">Cấu hình máy server</a>
- 
+  - Kiểm tra server DNS bằng máy client: chỉ định máy chủ dns trong file resolv.conf `vi /etc/resolv.conf`
+  > ![](./images/dns/rs2.png)
+  
+  Và kiểm tra kết quả: `nslookup ze9hyrus.com`
+  
+  > ![](./images/dns/result2.png)
+  
+  > Ví dụ trên đã thực hiện việc cấu hình máy chủ dns mô hình master-slave để biên dịch url "ze9hyrus.com" ra địa chỉ ip của server "192.168.142.131" để client có thể truy cập đến server thông qua ip đó. Trong hệ thống dns này, master server đóng vai trò máy chủ để biên dịch các url được cài đặt riêng thành các địa chỉ ip. Và  slave server là máy chủ dự phòng, nhận và biên dịch yêu cầu của client thay cho master server khi nó bị lỗi.
+  #### 3.6. Cài đặt và sử dụng giao thức FTP
+## 4. Network services and port numbers<a name="4"></a>
 ## 5. Managing network devices<a name="5"></a>
 ## 6. Hostnames and DNS<a name="6"></a>
 ## 7. Searching domains<a name="7"></a>
