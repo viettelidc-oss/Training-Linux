@@ -21,3 +21,13 @@
 /etc/resolv.conf **cái này sai vì interface đúng phải là ens33 nhưng trong file lại là edns0, k biết có cần sửa lại k ạ**
 
 > ![](./images/dns/rs.png)
+
+#### Kết quả
+
+Check file conf, zone
+
+> ![](./images/dns/check.png)
+
+Check server
+
+> ![](./images/dns/result.png)
