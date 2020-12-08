@@ -1,21 +1,21 @@
-## Cấu hình
+## Cấu hình master server
 
-#### /etc/bind/named.conf.ontions
+#### `vi /etc/bind/named.conf.ontions`
 
 > ![](./images/dns/confop.png)
 
-#### /etc/bind/named.conf
+#### `vi /etc/bind/named.conf`<a name="1"></a>
 
 > ![](./images/dns/conf.png)
 
-#### /etc/bind/named.conf.local
+#### `vi /etc/bind/named.conf.local`
 
 > ![](./images/dns/conflocal.png)
 
 - "ze9hyrus.com" : domain zone
 - "etc/bind/forward.ze9hyrus": tên file và địa chỉ tuyệt đối của file forward (tương tự với "etc/bind/reverse.ze9hyrus")
 
-#### /etc/bind/forward.ze9hyrus (tạo file mới)
+#### `vi /etc/bind/forward.ze9hyrus` (tạo file mới)
 
 > ![](./images/dns/fw.png)
 - masterdns.ze9hyrus.com: hostname server master
@@ -23,24 +23,52 @@
 - ...131: địa chỉ ip server master
 - ...130: địa chỉ ip server slave
 - ...129: địa chỉ ip client
-#### /etc/bind/reverse.ze9hyrus (tạo file mới)
+#### `vi /etc/bind/reverse.ze9hyrus `(tạo file mới)
 
 > ![](./images/dns/rv.png)
 
-#### /etc/network/interfaces
+#### `vi /etc/network/interfaces`
+Đảm bảo rằng hệ thống đã cài đặt package *ifupdown* trước khi gõ lệnh này
 
 > ![](./images/dns/itf.png)
 
-#### /etc/resolv.conf 
+#### `vi /etc/resolv.conf `
 
 > ![](./images/dns/rs.png)
 
 ## Kết quả
 
-#### Check file conf, zone
+Sau khi cấu hình xong, tiến hành `reboot` lại hệ thống và kiểm tra
+
+#### Check file conf, zone 
 
 > ![](./images/dns/check.png)
 
-#### Check server
+#### Check server `nslookup ze9hyrus.com`
 
 > ![](./images/dns/result.png)
+
+## Cấu hình slave server
+
+#### /etc/bind/named.conf [làm tương tự master server](#1)
+
+#### `vi /etc/bind/named.conf.local`
+
+> ![](./images/dns/conflocal1.png)
+
+#### `vi /etc/network/interfaces`
+Đảm bảo rằng hệ thống đã cài đặt package *ifupdown* trước khi gõ lệnh này
+
+> ![](./images/dns/itf1.png)
+
+#### `vi /etc/resolv.conf `
+
+> ![](./images/dns/rs1.png)
+
+## Kiểm tra
+
+Sau khi cấu hình xong, tiến hành `reboot` lại hệ thống và kiểm tra
+
+#### Check server `nslookup ze9hyrus.com`
+
+> ![](./images/dns/result1.png)
