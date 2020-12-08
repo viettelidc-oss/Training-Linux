@@ -141,7 +141,14 @@ Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng th�
  |Ưu điểm|Được sử dụng rộng rãi hơn, k chịu sự kiểm soát nên có thể tự do sử dụng, có khả năng tương thích với các mạng, hệ điều hành và phần cứng máy tính, hoạt động độc lập với hệ điều hành, có khả năng định tuyến, mở rộng và nhận định được đường dẫn tốt nhất thông qua mạng.|Phân thành nhiều tầng nhỏ và đơn giản, mỗi tầng có 1 cấu trúc và chức năng riêng nên dễ dàng xây dựng và sửa chữa, có thể tích hợp trong nhiều mạng lưới khác nhau|
  |Nhược điểm|Một tầng có nhiều chức năng nên phức tạp hơn, khó khăn trong việc thay thế các giao thức mới|Tầng Presentation và Session thường không được sử dụng nhiều so với các tầng khác vì chức năng hạn hẹp của nó, không hỗ trợ các giao thức, không định nghĩa bất kì giao thức nào, nhiều dịch vụ trùng lặp tại các tầng, các tầng không thể hoạt động song song, tầng dưới phải chờ dữ liệu từ tầng trên(và ngược lại)|
  
+ 
  #### 3.5. Cài đặt và sử dụng giao thức DNS 
+ > DNS là một trong những khái niệm căn bản của kết nối Internet. Về cơ bản DNS là viết tắt của Domain Name Servers, với nhiệm vụ dịch một tên miền thành địa chỉ IP để các máy tính sử dụng nhận dạng trên hệ thống mạng. Khi chúng ta truy cập vào trang web như quantrimang.com, địa chỉ URL này sẽ được biên dịch sang địa chỉ IP dạng số và truy cập tới trang web.Trong lĩnh vực công nghệ thông tin hiện này, DNS được áp dụng rất rộng rãi và phổ biến, đặc biệt trong việc giúp truy cập những trang web bị chặn như truy cập Facebook bị chặn, duy trì kết nối ổn định và tăng tốc độ kết nối mạng
+ 
+ Cài đặt và cấu hình giao thức DNS với công cụ bind9:
+  - Cài đặt bind9 : `apt install bind9 bind9-doc bind9utils`
+  - 
+ 
 ## 5. Managing network devices<a name="5"></a>
 ## 6. Hostnames and DNS<a name="6"></a>
 ## 7. Searching domains<a name="7"></a>
