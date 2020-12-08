@@ -333,14 +333,76 @@ Tìm và sửa file /etc/naned.conf
 
 ![](./Images/Report3/HostnameDNS/DNS/1.2.png)
 
-
 - Tiến hành tạo Zone File :
 
 Như đã thấy ở trên file ‘/etc/named.conf’, chúng ta có thêm vào vài dòng trong đó có đề cập đến 2 file Forward và Reserve :
 
+–  Tạo vùng Forward Zone :
 
+Tạo file forward.vuongbac trong thư mục ‘/var/named’ :
+thêm vào những dòng sau: 
 
+![](./Images/Report3/HostnameDNS/DNS/1.3.png)
 
+- tạo vùng  Reserve
+
+tạo file reserve.vuongbac trong mục /var/named
+
+thêm vào các dòng sau:
+
+![](./Images/Report3/HostnameDNS/DNS/1.4.png)
+
+- Khởi chạy dịch vu DNS Server
+
+![](./Images/Report3/HostnameDNS/DNS/1.5.png)
+
+- Cấu hình Firewall
+
+![](./Images/Report3/HostnameDNS/DNS/1.6.png)
+
+- cấu hình SELinux, Permissions, Ownership 
+
+![](./Images/Report3/HostnameDNS/DNS/1.7.png)
+
+- tiến hành test thử dNS Server
+chạy dòng lệnh sau nếu không trả về gì là thành công
+
+`named-checkconf /etc/named.conf`
+
+![](./Images/Report3/HostnameDNS/DNS/1.8.png)
+
+check Forward Zone bằng dòng sau
+`named-checkzone vuongbac.com /var/named/forward.vuongbac`
+
+![](./Images/Report3/HostnameDNS/DNS/1.9.png)
+
+check Reserve Zone bằng dòng lệnh sau : 
+`named-checkzone vuongbac.com /var/named/reserve.vuongbac`
+
+![](./Images/Report3/HostnameDNS/DNS/1.10.png)
+
+ - tiến hành add DNS Server vào cấu hình card mạng 
+ 
+ ![](./Images/Report3/HostnameDNS/DNS/1.11.png)
+
+thêm vào địa chỉ ip của name server vào file /etc/resolv.conf
+`nameserver 192.168.237.254`
+
+- Test DNS Server
+
+chạy dòng lệnh : dig masterdns.vuongbac.com
+
+  kết quả trả về 
+  
+  ![](./Images/Report3/HostnameDNS/DNS/1.12.png)
+
+chạy tiếp dòng lệnh: nslookup vuongbac.com
+
+kết quả là : 
+
+![](./Images/Report3/HostnameDNS/DNS/1.13.png)
+
+Vậy là DNS Server đã sẳn sàng để sử dụng. Chúng ta chuyển qua bước cấu hình DNS Server Slave.
 • Searching domains
 
 • Routing under Linux
