@@ -147,7 +147,7 @@ Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng th�
  
  Cài đặt và cấu hình giao thức DNS với công cụ bind9:
   - Cài đặt bind9 : `apt install bind9 bind9-doc bind9utils`
-  -  <a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configDNS.md" target="_blank" >Cấu hình máy server</a>
+  -  <a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configDNS.md" target="blank" >Cấu hình máy server</a>
   - Kiểm tra server DNS bằng máy client: chỉ định máy chủ dns trong file resolv.conf `vi /etc/resolv.conf`
   > ![](./images/dns/rs2.png)
   
