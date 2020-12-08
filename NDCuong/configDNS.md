@@ -1,3 +1,7 @@
+/etc/bind/named.conf.ontions
+
+> ![](./images/dns/confop.png)
+
 /etc/bind/named.conf
 
 > ![](./images/dns/conf.png)
