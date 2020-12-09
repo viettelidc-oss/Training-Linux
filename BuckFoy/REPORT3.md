@@ -243,6 +243,111 @@ kiểm tra ở client centos7 đã đặt ip của  máy thông qua dhcp chưa
 ![](./Images/Report3/Network_protocol/DHCP/2.24.png)
 
 
+### 1.3.3. Giao thức FTP
+
+##### Khái niệm
+
+FTP - File Transfer Protocol (Giao thức truyền tải tập tin) được dùng trong việc trao đổi dữ liệu trong mạng thông qua giao thức TCP/IP, thường hoạt động trên 2 cổng là 20 và 21. Với giao thức này, các máy client trong mạng có thể truy cập đến máy chủ FTP để gửi hoặc lấy dữ liệu. Điểm nổi bật là người dùng có thể truy cập vào máy chủ FTP để truyền và nhận dữ liệu dù đang ở xa.
+
+##### Cấu hình VSFTPD 
+
+- Chuẩn bị: 
+
+Server: Centos7 , ip 192.168.237.254
+
+Client: Windown7, cài phần mềm Filezilla
+
+- Cài đặt dịch vụ Vsftpd
+ 
+ ` yum install vsftpd `
+ 
+ ![](./Images/Report3/FTP/f1.1.png)
+ 
+ Sau đó khởi động lại dịch vụ FTP server -vsftpd 
+ 
+ ![](./Images/Report3/FTP/f1.2.png)
+ 
+ Tắt tường lửa cổng 20 và 21 - cổng của vsftpd
+ 
+ ` firewall-cmd --permanent --add-port=20-21/tcp
+ firewall-cmd --permanent --add-port=20-21/udp
+ firewall-cmd --reload
+ `
+ ![](./Images/Report3/FTP/f1.3.png)
+
+ kiểm tra vsftpd có đang chạy không: systemctl status vsftpd
+ 
+  ![](./Images/Report3/FTP/f1.4.png)
+
+- Cấu hình FTPServer - vsftpd
+
+File cấu hình dịch vụ FTP Server Vsftpd nằm ở : /etc/vsftpd/vsftpd.conf
+
+Tìm hiểu và chỉnh sửa file cấu hình vsftpd
+
+` #vi /etc/vsftpd/vsftpd.conf
+`
+Các cấu hình cơ bản
+
+`anonymous_enable=NO
+local_enable=YES
+ftpd_banner="Welcome FTP Server - CuongQuach.com"
+use_local_time-YES
+listen=NO
+listen_ipv6=YES
+use_localtime=YES
+`
+Trong đó:
+anonymous_enable (YES/NO): cho phép các kết nối ẩn danh, nên tắt đi.
+
+local_enable (YES/NO): cho phép các local user được kết nối.
+
+write_enable (YES/NO): cho phép quyền ghi vào thư mục upload, tương đương quyền upload dữ liệu.
+
+ftpd_banner: dòng thông báo khi kết nối FTP Server.
+
+listen_ipv6 (YES/NO): lắng nghe kết nối ipv6 và ipv4. Khi bạn cấu hình YES phần này, thì ở listen không cần cấu hình YES mà cấu hình NO.
+
+use_localtime (YES/NO): sử dụng thời gian của máy chủ.
+
+![](./Images/Report3/FTP/f2.1.png)
+
+![](./Images/Report3/FTP/f2.2.png)
+
+![](./Images/Report3/FTP/f2.4.png)
+
+Chroot: kỹ thuật giữ người dùng trong thư mục của họ, không cho phép. Tại đây ta sẽ chroot tất cả user, ngoại trừ các user trong file /etc/vsftpd/chroot_list
+
+`
+chroot_local_user=YES
+allow_writeable_chroot=YES
+chroot_list_enable=YES
+chroot_list_file=/etc/vsftpd/chroot_list
+`
+![](./Images/Report3/FTP/f2.3.png)
+
+
+Giới hạn cổng kết nối cho FTP thụ động: Giới hạn khoảng các cổng sử dụng cho FTP passive
+
+`pasv_min_port=30000
+pasv_max_port=31000
+`
+Giới hạn User được phép truy cập vào hệ thống: Nếu muốn giới hạn các User local được đăng nhập vào hệ thống FTP server. Ta thêm vào các dòng sau. Khi đó, những User có trong file /etc/vsftpd/user_list mới được truy cập vào hệ thống.
+`
+userlist_enable=YES
+userlist_file=/etc/vsftpd/user_list
+userlist_deny=NO
+`
+![](./Images/Report3/FTP/f2.5.png)
+
+Khởi động lại dịch vụ và cho phép các cổng FTP passive đi qua tường lửa
+
+` systemctl restart vsftpd
+firewall-cmd --permanent --add-port=30000-310000/tcp
+firewall-cmd --reload
+`
+##### Truy vấn FTP Server
+
 • Network services and port numbers
 
 • Managing network devices
