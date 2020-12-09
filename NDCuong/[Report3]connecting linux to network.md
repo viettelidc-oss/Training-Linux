@@ -146,9 +146,7 @@ Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng th�
  
  Để cài đặt và cấu hình server FTP trên hệ thống linux(ubuntu), có thể sử dụng công cụ vsftpd(Very Secure File Transport Protocol Daemon) -  server FTP độc lập - một cách đơn giản và nhanh chóng. Cài đặt vsftpd: `apt install vsftpd`
  
- Sau khi cài đặt, file cấu hình của server FTP được đặt ở `/etc/vsftpd.conf`. Có thể backup file cấu hình này với lệnh `mv /etc/vsftpd.conf /etc/vsftpd.conf_backup` để có thể dễ dàng khôi phục lại nếu có sự cố xảy ra.
- 
- Tiến hành cấu hình server: `vi /etc/vsftpd.conf`
+<a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configFTP.md"> Tiến hành cấu hình server</a>
  
 ## 4. Network services and port numbers<a name="4"></a>
 ## 5. Managing network devices<a name="5"></a>
