@@ -348,6 +348,32 @@ firewall-cmd --reload
 `
 ##### Truy vấn FTP Server
 
+Sử dụng FileZilla để truy cập tới FTP server. Ta nhập địa chỉ IP của Server, username, password
+
+![](./Images/Report3/FTP/f3.1.png)
+
+Giao diện sau khi đăng nhập thành công
+
+![](./Images/Report3/FTP/f3.2.png)
+
+Upload file từ client lên Server
+
+![](./Images/Report3/FTP/f3.3.png)
+
+Kết quả quá trình upload
+
+![](./Images/Report3/FTP/f3.4.png)
+
+Download từ Server về Client
+
+![](./Images/Report3/FTP/f3.5.png)
+
+Kết quả :
+
+![](./Images/Report3/FTP/f3.6.png)
+
+
+
 • Network services and port numbers
 
 • Managing network devices
