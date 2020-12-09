@@ -14,7 +14,7 @@
 
 * [Managing network devices](#p15)
 
-* [Hostnames and DNS](#16)
+* [1.6 Hostnames and DNS](#16)
 
 * [Searching domains](p17)
 
@@ -247,6 +247,7 @@ kiểm tra ở client centos7 đã đặt ip của  máy thông qua dhcp chưa
 
 • Managing network devices
 
+<a name="16"> </a>
 ## 1.6.  Hostnames and DNS
 
 ### 1.6.1. Hostname
@@ -403,6 +404,38 @@ kết quả là :
 ![](./Images/Report3/HostnameDNS/DNS/1.13.png)
 
 Vậy là DNS Server đã sẳn sàng để sử dụng. Chúng ta chuyển qua bước cấu hình DNS Server Slave.
+
+##### cấu hình DNS Server Slave cũng tương tự cài DNS Server Master
+
+chỉ cần sửa ở file /etc/named.conf  sau :
+ 
+ ![](./Images/Report3/HostnameDNS/DNS/2.4.png)
+ 
+–  Tiến hành test DNS Server Master:
+`dig masterdns.anninhmang.edu.vn
+
+` 
+![](./Images/Report3/HostnameDNS/DNS/2.5.png)
+
+- test DNS server Slave
+
+ ![](./Images/Report3/HostnameDNS/DNS/2.6.png)
+
+- test phân giải tên miền 
+
+ ![](./Images/Report3/HostnameDNS/DNS/2.7.png)
+
+#### Cấu hình Client
+
+Đối với tất cả các máy con, add thong tin địa chỉ IP của các máy DNS Server vào file ‘/etc/resolv.conf’
+
+thêm vào :
+`nameserver 192.168.237.254
+
+nameserver 192.168.237.120  `
+
+Và test như ở máy master  và slave
+
 • Searching domains
 
 • Routing under Linux
