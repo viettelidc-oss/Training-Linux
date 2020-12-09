@@ -142,6 +142,14 @@ Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng th�
  |Nhược điểm|Một tầng có nhiều chức năng nên phức tạp hơn, khó khăn trong việc thay thế các giao thức mới|Tầng Presentation và Session thường không được sử dụng nhiều so với các tầng khác vì chức năng hạn hẹp của nó, không hỗ trợ các giao thức, không định nghĩa bất kì giao thức nào, nhiều dịch vụ trùng lặp tại các tầng, các tầng không thể hoạt động song song, tầng dưới phải chờ dữ liệu từ tầng trên(và ngược lại)|
 
   #### 3.5. Cài đặt và sử dụng giao thức FTP
+> FTP (File Transfer Protocol) là giao thức thường được dùng để trao đổi tập tin qua mạng lưới truyền thông dùng giao thức TCP/IP. Hoạt động của FTP cần có ít nhất hai máy tính, một máy chủ và một(hoặc nhiều) máy khách. Một khi hai máy đã liên kết với nhau, máy khách có thể thực hiện một số thao tác về tập tin, như tải tập tin lên máy chủ, tải xuống tập tin từ máy chủ, đổi tên hoặc xóa tập tin ở máy chủ v.v. Vì giao thức FTP là một giao thức chuẩn công khai nên bất cứ một công ty phần mềm nào hay một lập trình viên nào cũng có thể viết và sử dụng. Hầu như mọi nền tảng hệ điều hành nào cũng hỗ trợ giao thức FTP. Điều này cho phép tất cả các máy tính kết nối với một mạng lưới có nền TCP/IP, xử lý tập tin trên một máy tính khác trên cùng một mạng lưới, bất kể máy tính ấy dùng hệ điều hành nào. FTP thường chạy trên hai cổng, 20 và 21, và chỉ chạy riêng trên nền của TCP.
+ 
+ Để cài đặt và cấu hình server FTP trên hệ thống linux(ubuntu), có thể sử dụng công cụ vsftpd(Very Secure File Transport Protocol Daemon) -  server FTP độc lập - một cách đơn giản và nhanh chóng. Cài đặt vsftpd: `apt install vsftpd`
+ 
+ Sau khi cài đặt, file cấu hình của server FTP được đặt ở `/etc/vsftpd.conf`. Có thể backup file cấu hình này với lệnh `mv /etc/vsftpd.conf /etc/vsftpd.conf_backup` để có thể dễ dàng khôi phục lại nếu có sự cố xảy ra.
+ 
+ Tiến hành cấu hình server: `vi /etc/vsftpd.conf`
+ 
 ## 4. Network services and port numbers<a name="4"></a>
 ## 5. Managing network devices<a name="5"></a>
 ## 6. Hostnames and DNS<a name="6"></a>
