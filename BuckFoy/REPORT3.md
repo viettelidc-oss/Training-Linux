@@ -373,8 +373,81 @@ Kết quả :
 ![](./Images/Report3/FTP/f3.6.png)
 
 
+<a name='14" ></a>
+         
+ ## 1.4. Network services and port numbers
 
-• Network services and port numbers
+### 1.4.1. Khái niệm :
+
+Trong mạng máy tính, và chắc chắn hơn trong thuật ngữ phần mềm, cổng là một thực thể logic hoạt động như một điểm giao tiếp cuối để xác định một ứng dụng hoặc quy trình nhất định trên hệ điều hành Linux . Nó là một số 16-bit ( 0 đến 65535 ) để phân biệt một ứng dụng này với một ứng dụng khác trên hệ thống đầu cuối.
+
+Hai giao thức truyền tải Internet phổ biến nhất, Giao thức Điều khiển Truyền ( TCP ) và Giao thức Dữ liệu Người dùng ( UDP ) và các giao thức ít được biết đến khác sử dụng số cổng cho các phiên giao tiếp (số cổng nguồn và cổng đích cùng với địa chỉ IP nguồn và đích).
+
+Ngoài ra, sự kết hợp của địa chỉ IP, cổng và giao thức như TCP / UDP được gọi là ổ cắm và mọi dịch vụ phải có một ổ cắm duy nhất.
+
+Dưới đây là các loại cổng khác nhau:
+
+` 0-1023 - Cổng nổi tiếng, còn được gọi là Cổng hệ thống.
+  1024-49151 - Cổng đã Đăng ký, còn được gọi là Cổng Người dùng.
+  49152-65535 - Cổng động, còn được gọi là Cổng riêng.
+`
+### 1.4.2. Thực hiện kiểm tra một số các port
+
+- kiểm tra port bằng cat
+Câu lệnh : #cat /etc/service
+
+![](./Images/Report3/Port/1.1.png)
+
+Kiểm tra một service cụ thể , ví dụ kiểm tra ssh
+
+Câu lệnh #cat /etc/service | grep ssh
+
+![](./Images/Report3/Port/1.2.png)
+
+- kiểm tra port bằng netstat 
+
+ netstat là một công cụ dòng lệnh có thể cung cấp thông tin về các kết nối mạng. Để liệt kê tất cả các port TCP hoặc UDP đang được lắng nghe, bao gồm các dịch vụ sử dụng các port và trạng thái socket, hãy sử dụng lệnh sau: netstat -tunlp 
+ 
+ Trong đó: 
+    
+       -t – Hiển thị cổng TCP.
+       -u – Hiển thị cổng UDP.
+       -n – Hiển thị địa chỉ số.
+       -l – Chỉ hiển thị các cổng nghe.
+       -p – Hiển thị PID và tên của quá trình lắng nghe. Thông tin này chỉ được hiển thị nếu bạn chạy lệnh dưới dạng root hoặc sudo user.
+ 
+ ![](./Images/Report3/Port/1.3.png)
+
+ Muốn lọc kết quả sử dụng grep. Ví dụ xem port 80 sử dụng lệnh #netstat -tnlp | grep :80. Còn muốn biết service sshd đang chạy trên  port nào sử dụng lệnh :#netstat -tnlp | grep sshd
+ 
+ ![](./Images/Report3/Port/1.6.png)
+
+ - kiểm tra port với SS
+ 
+ ss là netstat mới. Nó thiếu một số tính năng netstat nhưng hiểm thị nhiều trạng thái TCP hơn và nó nhanh hơn một chút. Các tùy chọn lệnh hầu hết đều giống netstat nên việc chuyển đổi từ netstat sang ss không khó khăn.
+
+Để có danh sách tất cả các cổng với ss, bạn dùng lệnh sau: ss -tunlp
+
+ ![](./Images/Report3/Port/1.4.png)
+
+- Kiểm tra Port lsof
+
+lsof là một tiện ích dòng lệnh mạnh mẽ cung cấp thông tin về các tệp được mở bởi các quy trình. 
+
+Để có danh sách tất cả các cổng TCP đang listen dùng lệnh sau: lsof -nP -iTCP -sTCP:LISTEN
+
+trong đó: 
+
+      -n – Không chuyển đổi số cổng thành tên cổng.
+      -p – Hiển thị địa chỉ số.
+      -iTCP -sTCP: LISTEN – Chỉ hiển thị các tệp mạng với trạng thái TCP LISTEN.
+    
+   ![](./Images/Report3/Port/1.5.png)
+   
+Để tìm một cổng cụ thể. Ví dụ cổng 22: lsof -nP -iTCP:22 -sTCP:LISTEN
+
+   ![](./Images/Report3/Port/1.7.png)
+
 
 • Managing network devices
 
