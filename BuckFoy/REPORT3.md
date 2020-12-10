@@ -448,9 +448,90 @@ trong đó:
 
    ![](./Images/Report3/Port/1.7.png)
 
+<a name="15"> </a>
+## 1.5. Managing network devices
 
-• Managing network devices
+### 1.5.1. Khái niệm về NetworkManager
 
+NetworkManager là một công cụ hỗ trợ chúng ta việc quản lý và thiết lập mạng bằng cả dòng lệnh và giao diện đồ họa, cung cấp API thông qua D-Bus cho phép truy vấn và kiểm soát cấu hình mạng, hỗ trợ linh hoạt cấu hình. Ngoài ra, NetworkManager cũng có thể cấu hình bằng các tệp và Cockpit web console và nó hỗ trợ sử dụng các lệnh tùy chỉnh để bắt đầu hoặc dừng các dịch vụ dựa trên trạng thái kết nối.
+
+Để biết thêm thông tin về systemctl và NetworkManager chúng ta chạy lệnh sau:
+
+     [root@localhost ~]# man systemctl
+     [root@localhost ~]# man NetworkManager
+
+### 1.5.2 Cài đặt NetworkManager
+
+Để kiểm tra gói NetworkManager đã cài đặt trên hệ thống chưa? Dùng lệnh NetworkManager -V
+
+   ![](./Images/Report3/NetworkManager/1.1.png)
+
+Nếu chưa có thì cài đặt như sau: 
+   
+     #dnf intall NetworkManager
+ 
+### 1.5.3. Quản lý NetworkManager bằng systemctl
+
+- Để có thể kiểm tra xem công cụ NetworkManager có bắt đầu hoạt động và kích hoạt để có thể khởi động cùng lúc với hệ thống chúng ta có thể sử dụng các lệnh sau:  
+
+   ![](./Images/Report3/NetworkManager/1.2.png)
+
+Khi chúng ta cần kiểm tra trạng thái của NetworkManager chúng ta thực thi lệnh bên dưới:
+
+   ![](./Images/Report3/NetworkManager/1.3.png)
+
+### 1.5.4. Sử dụng NetworkManager và làm việc với tệp ifcfg
+
+- liệt  kê tất cả các thiết bị được phát hiện bởi  NetworkManager
+
+   ![](./Images/Report3/NetworkManager/1.5.png)
+
+- Để kiểm tra tất cả  các nết nối 
+
+   ![](./Images/Report3/NetworkManager/1.6.png)
+   ![](./Images/Report3/NetworkManager/1.7.png)
+   
+ - Xem và liệt kê tất cả các thiết bị có sẵn trên hệ thông Linux 
+ 
+    ![](./Images/Report3/NetworkManager/1.8.png)
+
+- Liệt jee tất cả các kết nối có sẵn thực thi lệnh
+
+   ![](./Images/Report3/NetworkManager/1.9.png)
+   
+ - Xem tất cả các giá trị của cấu hình của interface: ví dụ #nmcli con show ens33
+ 
+    ![](./Images/Report3/NetworkManager/1.10.png)
+
+- Kiểm tra hostname bằng nmcli
+
+   ![](./Images/Report3/NetworkManager/1.11.png)
+
+- Chỉnh sửa cấu hình kết nối sử dụng nmcli: #nmcli con edit ens33
+
+   ![](./Images/Report3/NetworkManager/1.12.png)
+   
+   ![](./Images/Report3/NetworkManager/1.13.png)
+
+Bây giờ cần xác minh thay đổi file cấu hình ens33
+
+   ![](./Images/Report3/NetworkManager/1.14.png)
+
+- So sánh sự khác biệt trong thiết lập địa chỉ  ipv4 sử dụng nmcli và tùy chỉnh trong file cấu hình
+
+Lệnh nmcli | File icfg | Chức năng |
+-----------| ---------- | --------- |
+ipv4.method manual | BOOTPROTO=none | Địa chỉ IPv4 cấu hình tĩnh |
+ipv4.method auto | BÔTPROTO=dhcp | Địa chỉ IPv4 được cấp tự động dựa trên DHCP của máy chu |
+ipv4.address 192.168.0.1 | GATEWAY=192.168.0.1 | Địa chỉ ipv4 gateway|
+ipv4.dns 8.8.8 | DNS1=8.8.8.8 |  sửa file /etc/resolv.conf để sử dụng DNS này |
+ip.dns-search google.com | DOMAIN=google.com | sửa file /etc/resolv.conf để sử dụng tên miền này trong tìm kiếm |
+ipv4.ignore-auto-dns true  | PEERDNS=no  | Bỏ qua thông tin DSN server từ DHCP server|
+connection.autoconnect yes | ONBOOT=yes  | Tự động kết nối inter net khi được khởi động |
+connection.id ens33 | NAME=ens33 | Đặt tên cho kết nối |
+connection.interface-name ens33 | DEVICE=ens33 | kết nối với liên kết network interface |
+802-3-ethernet.mac-address 00:0C:29:EF:47:7E| HWADDR=00:0C:29:EF:47:7E | Kết nới được liên kết với network interface có địa chỉ MAC |
+ipv4.never-default no | DEFROUTE=yé | Không sử dụng interface gateway làm default gateway |
 <a name="16"> </a>
 ## 1.6.  Hostnames and DNS
 
