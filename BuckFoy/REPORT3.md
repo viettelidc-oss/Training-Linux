@@ -10,9 +10,9 @@
 
 * [1.3. Network protocols](#p13)
 
-* [1.4. Network services and port numbers](#p14)
+* [1.4. Network services and port numbers](#14)
 
-* [Managing network devices](#p15)
+* [Managing network devices](#15)
 
 * [1.6 Hostnames and DNS](#16)
 
