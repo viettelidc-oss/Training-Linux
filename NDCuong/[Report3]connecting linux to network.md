@@ -205,34 +205,34 @@ NTP ( Network Time Protocol) là giao thức được sử dụng để đồng 
   - Cài đặt NTP: `apt install ntp`
   - Đặt nhóm máy chủ cung cấp thời gian theo khu vực Việt Nam: truy cập website ntppool.org, chọn khu vực Asia -> <a href="https://www.ntppool.org/zone/vn">VietNam</a>. 
   
-  > ![](./images/dns/pool.png)
+  > ![](./images/report3/pool.png)
   
-  > ![](./images/dns/poolasia.png)
+  > ![](./images/report3/poolasia.png)
   
-  > ![](./images/dns/poolvn.png)
+  > ![](./images/report3/poolvn.png)
   
   Sau đó mở file conf: `vi /etc/ntp/ntp.conf`
   
-  > ![](./images/dns/ntpconf.png)
+  > ![](./images/report3/ntpconf.png)
   
   Thay server nhận được ở trên vào file này
   
-  > ![](./images/dns/ntpconf1.png)
+  > ![](./images/report3/ntpconf1.png)
   
   - Lưu lại, restart lại ntp để áp dụng thay đổi. 
   
-  > ![](./images/dns/ntpstt.png)
+  > ![](./images/report3/ntpstt.png)
   
   - Cài đặt tường lửa cho phép truy cập qua port 123(port mặc định của ntp) `ufw allow 123`
   
 - Cài đặt và sử dụng NTP thủ công(client)
   - Cài đặt NTPdate: `apt install ntpdate`
   
-  > ![](./images/dns/ntpdate.png)
+  > ![](./images/report3/ntpdate.png)
   
   - Kết nối đến server để đồng bộ hóa thời gian : `ntpdate [ip/hostname]`
   
-  > ![](./images/dns/ntpdate1.png)
+  > ![](./images/report3/ntpdate1.png)
  
 - Cài đặt và sử dụng NTP đồng bộ tự động(client)
 
@@ -240,11 +240,11 @@ NTP ( Network Time Protocol) là giao thức được sử dụng để đồng 
   
   Sau đó mở file conf: `vi /etc/ntp/ntp.conf` và nhập địa chỉ ip của server
 
-  > ![](./images/dns/ntpcli.png)
+  > ![](./images/report3/ntpcli.png)
   
   - Restart ntp và kiểm tra
  
-  > ![](./images/dns/ntp.png)
+  > ![](./images/report3/ntp.png)
   
   
 ## 10. The time zone <a name="0"></a>
