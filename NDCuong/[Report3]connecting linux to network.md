@@ -191,9 +191,60 @@ Một số thiết bị mạng phổ biến:
   
   > ![](./images/dns/result2.png)
   
-  > Ví dụ trên đã thực hiện việc cấu hình máy chủ dns mô hình master-slave để biên dịch url "ze9hyrus.com" ra địa chỉ ip của server "192.168.142.131" để client có thể truy cập đến server thông qua ip đó. Trong hệ thống dns này, master server đóng vai trò máy chủ để biên dịch các url được cài đặt riêng thành các địa chỉ ip. Và  slave server là máy chủ dự phòng, nhận và biên dịch yêu cầu của client thay cho master server khi nó bị lỗi.
+  > Ví dụ trên đã thực hiện việc cấu hình máy chủ dns mô hình master-slave để biên dịch url "ze9hyrus.com" ra địa chỉ ip của server "192.168.142.131" để client có thể truy cập đến server thông qua ip đó. Trong hệ thống dns này, master server đóng vai trò máy chủ để biên dịch các url được cài đặt riêng thành các địa chỉ ip. Và  slave server là máy chủ dự phòng, nhận và biên dịch yêu cầu của client thay cho master server khi nó bị lỗi. 
 ## 7. Searching domains<a name="7"></a>
 
 ## 8. Routing under Linux<a name="8"></a>
 ## 9. Configuring network time<a name="9"></a>
+Đối với 1 hệ thống mạng máy tính, tính đồng bộ về thời gian giữa server-clients là cực kì quan trọng. Trong bảo mật, các giao thức mật khẩu một lần được sử dụng để xác thực hai yếu tố như Google Authenticator, RSA SecurID, v.v. yêu cầu sự đồng bộ về thời gian giữa client và server để xác thực. Hay khi quản trị hệ thống, có đồng hồ đồng bộ giúp làm việc dễ dàng hơn với các hệ thống khác nhau.
+
+#### Configuring network time with NTP
+NTP ( Network Time Protocol) là giao thức được sử dụng để đồng bộ hóa đồng hồ trên mạng máy tính chỉ vỏn vẹn trong vòng vài mini giây. Nó cho phép các thiết bị truy vấn và nhận UTC từ một máy chủ, nó sẽ nhận được thời gian chính xác nhất từ đồng hồ nguyên tử, cung cấp cho người dùng thời gian chính xác trên nhiều thiết bị khác nhau. Một mạng NTP bao gồm nhiều các thiết bị(client) được đồng bộ hóa và một server NTP – nhận thời gian UTC và cung cấp chúng tới cho client. Quá trình này chỉ diễn ra trong thời gian tính bằng mini giây, nhưng timestamp cho phép khách hàng tính toán độ trễ và tìm ra sự khác biệt giữa thời gian nội bộ và do server cung cấp, nó sẽ tự điều chỉnh khi cần thiết và duy trì việc đồng bộ hóa.
+
+- Cài đặt và cấu hình server NTP
+  - Cài đặt NTP: `apt install ntp`
+  - Đặt nhóm máy chủ cung cấp thời gian theo khu vực Việt Nam: truy cập website ntppool.org, chọn khu vực Asia -> <a href="https://www.ntppool.org/zone/vn">VietNam</a>. 
+  
+  > ![](./images/dns/pool.png)
+  
+  > ![](./images/dns/poolasia.png)
+  
+  > ![](./images/dns/poolvn.png)
+  
+  Sau đó mở file conf: `vi /etc/ntp/ntp.conf`
+  
+  > ![](./images/dns/ntpconf.png)
+  
+  Thay server nhận được ở trên vào file này
+  
+  > ![](./images/dns/ntpconf1.png)
+  
+  - Lưu lại, restart lại ntp để áp dụng thay đổi. 
+  
+  > ![](./images/dns/ntpstt.png)
+  
+  - Cài đặt tường lửa cho phép truy cập qua port 123(port mặc định của ntp) `ufw allow 123`
+  
+- Cài đặt và sử dụng NTP thủ công(client)
+  - Cài đặt NTPdate: `apt install ntpdate`
+  
+  > ![](./images/dns/ntpdate.png)
+  
+  - Kết nối đến server để đồng bộ hóa thời gian : `ntpdate [ip/hostname]`
+  
+  > ![](./images/dns/ntpdate1.png)
+ 
+- Cài đặt và sử dụng NTP đồng bộ tự động(client)
+
+  - Cài đặt NTP: `apt install ntp`
+  
+  Sau đó mở file conf: `vi /etc/ntp/ntp.conf` và nhập địa chỉ ip của server
+
+  > ![](./images/dns/ntpcli.png)
+  
+  - Restart ntp và kiểm tra
+ 
+  > ![](./images/dns/ntp.png)
+  
+  
 ## 10. The time zone <a name="0"></a>
