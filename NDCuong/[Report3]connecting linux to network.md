@@ -248,3 +248,21 @@ NTP ( Network Time Protocol) là giao thức được sử dụng để đồng 
   
   
 ## 10. The time zone <a name="0"></a>
+ Linux có một công cụ quản lý thời gian là timedatectl, có thể được sử dụng để truy vấn và thay đổi đồng hồ hệ thống cũng như cài đặt của nó, đồng thời bật hoặc tắt các dịch vụ đồng bộ hóa thời gian.
+ 
+ Để hiển thị time zone hiện tại của hệ thống: `timedatectl`
+ 
+ > ![](./images/report3/timezone.png)
+ 
+ Để thay đổi múi giờ: `timedatectl set-timezone [timezone]`
+ 
+ [timezone] có dạng Region/City, ví dụ `Asia/Ho_Chi_Minh`
+ 
+ > ![](./images/report3/settz.png)
+ 
+ Có thể xem sanh sách timezone được cung cấp bằng lệnh `timedatectl list-timezones`
+ 
+ > ![](./images/report3/listtz.png)
+ 
+ 
+ 
