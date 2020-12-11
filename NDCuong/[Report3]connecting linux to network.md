@@ -240,7 +240,7 @@ NTP ( Network Time Protocol) là giao thức được sử dụng để đồng 
   
   Sau đó mở file conf: `vi /etc/ntp/ntp.conf` và nhập địa chỉ ip của server
 
-  > ![](./images/report3/ntpcli.png)
+  > ![](./images/report3/ntpclient.png)
   
   - Restart ntp và kiểm tra
  
