@@ -211,7 +211,7 @@ NTP ( Network Time Protocol) là giao thức được sử dụng để đồng 
   
   > ![](./images/report3/poolvn.png)
   
-  Sau đó mở file conf: `vi /etc/ntp/ntp.conf`
+  Copy các server, sau đó mở file conf: `vi /etc/ntp/ntp.conf`
   
   > ![](./images/report3/ntpconf.png)
   
