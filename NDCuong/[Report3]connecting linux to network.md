@@ -232,7 +232,7 @@ NTP ( Network Time Protocol) là giao thức được sử dụng để đồng 
   
   - Kết nối đến server để đồng bộ hóa thời gian : `ntpdate [ip/hostname]`
   
-  Sau đó mở file conf: `vi /etc/ntp/ntp.conf`
+  > ![](./images/dns/ntpdate1.png)
  
 - Cài đặt và sử dụng NTP đồng bộ tự động(client)
 
