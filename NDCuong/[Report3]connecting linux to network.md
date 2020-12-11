@@ -58,7 +58,7 @@ Các bước cấu hình ip một cách thủ công trong hệ thống ubuntu:
     
     //error
     
-    > Hoặc sử dụng ifconfig cho mọi hệ thống ubuntu: `vi /etc/network/interfaces`
+    > Hoặc sử dụng ifconfig cho mọi hệ thống ubuntu: `vi /etc/network/interfaces` <a name="ifconfig"></a>
     
     > ![](./images/report3/dfif.png)
     
@@ -76,6 +76,7 @@ Các bước cấu hình ip một cách thủ công trong hệ thống ubuntu:
     - netmask, broadcast: 
     - dns-nameserver : ip của máy chủ định danh 
 
+Sau khi hoàn thành, reboot lại hệ thống để áp dụng cấu hình.
 ## 3. Network protocols<a name="3"></a>
 #### 3.1. Network protocol
 > Giao thức mạng(Network protocols) là một tập hợp các quy tắc được thiết lập để xác định cách dữ liệu được truyền giữa các thiết bị khác nhau trong cùng một mạng. Về cơ bản, nó cho phép các thiết bị được kết nối giao tiếp với nhau, bất kể bất kỳ sự khác biệt nào về quy trình, cấu trúc(phần cứng) hoặc thiết kế nội bộ của chúng.
@@ -149,7 +150,34 @@ Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng th�
 <a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configFTP.md"> Tiến hành cấu hình server</a>
  
 ## 4. Network services and port numbers<a name="4"></a>
+
+- Network services là các dịch vụ hỗ trợ các hoạt động mạng, thường được triển khai (hoặc cung cấp) cho mô hình server-clients (một server thường có nhiều hơn 1 network services) hoặc kiến trúc ngang hàng (peer-to-peer). Network services dựa trên các giao thức mạng chạy ở tầng ứng dụng(Application). Ví dụ như: DNS, FTP, HTTPS, DHCP, VoIP v.v.
+
+- Port numbers
+  - *Port* là điểm cuối của một giao tiếp (communication endpoint) trong mạng máy tính. Trong một hệ điều hành, *port* là một cấu trúc logic xác định một tiến trình(process) cụ thể hoặc một loại dịch vụ mạng(mỗi giao thức truyền tải xác định 1 *port* duy nhất trong 1 thời điểm). Các giao thức truyền tải phổ biến nhất sử dụng *port* là Giao thức điều khiển truyền (TCP) và Giao thức sơ đồ người dùng (UDP).
+  - **Port numbers** là số nguyên không dấu 16 bit, do đó nằm trong khoảng từ 0 đến 65535. Mỗi *port* được xác định địa chỉ dựa vào **port number**. **Port number** luôn được liên kết với địa chỉ IP của máy chủ và loại giao thức truyền tải được sử dụng để liên lạc. Nó hoàn thành địa chỉ mạng đích hoặc nguồn gốc của một tin nhắn. Đối với TCP, **port number** 0 được dành riêng và không thể được sử dụng, trong khi đối với UDP giá trị bằng 0 có nghĩa là không có cổng (tóm lại là đều k dùng được cổng 0).
+  
+  Lỗi ứng dụng phổ biến được gọi là port conflicts, xảy ra khi nhiều chương trình cố gắng sử dụng cùng một số cổng trên cùng một địa chỉ IP với cùng một giao thức.
+  - Common port numbers là các **port numbers** thường xuyên được sử dụng cho các dịch vụ, giao thức phổ biến, ví dụ như FTP sử dụng cổng 20 và 21, SSH sử dụng cổng 22 v.v. <a href="https://en.wikipedia.org/wiki/Port_(computer_networking)">Tham khảo</a>
+  
+ > Tổng quát: Port number là một số gán cho một chương trình, giao thức duy nhất trong một server, các client sẽ kết nối và giao tiếp với server thông qua cổng riêng dành cho giao thức đó
 ## 5. Managing network devices<a name="5"></a>
+Network devices là các thiết bị phần cứng được sử dụng để kết nối các thiết bị điện tử khác với mạng. Các thiết bị này truyền dữ liệu một cách nhanh chóng, an toàn và chính xác qua các mạng giống nhau hoặc khác nhau. Các thiết bị mạng có thể thực hiện kết nối liên mạng hoặc nội mạng. 
+
+Một số thiết bị mạng phổ biến:
+  - Modem: một thiết bị cho phép máy tính gửi hoặc nhận dữ liệu qua đường dây điện thoại hoặc đường cáp. Dữ liệu được lưu trữ trên máy tính là dữ liệu digital trong khi đường dây điện thoại hoặc dây cáp chỉ có thể truyền dữ liệu analog, do vậy chức năng chính của modem là chuyển đổi tín hiệu digital thành tín hiệu analog(modulator) và ngược lại(demodulator). 
+  - RJ45 Connector: chuẩn đầu nối vật lí của cáp Ethernet.
+  
+  > ![](./images/report3/RJ45.png)
+  
+  - Card Ethernet - network interface card (NIC) - là thành phần phần cứng được máy tính sử dụng để kết nối với mạng và giao tiếp với các thiết bị khác trong mạng LAN/Ethernet. Trong hệ thống máy tính hiện đại, NIC được tích hợp sẵn trong mainboard.
+  - Router, Switch, Wi-Fi Card v.v.
+
+- **Managing network devices** with ifupdown
+  - Cài đặt ifupdown:`apt install ifupdown`
+  - Kiểm tra cấu hình mạng hiện tại, config (/etc/network/interfaces) tương tự như [phần 2: IPv4 addressing](#ifconfig) 
+
+  
 ## 6. Hostnames and DNS<a name="6"></a>
 > DNS(Domain Name Servers) có nhiệm vụ dịch một tên miền thành địa chỉ IP để các máy tính sử dụng nhận dạng trên hệ thống mạng. Khi chúng ta truy cập vào trang web như google.com, địa chỉ URL này sẽ được biên dịch sang địa chỉ IP dạng số và truy cập tới trang web. DNS được áp dụng rất rộng rãi và phổ biến, đặc biệt trong việc giúp truy cập những trang web bị chặn 🙄(nhà mạng chặn ip trả về của máy chủ dns nên máy client k truy cập được), duy trì kết nối ổn định và tăng tốc độ kết nối mạng
  
@@ -165,6 +193,7 @@ Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng th�
   
   > Ví dụ trên đã thực hiện việc cấu hình máy chủ dns mô hình master-slave để biên dịch url "ze9hyrus.com" ra địa chỉ ip của server "192.168.142.131" để client có thể truy cập đến server thông qua ip đó. Trong hệ thống dns này, master server đóng vai trò máy chủ để biên dịch các url được cài đặt riêng thành các địa chỉ ip. Và  slave server là máy chủ dự phòng, nhận và biên dịch yêu cầu của client thay cho master server khi nó bị lỗi.
 ## 7. Searching domains<a name="7"></a>
+
 ## 8. Routing under Linux<a name="8"></a>
 ## 9. Configuring network time<a name="9"></a>
 ## 10. The time zone <a name="0"></a>
