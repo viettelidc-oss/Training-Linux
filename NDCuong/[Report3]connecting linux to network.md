@@ -225,6 +225,26 @@ NTP ( Network Time Protocol) là giao thức được sử dụng để đồng 
   
   - Cài đặt tường lửa cho phép truy cập qua port 123(port mặc định của ntp) `ufw allow 123`
   
-- Cài đặt và sử dụng NTP (client)
-  - Cài đặt NTP: `apt install ntpdate`
+- Cài đặt và sử dụng NTP thủ công(client)
+  - Cài đặt NTPdate: `apt install ntpdate`
+  
+  > ![](./images/dns/ntpdate.png)
+  
+  - Kết nối đến server để đồng bộ hóa thời gian : `ntpdate [ip/hostname]`
+  
+  Sau đó mở file conf: `vi /etc/ntp/ntp.conf`
+ 
+- Cài đặt và sử dụng NTP đồng bộ tự động(client)
+
+  - Cài đặt NTP: `apt install ntp`
+  
+  Sau đó mở file conf: `vi /etc/ntp/ntp.conf` và nhập địa chỉ ip của server
+
+  > ![](./images/dns/ntpcli.png)
+  
+  - Restart ntp và kiểm tra
+ 
+  > ![](./images/dns/ntp.png)
+  
+  
 ## 10. The time zone <a name="0"></a>
