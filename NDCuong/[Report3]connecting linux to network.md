@@ -140,14 +140,22 @@ Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng th�
  |Tính phụ thuộc|Phụ thuộc vào giao thức|Là 1 chuẩn giao thức độc lập|
  |Ưu điểm|Được sử dụng rộng rãi hơn, k chịu sự kiểm soát nên có thể tự do sử dụng, có khả năng tương thích với các mạng, hệ điều hành và phần cứng máy tính, hoạt động độc lập với hệ điều hành, có khả năng định tuyến, mở rộng và nhận định được đường dẫn tốt nhất thông qua mạng.|Phân thành nhiều tầng nhỏ và đơn giản, mỗi tầng có 1 cấu trúc và chức năng riêng nên dễ dàng xây dựng và sửa chữa, có thể tích hợp trong nhiều mạng lưới khác nhau|
  |Nhược điểm|Một tầng có nhiều chức năng nên phức tạp hơn, khó khăn trong việc thay thế các giao thức mới|Tầng Presentation và Session thường không được sử dụng nhiều so với các tầng khác vì chức năng hạn hẹp của nó, không hỗ trợ các giao thức, không định nghĩa bất kì giao thức nào, nhiều dịch vụ trùng lặp tại các tầng, các tầng không thể hoạt động song song, tầng dưới phải chờ dữ liệu từ tầng trên(và ngược lại)|
+
+  #### 3.5. Cài đặt và sử dụng giao thức FTP
+> FTP (File Transfer Protocol) là giao thức thường được dùng để trao đổi tập tin qua mạng lưới truyền thông dùng giao thức TCP/IP. Hoạt động của FTP cần có ít nhất hai máy tính, một máy chủ và một(hoặc nhiều) máy khách. Một khi hai máy đã liên kết với nhau, máy khách có thể thực hiện một số thao tác về tập tin, như tải tập tin lên máy chủ, tải xuống tập tin từ máy chủ, đổi tên hoặc xóa tập tin ở máy chủ v.v. Vì giao thức FTP là một giao thức chuẩn công khai nên bất cứ một công ty phần mềm nào hay một lập trình viên nào cũng có thể viết và sử dụng. Hầu như mọi nền tảng hệ điều hành nào cũng hỗ trợ giao thức FTP. Điều này cho phép tất cả các máy tính kết nối với một mạng lưới có nền TCP/IP, xử lý tập tin trên một máy tính khác trên cùng một mạng lưới, bất kể máy tính ấy dùng hệ điều hành nào. FTP thường chạy trên hai cổng, 20 và 21, và chỉ chạy riêng trên nền của TCP.
  
+ Để cài đặt và cấu hình server FTP trên hệ thống linux(ubuntu), có thể sử dụng công cụ vsftpd(Very Secure File Transport Protocol Daemon) -  server FTP độc lập - một cách đơn giản và nhanh chóng. Cài đặt vsftpd: `apt install vsftpd`
  
- #### 3.5. Cài đặt và sử dụng giao thức DNS 
- > DNS(Domain Name Servers) có nhiệm vụ dịch một tên miền thành địa chỉ IP để các máy tính sử dụng nhận dạng trên hệ thống mạng. Khi chúng ta truy cập vào trang web như google.com, địa chỉ URL này sẽ được biên dịch sang địa chỉ IP dạng số và truy cập tới trang web. DNS được áp dụng rất rộng rãi và phổ biến, đặc biệt trong việc giúp truy cập những trang web bị chặn 🙄(nhà mạng chặn ip trả về của máy chủ dns nên máy client k truy cập được), duy trì kết nối ổn định và tăng tốc độ kết nối mạng
+<a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configFTP.md"> Tiến hành cấu hình server</a>
+ 
+## 4. Network services and port numbers<a name="4"></a>
+## 5. Managing network devices<a name="5"></a>
+## 6. Hostnames and DNS<a name="6"></a>
+> DNS(Domain Name Servers) có nhiệm vụ dịch một tên miền thành địa chỉ IP để các máy tính sử dụng nhận dạng trên hệ thống mạng. Khi chúng ta truy cập vào trang web như google.com, địa chỉ URL này sẽ được biên dịch sang địa chỉ IP dạng số và truy cập tới trang web. DNS được áp dụng rất rộng rãi và phổ biến, đặc biệt trong việc giúp truy cập những trang web bị chặn 🙄(nhà mạng chặn ip trả về của máy chủ dns nên máy client k truy cập được), duy trì kết nối ổn định và tăng tốc độ kết nối mạng
  
  Cài đặt và cấu hình giao thức DNS với công cụ bind9:
   - Cài đặt bind9 : `apt install bind9 bind9-doc bind9utils`
-  -  <a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configDNS.md" target="_blank" >Cấu hình máy server</a>
+  -  <a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configDNS.md" target="blank" >Cấu hình máy server</a>
   - Kiểm tra server DNS bằng máy client: chỉ định máy chủ dns trong file resolv.conf `vi /etc/resolv.conf`
   > ![](./images/dns/rs2.png)
   
@@ -156,10 +164,6 @@ Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng th�
   > ![](./images/dns/result2.png)
   
   > Ví dụ trên đã thực hiện việc cấu hình máy chủ dns mô hình master-slave để biên dịch url "ze9hyrus.com" ra địa chỉ ip của server "192.168.142.131" để client có thể truy cập đến server thông qua ip đó. Trong hệ thống dns này, master server đóng vai trò máy chủ để biên dịch các url được cài đặt riêng thành các địa chỉ ip. Và  slave server là máy chủ dự phòng, nhận và biên dịch yêu cầu của client thay cho master server khi nó bị lỗi.
-  #### 3.6. Cài đặt và sử dụng giao thức FTP
-## 4. Network services and port numbers<a name="4"></a>
-## 5. Managing network devices<a name="5"></a>
-## 6. Hostnames and DNS<a name="6"></a>
 ## 7. Searching domains<a name="7"></a>
 ## 8. Routing under Linux<a name="8"></a>
 ## 9. Configuring network time<a name="9"></a>
