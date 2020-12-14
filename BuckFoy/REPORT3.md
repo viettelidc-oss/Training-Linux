@@ -949,10 +949,9 @@ sudo sed -i '/Storage/ c\Storage=persistent' /etc/systemd/journald.conf
   ![](./Images/Report3/Log/1.16.png)
 
   
-
 # 3.TROUBLESHOOTING <a name="P3"> </a>
 
-• The troubleshooting process
+## 3.1. The troubleshooting process
 
 ## 3.2. Booting the rescue system/recovery password <a name="32"> </a>
 
@@ -974,7 +973,7 @@ sudo sed -i '/Storage/ c\Storage=persistent' /etc/systemd/journald.conf
 
 – Thêm vào cuối dòng “linux16..” thông số sau.
  
- ![](./Images/Report3/trog/1.1.png)
+ ![](./Images/Report3/Trog/1.1.png)
  
  – Ấn Ctrl+X để lưu và tự động boot vào môi trường initramfs.
 
@@ -988,7 +987,7 @@ Bước 3: remount filesystem và chuyển chế độ chroot
  switch_root:/# mount -o remount, rw /sysroot
 switch_root:/# mount | grep -w “/sysroot
 `
- ![](./Images/Report3/trog/1.2.png)
+ ![](./Images/Report3/Trog/1.2.png)
 
 
 Lúc này filesystem đã được mount và ta sẽ chuyển đổi sang môi trường filesystem (prompt: sh-4.2#).
@@ -1001,7 +1000,7 @@ Bước 4: relabel SELINUX
 
 sh-4.2# touch /.autorelabel
 
-![](./Images/Report3/trog/1.3.png)
+![](./Images/Report3/Trog/1.3.png)
 
 Bước 4: relabel SELINUX
 
@@ -1011,6 +1010,6 @@ sh-4.2# touch /.autorelabel
 
 emount filesystem “/“ ở chế độ read-only.
 
-![](./Images/Report3/trog/1.4.png)
+![](./Images/Report3/Trog/1.4.png)
 
 Bạn sẽ thấy hệ thống reboot và chậm hơn bình thường , do hệ thống đang tiến hành hoạt động SELINUX relabel. Sau khi boot vào hệ thống prompt console thành công thì bạn có thể đăng nhập bằng mật khẩu mới.
