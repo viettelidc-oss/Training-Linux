@@ -759,9 +759,111 @@ NTP là một giao thức đồng bộ thời gian qua mạng, là một giao th
  ### 1.9.2. Cấu hình Timezone
  
  Trong centos, các tập tịn Timezone nằm ở thư mục /use/share/zoneinfo/, ca
-[2.SYSTEM LOGGING](#P2)
+ 
+ 
+ 
+## 2.SYSTEM LOGGING<a name='P2'> </a>
 
-• Rsyslog/syslog configuration
+### 2.1. Rsyslog/syslog configuration
+
+### 2.1.1. Khái niệm Syslog
+Syslog là một gói phần mềm trong hệ thống Linux nhằm để ghi bản tin log của hệ thống trong quá trình hoạt động như của kernel, deamon, cron, auth, hoặc các ứng dụng chạy trên hệ thống như http, dns, dhcp, ntp,..
+
+Ứng dụng của log:
+- Phân tích nguyên nhân gốc rễ của một vấn đề
+- Giúp cho việc khắc phục sự cố nhanh hơn khi hệ thống gặp vấn đề
+- Giúp cho việc phát hiện, dự đoán một vấn đề có thể xảy ra đối với hệ thống
+- ...
+
+Đối với các file ghi log các bạn có thể dùng một số lệnh sau để giúp cho việc xem log
+
+|Câu lệnh | Cú pháp |Ý nghĩa | Ghi chú thêm |
+|---------|---------|--------|--------------|
+|more | more [file] | Dùng xem toàn bộ nội dung của thư muc | Đối với câu lênh này nôi dung được xem theo từng trang. Bạn dung dấu "cách" để chuyển  trang |
+|tail | tail [file] | In ra 10 dòng cuối cùng nội dung của file | thêm tùy chọn -n [số dòng] sẽ in ra số dòng theo yêu cầu |
+|head | head [file] | In ra 10 dòng đầu tiên của nôi dụng file |
+|tail -f | tail -f [file] | Dùng để xem ngay lâp tức khi có log đến | Đây là câu lệnh dùng phổ biến nhất nó giúp ta có thể xem ngay lập tức log mới đến, và nó sẽ in ra 10 dong cuối cùng trong nội dung file đó |
+
+### 2.1.2 Nguồn tao ra log có thể liệt kê một số nguồn sau
+
+|Nguồn tạo log | Ý nghĩa |
+|--------------|---------|
+|kernel | Những log mà do kernel sinh ra |
+|auth hoặc authpriv | Log do quá trình đăng nhập hoặc xác thực tài khoản |
+|mail | Log của mail |
+|cron | Log do tiến trình cron trong hệ thống |
+|user | Log của đến từ ứng dụng của người dùng |
+|lpr | Log từ hệ thống in ấn |
+|deamon | Log từ các tiến trình chạy trên nền của hệ thống |
+|ftp | Log từ tiến trình ftp | 
+|local 0 -> local 7 | Log dự trữ cho sử dụng nội bộ |
+
+ #### 2.1.3. Mức cảnh báo:
+
+| Mức cảnh báo | Ý nghĩa |
+|--------------|---------|
+|emerg | Thông báo tình trạng khẩn cấp |
+|alert | Hệ thống cần can thiệp ngay |
+|crit | Tình trạng nguy kịch |
+|error | Thông báo lỗi đối với hệ thống |
+|warn | Mức cảnh báo đối với hệ thống |
+|notice | Chú ý đối với hệ thống |
+|info | Thông tin của hệ thống |
+|debug | Quá trình kiểm tra hệ thống |
+
+### 2.2. Rsyslog
+
+#### 2.2.1.  Khái niệm
+
+Rsyslog là một gói phần mềm trong hệ thống Linux nhằm để ghi bản tin log của hệ thống trong quá trình hoạt động như của kernel, deamon, cron, auth, hoặc các ứng dụng chạy trên hệ thống như HTTP, DNS, SSH,...
+
+#### 2.2.2. Cấu hình
+
+Bước 1: Chỉnh sửa trong file cấu hình /etc/rsyslog.conf của máy chủ Syslog-server để nó có thể nhận các bản tin log từ các client gửi về.
+
+Bỏ comment 2 dòng sau: bạn có thể lựa chọn sử dụng UDP hoặc TCP để cho phép server nhận các bản tin log thông qua giao thức UDP. Mặc định syslog sử dụng port 514 để gửi và nhận thông tin log. Ở đây mình sử dụng UDP.
+
+![](./Images/Report3/Log/1.1.png)
+
+Để máy chủ log tạo thành các thư mục lưu riêng log đối với từng máy Client gửi về thêm dòng này vào cuối file cấu hình:
+
+Cách 1: Thư mục lưu log client trả về sẽ là Ip-client
+
+    $template RemoteServer, "/var/log/%fromhost-ip%/%SYSLOGFACILITY-TEXT%.log"
+    *.* ?RemoteServer
+
+Cách 2: Thư mục lưu log client trả về sẽ là tên máy client
+
+    $template RemoteServer, "/var/log/%HOSTNAME%/%SYSLOGFACILITY-TEXT%.log"
+    *.* ?RemoteServer
+    
+  ![](./Images/Report3/Log/1.2.png)
+  
+ Bước 2. Mở Port 514
+ 
+ 
+![](./Images/Report3/Log/1.3.png)
+
+Bước 3: Khởi động lại Rsyslog-server của bạn và đảm bảo rằng nó hiện đang lắng nghe trên cổng 514 cho UDP hoặc TCP
+
+![](./Images/Report3/Log/1.4.png)
+
+Bước 4. Cấu hình Rsyslog Client
+
+Trên file /etc/rsyslog.conf
+
+![](./Images/Report3/Log/1.5.png)
+
+sau đó restart : systemctl restart rsyslog
+
+Bước 5. Trên Rsyslog server
+
+dùng tcpdump để kiểm tra
+
+![](./Images/Report3/Log/1.6.png)
+
+![](./Images/Report3/Log/1.7.png)
+
 
 • Testing using logger
 
