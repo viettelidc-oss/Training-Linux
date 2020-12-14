@@ -867,9 +867,88 @@ dùng tcpdump để kiểm tra
 
 • Testing using logger
 
-• Managing logs with logrotate
+### 2.3. Managing logs with logrotate
 
-• The systemd journal: journalctl
+### 2.3.1. Khái niệm về logrotate
+
+LOGROTATE là một tiện ích tuyệt vời trên Linux giúp đơn giản hóa việc quản lý log files trên hệ thống, bao gồm xoay vòng file log, di chuyển, nén, gửi tự động… Rotate (xoay vòng) ở đây có thể hiểu là tiến trình xử lý file log cũ theo quy định trước đó (xóa/nén/move) đồng thời tạo ra file log mới.
+
+Bằng cách thiết lập đơn giản nhưng chặt chẽ thông qua file cấu hình, Logrotate hoạt động một cách tự động, không cần can thiệp thủ công.
+
+### 2.3.2. Cấu hình  logrotate
+
+Cấu hình Logrotate được lưu tại /etc/logrotate.conf, chứa thông tin thiết lập toàn bộ log files mà Logrotate quản lý, bao gồm chu kì lặp, dung lượng file log, nén file…
+
+       # see "man logrotate" for details
+     # rotate log files weekly
+     weekly
+
+     # keep 4 weeks worth of backlogs
+     rotate 4
+
+     # create new (empty) log files after rotating old ones
+     create
+
+     # use date as a suffix of the rotated file
+     dateext
+
+     # uncomment this if you want your log files compressed
+     #compress
+
+     # RPM packages drop log rotation information into this directory
+     include /etc/logrotate.d
+
+     # no packages own wtmp and btmp -- we'll rotate them here
+     /var/log/wtmp {
+         monthly
+         create 0664 root utmp
+             minsize 1M
+         rotate 1
+     }
+
+     /var/log/btmp {
+         missingok
+         monthly
+         create 0600 root utmp
+         rotate 1
+     }
+
+     # system-specific logs may be also be configured here.
+     
+     
+   ![](./Images/Report3/Log/1.10.png)
+     
+     
+ ### 2.3. The systemd journal: journalctl
+
+##### 2.3.1. Khái niệm vè journalctl
+
+#### 2.3.2. Kiểm tra tính liên tục của nhật ký
+
+   ![](./Images/Report3/Log/1.13.png)
+   
+ Nếu có nhiều mục nhập ở đây, thì bạn không phải làm gì thêm. Điều đó có nghĩa là các nhật ký được lưu trên ổ đĩa (liên tục). Nếu bạn chỉ nhận được một mục nhập duy nhất, thì nhật ký không được ghi liên tục. Hãy thay đổi để nó được ghi liên tục.
+
+sudo sed -i '/Storage/ c\Storage=persistent' /etc/systemd/journald.conf
+#### 2.3.3. Nhật ký boot entry
+
+Để xem nhật ký cho lần boot hiện tại:
+
+    journalctl -b 0
+   
+  ![](./Images/Report3/Log/1.12.png)
+  
+  lọc log theo mức độ ưu tiên
+  
+  ![](./Images/Report3/Log/1.14.png)
+  
+  Lọc log theo đường dẫn
+  
+   ![](./Images/Report3/Log/1.15.png)
+
+  ![](./Images/Report3/Log/1.16.png)
+
+  
 
 [3.TROUBLESHOOTING](#P3)
 
