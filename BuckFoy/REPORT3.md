@@ -25,19 +25,19 @@
 
 [2.SYSTEM LOGGING](#P2)
 
-* [Rsyslog/syslog configuration](#21)
+* [2.1. Rsyslog/syslog configuration](#21)
 
-*  [Testing using logger](#22)
+*  [2.2. Testing using logger](#22)
 
-* [Managing logs with logrotate](#23)
+* [2.3. Managing logs with logrotate](#23)
 
-* [The systemd journal: journalctl](#24)
+* [2.4The systemd journal: journalctl](#24)
 
 [3.TROUBLESHOOTING](#P3)
 
-* [The troubleshooting process](#31)
+* [3.1 The troubleshooting process](#31)
 
-* [Booting the rescue system/recove7y password]((#31)
+* [3.2. Booting the rescue system/recove7y password]((#32)
 
 
 <a name="P1"> </a>
