@@ -867,7 +867,7 @@ dùng tcpdump để kiểm tra
 
 • Testing using logger
 
-### 2.3. Managing logs with logrotate
+### 2.3. Managing logs with logrotate <a name="23"> </a>
 
 ### 2.3.1. Khái niệm về logrotate
 
@@ -919,18 +919,18 @@ Cấu hình Logrotate được lưu tại /etc/logrotate.conf, chứa thông tin
    ![](./Images/Report3/Log/1.10.png)
      
      
- ### 2.3. The systemd journal: journalctl
+ ### 2.4. The systemd journal: journalctl <a name="24"> </a>
 
-##### 2.3.1. Khái niệm vè journalctl
+##### 2.4.1. Khái niệm vè journalctl
 
-#### 2.3.2. Kiểm tra tính liên tục của nhật ký
+#### 2.4.2. Kiểm tra tính liên tục của nhật ký
 
    ![](./Images/Report3/Log/1.13.png)
    
  Nếu có nhiều mục nhập ở đây, thì bạn không phải làm gì thêm. Điều đó có nghĩa là các nhật ký được lưu trên ổ đĩa (liên tục). Nếu bạn chỉ nhận được một mục nhập duy nhất, thì nhật ký không được ghi liên tục. Hãy thay đổi để nó được ghi liên tục.
 
 sudo sed -i '/Storage/ c\Storage=persistent' /etc/systemd/journald.conf
-#### 2.3.3. Nhật ký boot entry
+#### 24.3. Nhật ký boot entry
 
 Để xem nhật ký cho lần boot hiện tại:
 
@@ -950,8 +950,67 @@ sudo sed -i '/Storage/ c\Storage=persistent' /etc/systemd/journald.conf
 
   
 
-[3.TROUBLESHOOTING](#P3)
+# 3.TROUBLESHOOTING <a name="P3"> </a>
 
 • The troubleshooting process
 
-• Booting the rescue system/recovery password
+## 3.2. Booting the rescue system/recovery password <a name="32"> </a>
+
+ ### 3.2.1. Khôi phục lại mật khẩu
+ 
+ Bước 1: khởi động lại hệ thống, chỉnh sửa ‘grub2’
+ 
+– Khởi động lại hệ thống và tinh chỉnh chế độ GRUB2 ở màn hình boot GRUB2.
+
+– Bấm nút ESC để màn hình dừng lại, sau đó ấn nút ‘e’ để thực hiện chỉnh sửa.
+ 
+ ![](./Images/Report3/Trog/1.10.png)
+ 
+ Bước 2: chỉnh thông số entry cần thiết
+ 
+– Tìm đến dòng entry cấu hình “linux16” hoặc “linuxefi” đối với hệ thống UEFI.
+
+– Xoá 2 thông số “rhgb quiet” để kích hoạt log message hệ thống khi thực hiện đổi mật khẩu root.
+
+– Thêm vào cuối dòng “linux16..” thông số sau.
+ 
+ ![](./Images/Report3/trog/1.1.png)
+ 
+ – Ấn Ctrl+X để lưu và tự động boot vào môi trường initramfs.
+
+Bước 3: remount filesystem và chuyển chế độ chroot
+
+– Hệ thống filesystem hiện tại đang ở chế độ “read only” được mount ở thư mục /sysroot/, để thực hiện khôi phục mật khẩu root thì ta cần thêm quyền ghi (write) trên filesystem. Ta sẽ tiến hành remount lại filesystem /sysroot/ với quyền đọc-ghi (read-write).
+
+– Kiểm tra lại xem filesystem đã được remount quyền đọc-ghi hay chưa.
+ 
+ `
+ switch_root:/# mount -o remount, rw /sysroot
+switch_root:/# mount | grep -w “/sysroot
+`
+ ![](./Images/Report3/trog/1.2.png)
+
+
+Lúc này filesystem đã được mount và ta sẽ chuyển đổi sang môi trường filesystem (prompt: sh-4.2#).
+
+– Tiến hành reset password user root.
+
+
+Bước 4: relabel SELINUX
+– Chạy lệnh sau để update lại các thông số cấu hình SELINUX, nếu bạn có sử dụng SELINUX. Nguyên nhân khi ta update file /etc/passwd chứa mật khẩu thì các thông số SELINUX security contex sẽ khác nên cần update lại.
+
+sh-4.2# touch /.autorelabel
+
+![](./Images/Report3/trog/1.3.png)
+
+Bước 4: relabel SELINUX
+
+– Chạy lệnh sau để update lại các thông số cấu hình SELINUX, nếu bạn có sử dụng SELINUX. Nguyên nhân khi ta update file /etc/passwd chứa mật khẩu thì các thông số SELINUX security contex sẽ khác nên cần update lại.
+
+sh-4.2# touch /.autorelabel
+
+emount filesystem “/“ ở chế độ read-only.
+
+![](./Images/Report3/trog/1.4.png)
+
+Bạn sẽ thấy hệ thống reboot và chậm hơn bình thường , do hệ thống đang tiến hành hoạt động SELINUX relabel. Sau khi boot vào hệ thống prompt console thành công thì bạn có thể đăng nhập bằng mật khẩu mới.
