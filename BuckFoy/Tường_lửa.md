@@ -74,7 +74,9 @@ Việc Restart/Reload sẽ hủy bộ các thiết lập Runtime đồng thời 
 
 - kiểm tra trạng thái hoạt động : systemctl status firewalld
 
+![](./Images/Firewall/1.2.png)
 
+thiết lập 
 
 
 
