@@ -15,7 +15,7 @@ Nền tảng phần mềm bao gồm một nhóm các chức năng liên quan v�
 
 # 2. Kiến trúc openstack <a name="2"> </a>
 
-![](./OPENSTACK/TONGQUAN/Images/1.1.png)
+![](./Images/1.1.png)
 
 Kiến trúc tổng quan của OpenStack được chia thành 3 tầng:
 
@@ -51,7 +51,7 @@ Hybrid Cloud: mô hình lai giữa public cloud và private cloud
 
 Community Cloud: các dịch vụ được các công ty cùng hợp tác xây dựng và cung cấp cho cộng đồng sử dụng
 
-![](./OPENSTACK/TONGQUAN/Images/1.3.png)
+![](./Images/1.3.png)
 
 # 4. Đặc điểm của OpenStack <a name="4"></a>
 
