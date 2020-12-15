@@ -3,8 +3,11 @@ TÌM HIỂU VỀ OPENSTACK
 [1. Khái niệm về openstack](#P1)
 
 [2. Kiến trúc openstack](#2)
+
 [3. Mô hình](#P3)
+
 [4. Đặc điểm của OpenStack](#4)
+
 # 1. Khái niệm về openstack <a name="P1"> </a>
 
 Openstack là một platform mã nguồn mở dùng để triển khai điện toán đám mây, được phát triển theo mô hình Iaas, quản lý tài nguyên máy tính và cung cấp tài nguyên cho người dùng.
@@ -34,7 +37,7 @@ PaaS (Platform as a service): cung cấp nền tảng để phát triển ứng 
 
 SaaS (Software as a service): cung cấp khả năng truy cập phần mềm linh hoạt như HCM,CRM…
 
-![](./OPENSTACK/TONGQUAN/Images/1.2.png)
+![](./Images/1.2.png)
 
 - Mô hình triển khai
 
