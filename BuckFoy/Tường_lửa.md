@@ -66,7 +66,7 @@ Ví dụ, thêm quy tắc cho cả thiết lập Runtime và Permanent:
 Việc Restart/Reload sẽ hủy bộ các thiết lập Runtime đồng thời áp dụng thiết lập Permanent mà không hề phá vỡ các kết nối và session hiện tại. Điều này giúp kiểm tra hoạt động của các quy tắc trên tường lửa và dễ dàng khởi động lại nếu có vấn đề xảy ra.
 
 
-# 2. Cài đặt FirewallD 
+# 2. Cài đặt FirewallD <a name="P2> </a>
 
 - FirewallID được cài đặt mặc định trên Centos7. Nếu chưa có thì sử dụng câu lệnh sau: # yum install firewalld
 
@@ -76,9 +76,45 @@ Việc Restart/Reload sẽ hủy bộ các thiết lập Runtime đồng thời 
 
 ![](./Images/Firewall/1.2.png)
 
-thiết lập 
+thiết lập Firewalld khởi động cùng hệ thống
+
+![](./Images/Firewall/1.3.png)
+
+Dừng và vô hiệu hóa 
+
+      #systemctl stop firewalld
+      #systemctl disable firewalld
+   
+ # 3. Cấu hình firewalld <a name="P3"> </a>
+ 
+ ## 3.1. Thiết lập các Zone <a name="31"> </a>
+ 
+ - liệt kê tất cả các zone trong hệ thống : #firewall-cmd --get-zones
+ 
+ ![](./Images/Firewall/1.4.png)
+
+- kiểm tra zone mặc định
+
+![](./Images/Firewall/1.5.png)
+
+- kiểm tra zone active
+
+![](./Images/Firewall/1.6.png)
+
+- thay đổi zone mặc định thành home
+
+![](./Images/Firewall/1.7.png)
 
 
+## 3.2. Thiết lập các quy tắc <a name="32"> </a>
+
+- liệt kê  toàn bộ caccs quy  tắc của các zones : #firewall-cmd --list-all-zones
+
+![](./Images/Firewall/1.8.png)
+
+- Liệt kê toàn bộ các quy tắc mặc định và zone active
+
+![](./Images/Firewall/1.9.png)
 
 
 
