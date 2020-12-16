@@ -170,7 +170,7 @@ Ngoài ra, logger có thể dùng để thực hiện các lệnh (bằng dấu 
 
 
 
-## 3. Managing logs with logrotate
+## 3. Managing logs with logrotate<a name="3"></a>
 
 Logrotate là một tiện ích được sử dụng trong quản trị hệ thống, trong đó các file log được nén, di chuyển ( lưu trữ ), đổi tên hoặc xóa khi chúng quá cũ hoặc quá lớn, tránh việc quá nhiều log file sẽ khiến dung lượng ổ cứng bị quá tải cũng như gây khó khăn trong việc tìm kiếm thông tin cần thiết. Dữ liệu nhật ký mới đến được chuyển hướng vào một tệp mới mới (tại cùng một vị trí). 
 
@@ -244,5 +244,53 @@ Chạy thủ công logrotate để kiểm tra: `logrotate -vf /etc/logrotate.d/s
 
 
 
-#### 4. The systemd journal: journalctl
+## 4. The systemd journal: journalctl <a name="4"></a>
+
+Journalctl là một tiện ích hệ thống cung cấp khả năng truy vấn nội dung của systemd journal,  được sử dụng để xem các tệp nhật ký hệ thống.
+
+`journalctl` khi được gọi mà k có tham số bổ sung sẽ trả ra kết quả là tất cả log file theo thứ tự cũ nhất trước tiên. 
+
+
+
+> ![](./images/report3/journalctl.png)
+
+
+
+Để hiển thị các kết quả mới nhất trước, sử dụng tham số -r
+
+
+
+> ![](./images/report3/journalctl1.png)
+
+
+
+Để chỉnh sửa log file: `journalctl -f`
+
+
+
+Giới hạn số dòng hiển thị: ` journalctl -n [number]`
+
+
+
+> ![](./images/report3/journalctl2.png)
+
+
+
+Hiển thị theo mốc thời gian, ví dụ hiện thị trong vòng 1 giờ trước: `journalctl --since "1 hour ago"`...
+
+
+
+> ![](./images/report3/journalctl3.png)
+
+
+
+... hoặc từ ngày ... đến ngày ... : `journalctl --since "2020-12-14 20:00:00" --until "2020-12-16 20:00:00"` 
+
+
+
+> ![](./images/report3/journalctl4.png)
+
+
+
+<a href="https://landoflinux.com/linux_journalctl_examples.html">Tham khảo</a>
 
