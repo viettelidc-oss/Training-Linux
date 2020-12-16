@@ -1,10 +1,10 @@
 # SYSTEM STARTUP AND SHUTDOWN
-1. [System startup process](#startup)
-2. [The startup script framework](#startupscript)
-3. [Managing services using](#manaservice)
-4. [Starting and stopping services dynamically ](#servicedynamic)
-5. [Managing services with system/service/systemctl ](#systemctl)
-6. [Shutdown and rc](#shut)
+## 1. [System startup process](#startup)
+## 2. [The startup script framework](#startupscript)
+## 3. [Managing services using](#manaservice)
+## 4. [Starting and stopping services dynamically ](#servicedynamic)
+## 5. [Managing services with system/service/systemctl ](#systemctl)
+## 6. [Shutdown and rc](#shut)
 
 ## 1. System startup process <a name="startup"></a>
 Quá trình khởi động của hệ điều hành Linux từ lúc mở máy đến khi hiển thị màn hình đăng nhập bao gồm các bước:
@@ -134,21 +134,21 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
    Có nhiều cách để khởi động hay tắt service nào đó, 2 cách phổ biến là:
    - *Sử dụng systemctl*
    
-   Để khởi động/đóng service, sử dụng lệnh > systemctl [option] [service]
+   Để khởi động/đóng service, sử dụng lệnh `systemctl [option] [service]`
    
    Với [option] là start hoặc stop, [service] là tên service cần thao tác.
    
-   Để kiểm tra tình trạng của service: > systemctl status [service]
+   Để kiểm tra tình trạng của service: `systemctl status [service]`
    
    > ![](./images/report2/systemdctl1.png)
    
    - *Sử dụng command service của deb init-system-helpers*
    
-   Để khởi động/đóng service, sử dụng lệnh > service [service] [option] 
+   Để khởi động/đóng service, sử dụng lệnh `service [service] [option] `
    
    Với [option] là start hoặc stop, [service] là tên service cần thao tác.
    
-   Để kiểm tra tình trạng của service: > systemctl [service] status
+   Để kiểm tra tình trạng của service: `systemctl [service] status`
    
    > ![](./images/report2/service.png)
    ## 5. Managing services with systemctl <a name="systemctl"></a>
@@ -165,7 +165,7 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
    > ![](./images/report2/enableservice.png)
    - is-enabled, is-active, is-failed (kiểm tra trạng thái) trả về kết quả ngắn gọn trạng thái của service
    > ![](./images/report2/checkservice.png)
-   - Hiển thị danh sách service với command: > systemctl list-units [option]
+   - Hiển thị danh sách service với command: `systemctl list-units [option]`
    > ![](./images/report2/list-units.png)
    
    Chú thích:
