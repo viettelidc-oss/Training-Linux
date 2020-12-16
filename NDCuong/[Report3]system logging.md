@@ -42,7 +42,7 @@ Khởi tạo template có tên precise, sau đó đặt precise làm template m�
 
 	- {%syslogpriority%,%syslogfacility%} là mức độ ưu tiên (priority levels: facility levels and severity levels)
 	- %timegenerated% %HOSTNAME% là phần Header, gồm timestamp và hostname
-	- %syslogtag% %msg% là phần chứ nội dung của log, gồm tag và message
+	- %syslogtag% %msg% là phần chứa nội dung của log, gồm tag và message
 
 Sau khi thay đổi, Syslog message format trả ra kết quả:
 
@@ -133,3 +133,116 @@ Sau đó thực hiện 1 hành động từ client (ví dụ restart lại servi
 
 
 > ![](./images/report3/syslog5.png)
+
+
+
+## 2. Testing using logger<a name="2"></a>
+
+`logger` là command dùng để ghi vào cuối file /var/log/syslog. Ví dụ `logger write to rsyslog` sẽ có kết quả:
+
+
+
+> ![](./images/report3/logger.png)
+
+
+
+Ngoài ra, logger có thể dùng để thực hiện các lệnh (bằng dấu "`")...
+
+
+
+> ![](./images/report3/logger2.png)
+>
+> ![](./images/report3/logger1.png)
+
+
+
+... hoặc ghi dữ liệu từ một file vào /var/log/syslog (`logger -f [file]`)...
+
+
+
+> ![](./images/report3/logger3.png)
+>
+> ![](./images/report3/logger4.png)
+
+
+
+... và nhiều <a href="http://manpages.ubuntu.com/manpages/bionic/man1/logger.1.html">option khác</a>
+
+
+
+## 3. Managing logs with logrotate
+
+Logrotate là một tiện ích được sử dụng trong quản trị hệ thống, trong đó các file log được nén, di chuyển ( lưu trữ ), đổi tên hoặc xóa khi chúng quá cũ hoặc quá lớn, tránh việc quá nhiều log file sẽ khiến dung lượng ổ cứng bị quá tải cũng như gây khó khăn trong việc tìm kiếm thông tin cần thiết. Dữ liệu nhật ký mới đến được chuyển hướng vào một tệp mới mới (tại cùng một vị trí). 
+
+Bằng cách thiết lập đơn giản nhưng chặt chẽ thông qua file cấu hình, Logrotate hoạt động một cách tự động, không cần can thiệp thủ công.
+
+Logrotate thường có sẵn trên hệ thống, nếu k sử dụng lệnh `apt install logratate` để cài đặt. File cấu hình logrotate được lưu tại /etc/logrotate.conf
+
+
+
+>  ![](./images/report3/logrotate.png)
+
+
+
+#### Rotate log file
+
+Thông tin cấu hình log file của từng ứng dụng cụ thể được lưu tại `/etc/logrotate.d/`. Ví dụ tạo file rotate cho ssh: `vi /etc/logrotate.d/ssh`
+
+Có thể chỉ định rotate cụ thể một hay nhiều file log với đường dẫn tuyệt đối của file log đó, phân biệt danh sách các log file cụ thể bằng khoảng trắng. Ví dụ:
+
+`/var/log/auth.log`
+
+hoặc
+
+`/var/log/auth.log /var/log/syslog`
+
+Options:
+
+ - Thời gian: có 4 giá trị cấu hình tương ứng với khoảng thời gian log file sẽ được rotate.
+   	- Daily: mỗi ngày
+   - Weekly: mỗi đầu tuần
+   - Monthly: mỗi đầu tháng
+   - Yearly: mỗi năm
+- Size: có thể quy định tiến trình rotate dựa vào dung lượng file, ví dụ nếu file đó đạt dung lượng 100mb thì tiến hành rotate. Rotate theo dung lượng sẽ được ưu tiên hơn theo thời gian. Các đơn vị kích thước file có thể sử dụng là K, M, G.
+  - size 100k
+  - size 100M
+  - size 1G
+- Missingok: nếu file log bị mất hoặc không tồn tại *.log thì logrotate sẽ tự động di chuyển tới phần cấu hình log của file log khác mà không cần phải xuất ra thông báo lỗi. Ngược lại sẽ là cấu hình `nomissingok` 
+- Notifempty: không rotate log nếu file log này trống.
+- rotate [number]: Quy định số lượng log file cũ đã được giữ lại sau khi rotate. Ví dụ: `rotate7` giữ lại 7 file log cũ. Trường hợp đã có đủ 7 file log cũ thì file cũ nhất sẽ bị xóa đi để chứa file log mới được tạo.
+- Compress:  nén tất cả các file log lại sau khi đã được rotate, mặc định bằng gzip. Nếu muốn sử dụng dạng nén khác (ví dụ: zip) thì khai báo `Compresscmd zip`
+
+
+
+Có thể thực thi các lệnh trước hoặc sau khi rotate, thường được dùng để restart dịch vụ sử dụng file log, tránh gián đoạn dịch vụ cũng như việc ghi log. 
+
+- Để thực thi lệnh trước khi rotate, đặt khối lệnh giữa 2 từ khóa `prerotate` và ` endscript`. Ví dụ :
+
+  ```
+  Prerotate
+  service ssh stop
+  Endscript
+  ```
+
+- Để thực thi lệnh sau khi rotate, đặt khối lệnh giữa 2 từ khóa `postrotate` và ` endscript`. Ví dụ :
+
+  ```
+  Postrotate
+  service ssh start
+  Endscript
+  ```
+
+
+
+> ![](./images/report3/logrotate1.png)
+
+
+
+Chạy thủ công logrotate để kiểm tra: `logrotate -vf /etc/logrotate.d/ssh` (-v để hiển thị quá trình, -f để chạy thủ công)
+
+> ![](./images/report3/logrotate2.png)
+
+
+
+#### 4. The systemd journal: journalctl
+
