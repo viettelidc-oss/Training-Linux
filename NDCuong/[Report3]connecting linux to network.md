@@ -24,7 +24,7 @@
   - Cấu hình máy chủ: Thiết lập kết nối mạng trên máy tính bằng cách ghi lại cài đặt mạng như địa chỉ IP, proxy, tên mạng, ID/password để kích hoạt kết nối mạng và giao tiếp: Đăng nhập vào mạng thông qua id/password của router(nếu có) -> cài đặt địa chỉ ip, proxy, dns v.v.
   - Cấu hình phần mềm: Thiết lập các phần mềm sử dụng kết nối: thiết lập theo yêu cầu của từng phần mềm
   - Các cấu hình khác như internet, network sharing, firewall v.v.
- 
+
 
 ## 2. IPv4 addressing (dhcp/static) <a name="2"></a>
 > Giao thức Internet phiên bản 4 (IPv4/Internet Protocol version 4) là phiên bản thứ tư trong quá trình phát triển của các giao thức Internet (IP). Đây là phiên bản đầu tiên của IP được sử dụng rộng rãi. IPv4 cùng với IPv6 là nòng cốt của giao tiếp internet. Hiện tại, IPv4 vẫn là giao thức được triển khai rộng rãi nhất trong bộ giao thức của lớp internet.
@@ -99,11 +99,11 @@ Các giao thức mạng có ba hành động chính: giao tiếp(Communication),
   
   #### 3.2. Mô hình OSI
  > Mô hình OSI (Open Systems Interconnection Reference Model)còn được gọi với cái tên: mô hình kết nối hệ thống mở.Khác với TCP/IP(là mô hình được phát triển dựa trên giao thức), OSI là một chuẩn giao thức độc lập. Mô hình này chia giao tiếp mạng thành 7 lớp. Trong đó, lớp 1 đến 4 là những cấp thấp và chỉ thực hiện nhiệm vụ truyền tải dữ liệu. Lớp 5 đến lớp 7 sẽ là lớp cấp cao, có nhiệm vụ đặc phù, xử lý các vấn đề ứng dụng và tham gia vào chuỗi mắt xích truyền tải dữ liệu đến những lớp tiếp theo.
- 
+
  > ![](./images/report3/osi.png)
- 
+
  Mô hình OSI phân chia chức năng của một giao thức ra thành một chuỗi các tầng cấp. Một hệ thống cài đặt các giao thức bao gồm một chuỗi các tầng nói trên được gọi là "chồng giao thức" (protocol stack).  Chồng giao thức có thể được cài đặt trên phần cứng, hoặc phần mềm, hoặc là tổ hợp của cả hai. Thông thường thì chỉ có những tầng thấp hơn là được cài đặt trong phần cứng, còn những tầng khác được cài đặt trong phần mềm. Mỗi một tầng cấp có một đặc tính là nó chỉ sử dụng chức năng của tầng dưới nó, đồng thời chỉ cho phép tầng trên sử dụng các chức năng của mình. Mỗi tầng đảm nhiệm một công việc rất cụ thể và sau đó chuyển dữ liệu cho tầng tiếp theo.
- 
+
  Mộ hình OSI gồm 7 tầng:
   - Tầng vật lý (Physical) : truyền tải luồng bit, xung điện, tín hiệu radio hoặc ánh sáng thong qua mạng ở mức điện hoặc máy móc. Nó chỉ đến các chi tiết kỹ thuật của phần cứng. Lớp vật lý định nghĩa các đặc điểm như định thời và điện áp. Lớp này cũng định nghĩa các chi tiết kỹ thuật phần cứng được sử dụng bởi các adapter mạng và bởi cáp mạng. Để đơn giản hóa, lớp vật lý định nghĩa những gì để nó có thể truyền phát và nhận dữ liệu.
   - Tầng Data Link: các gói dữ liệu được mã hóa thành các bit. Nó cho biết giao thức truyền tải, quản lý và xử lý lỗi trong lớp vật lý Physical, điều khiển luồng và đồng bộ khung. Lớp liên kết dữ liệu Data Link có thể được chia nhỏ thành hai lớp khác; Media Access Control (MAC) và Logical Link Control (LLC). MAC về cơ bản thiết lập sự nhận dạng của môi trường trên mạng thông qua địa chỉ MAC(được gán cho adapter mạng ở mức phần cứng) của nó. Đây là địa chỉ được sử dụng cuối cùng khi gửi và nhận các gói. Lớp LLC điều khiển sự đồng bộ khung, điều khiển luồng và cung cấp một mức kiểm tra lỗi.
@@ -112,9 +112,9 @@ Các giao thức mạng có ba hành động chính: giao tiếp(Communication),
   - Tầng Session: khi dữ liệu đã được biến đổi thành định dạng chuẩn, máy gửi đi sẽ thiết lập một phiên – session với máy nhận. Đây chính là tầng sẽ đồng bộ hoá quá trình liên lạc của hai máy và quản lý việc trao đổi dữ liệu. Tầng này chịu trách nhiệm cho việc thiết lập, quản lý và chấm dứt session với máy từ xa. 
   - Tầng Presentation: lấy dữ liệu đã được cung cấp bởi tầng ứng dụng(Application), biến đổi chúng thành một định dạng chuẩn để tầng khác có thể hiểu được định dạng này. Tương tự như vậy tầng này cũng biến đổi dữ liệu mà nó nhận được từ tầng session thành dữ liệu mà tầng Application có thể hiểu được. Lý do lớp này cần thiết đến vậy là vì các ứng dụng khác nhau có dữ liệu khác nhau. Để việc truyền thông mạng được thực hiện đúng cách thì dữ liệu cần phải được cấu trúc theo một chuẩn nào đó.
   - Tầng Application: hỗ trợ ứng dụng và các tiến trình liên quan đến người dùng cuối. Đối tác truyền thông, chất lượng dịch vụ, xác thực người dùng, quyền riêng tư và bất cứ ràng buộc nào về cú pháp dữ liệu sẽ được xem xét và xác định tại lớp này. Tất cả mọi thứ ở tầng này được cụ thể thành ứng dụng. Lớp này cung cấp các dịch vụ ứng dụng cho truyền file, email và các dịch vụ phần mềm mạng khác. Telnet, FTP là các ứng dụng nằm hoàn toàn trong trong tầng Application.
-  
+
   > Khi quá trình truyền dữ liệu bắt đầu, dữ liệu sẽ đi từ tầng Application đi dần xuống tầng Physical của máy gửi, sau đó được truyền sang máy nhận và đi ngược từ tầng Physical lên Application.
-  
+
 
 #### 3.3. Mô hình TCP/IP
 > TCP/IP (Transmission Control Protocol và Internet Protocol- giao thức điều khiển giao vận dữ liệu và giao thức kết nối internet) là giao thức mà hầu hết các mạng máy tính ngày nay đều sử dụng để kết nối. Cơ chế hoạt động của mô hình này là IP đóng vai trò kết nối và TCP truyền dữ liệu giữa các thiết bị đã được kết nối và kiểm soát dữ liệu được truyền đi đó, đảm bảo rằng dữ liệu được truyền đi 1 cách đầy đủ, toàn vẹn
@@ -129,26 +129,26 @@ Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng th�
 
  #### 3.4. So sánh TCP/IP và OSI
  > Mô hình TCP/IP và OSI có một số đặc điểm chung như đều sử dụng cấu trúc phân tầng, cùng sử dụng kỹ thuật chuyển dữ liệu dạng Packet
- 
+
  Bảng so sánh:
- |Nội dung|TCP/IP|OSI|
- |--------|------|---|
- |Mức độ phổ biến|Được chuẩn hóa, là lựa chọn đáng tin cậy hơn OSI và được sử dụng phổ biến trên toàn cầu|Là mô hình có trên hệ điều hành Window và hầu hết các hệ điều hành mạng khác, tuy nhiên nhiều người cho rằng đây là mô hình cũ, chỉ để tham khảo, số người sử dụng hạn chế hơn so với TCP/IP|
- |Tính quy tắc|Cho phép “nới lỏng” các quy tắc, cung cấp các nguyên tắc chung được đáp ứng|Giao thức và ranh giới chặt chẽ|
- |Phương pháp tiếp cận|Chiều ngang|Chiều dọc|
- |Mô hình phân tầng|4 tầng, tầng Application đảm nhiệm chức năng Presentation và Session|7 tầng và mỗi tầng thực hiện 1 chức năng riêng biệt|
- |Thiết kế|Thiết kế giao thức trước, sau đó mô hình được phát triển dựa theo giao thức|Thiết kế mô hình trước và giao thức được xây dựng theo các tầng của mô hình|
- |Tính phụ thuộc|Phụ thuộc vào giao thức|Là 1 chuẩn giao thức độc lập|
- |Ưu điểm|Được sử dụng rộng rãi hơn, k chịu sự kiểm soát nên có thể tự do sử dụng, có khả năng tương thích với các mạng, hệ điều hành và phần cứng máy tính, hoạt động độc lập với hệ điều hành, có khả năng định tuyến, mở rộng và nhận định được đường dẫn tốt nhất thông qua mạng.|Phân thành nhiều tầng nhỏ và đơn giản, mỗi tầng có 1 cấu trúc và chức năng riêng nên dễ dàng xây dựng và sửa chữa, có thể tích hợp trong nhiều mạng lưới khác nhau|
- |Nhược điểm|Một tầng có nhiều chức năng nên phức tạp hơn, khó khăn trong việc thay thế các giao thức mới|Tầng Presentation và Session thường không được sử dụng nhiều so với các tầng khác vì chức năng hạn hẹp của nó, không hỗ trợ các giao thức, không định nghĩa bất kì giao thức nào, nhiều dịch vụ trùng lặp tại các tầng, các tầng không thể hoạt động song song, tầng dưới phải chờ dữ liệu từ tầng trên(và ngược lại)|
+|Nội dung|TCP/IP|OSI|
+|--------|------|---|
+|Mức độ phổ biến|Được chuẩn hóa, là lựa chọn đáng tin cậy hơn OSI và được sử dụng phổ biến trên toàn cầu|Là mô hình có trên hệ điều hành Window và hầu hết các hệ điều hành mạng khác, tuy nhiên nhiều người cho rằng đây là mô hình cũ, chỉ để tham khảo, số người sử dụng hạn chế hơn so với TCP/IP|
+|Tính quy tắc|Cho phép “nới lỏng” các quy tắc, cung cấp các nguyên tắc chung được đáp ứng|Giao thức và ranh giới chặt chẽ|
+|Phương pháp tiếp cận|Chiều ngang|Chiều dọc|
+|Mô hình phân tầng|4 tầng, tầng Application đảm nhiệm chức năng Presentation và Session|7 tầng và mỗi tầng thực hiện 1 chức năng riêng biệt|
+|Thiết kế|Thiết kế giao thức trước, sau đó mô hình được phát triển dựa theo giao thức|Thiết kế mô hình trước và giao thức được xây dựng theo các tầng của mô hình|
+|Tính phụ thuộc|Phụ thuộc vào giao thức|Là 1 chuẩn giao thức độc lập|
+|Ưu điểm|Được sử dụng rộng rãi hơn, k chịu sự kiểm soát nên có thể tự do sử dụng, có khả năng tương thích với các mạng, hệ điều hành và phần cứng máy tính, hoạt động độc lập với hệ điều hành, có khả năng định tuyến, mở rộng và nhận định được đường dẫn tốt nhất thông qua mạng.|Phân thành nhiều tầng nhỏ và đơn giản, mỗi tầng có 1 cấu trúc và chức năng riêng nên dễ dàng xây dựng và sửa chữa, có thể tích hợp trong nhiều mạng lưới khác nhau|
+|Nhược điểm|Một tầng có nhiều chức năng nên phức tạp hơn, khó khăn trong việc thay thế các giao thức mới|Tầng Presentation và Session thường không được sử dụng nhiều so với các tầng khác vì chức năng hạn hẹp của nó, không hỗ trợ các giao thức, không định nghĩa bất kì giao thức nào, nhiều dịch vụ trùng lặp tại các tầng, các tầng không thể hoạt động song song, tầng dưới phải chờ dữ liệu từ tầng trên(và ngược lại)|
 
   #### 3.5. Cài đặt và sử dụng giao thức FTP
 > FTP (File Transfer Protocol) là giao thức thường được dùng để trao đổi tập tin qua mạng lưới truyền thông dùng giao thức TCP/IP. Hoạt động của FTP cần có ít nhất hai máy tính, một máy chủ và một(hoặc nhiều) máy khách. Một khi hai máy đã liên kết với nhau, máy khách có thể thực hiện một số thao tác về tập tin, như tải tập tin lên máy chủ, tải xuống tập tin từ máy chủ, đổi tên hoặc xóa tập tin ở máy chủ v.v. Vì giao thức FTP là một giao thức chuẩn công khai nên bất cứ một công ty phần mềm nào hay một lập trình viên nào cũng có thể viết và sử dụng. Hầu như mọi nền tảng hệ điều hành nào cũng hỗ trợ giao thức FTP. Điều này cho phép tất cả các máy tính kết nối với một mạng lưới có nền TCP/IP, xử lý tập tin trên một máy tính khác trên cùng một mạng lưới, bất kể máy tính ấy dùng hệ điều hành nào. FTP thường chạy trên hai cổng, 20 và 21, và chỉ chạy riêng trên nền của TCP.
- 
+
  Để cài đặt và cấu hình server FTP trên hệ thống linux(ubuntu), có thể sử dụng công cụ vsftpd(Very Secure File Transport Protocol Daemon) -  server FTP độc lập - một cách đơn giản và nhanh chóng. Cài đặt vsftpd: `apt install vsftpd`
- 
+
 <a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configFTP.md"> Tiến hành cấu hình server</a>
- 
+
 ## 4. Network services and port numbers<a name="4"></a>
 
 - Network services là các dịch vụ hỗ trợ các hoạt động mạng, thường được triển khai (hoặc cung cấp) cho mô hình server-clients (một server thường có nhiều hơn 1 network services) hoặc kiến trúc ngang hàng (peer-to-peer). Network services dựa trên các giao thức mạng chạy ở tầng ứng dụng(Application). Ví dụ như: DNS, FTP, HTTPS, DHCP, VoIP v.v.
@@ -167,9 +167,9 @@ Network devices là các thiết bị phần cứng được sử dụng để k
 Một số thiết bị mạng phổ biến:
   - Modem: một thiết bị cho phép máy tính gửi hoặc nhận dữ liệu qua đường dây điện thoại hoặc đường cáp. Dữ liệu được lưu trữ trên máy tính là dữ liệu digital trong khi đường dây điện thoại hoặc dây cáp chỉ có thể truyền dữ liệu analog, do vậy chức năng chính của modem là chuyển đổi tín hiệu digital thành tín hiệu analog(modulator) và ngược lại(demodulator). 
   - RJ45 Connector: chuẩn đầu nối vật lí của cáp Ethernet.
-  
+
   > ![](./images/report3/RJ45.png)
-  
+
   - Card Ethernet - network interface card (NIC) - là thành phần phần cứng được máy tính sử dụng để kết nối với mạng và giao tiếp với các thiết bị khác trong mạng LAN/Ethernet. Trong hệ thống máy tính hiện đại, NIC được tích hợp sẵn trong mainboard.
   - Router, Switch, Wi-Fi Card v.v.
 
@@ -180,21 +180,24 @@ Một số thiết bị mạng phổ biến:
   
 ## 6. Hostnames and DNS<a name="6"></a>
 > DNS(Domain Name Servers) có nhiệm vụ dịch một tên miền thành địa chỉ IP để các máy tính sử dụng nhận dạng trên hệ thống mạng. Khi chúng ta truy cập vào trang web như google.com, địa chỉ URL này sẽ được biên dịch sang địa chỉ IP dạng số và truy cập tới trang web. DNS được áp dụng rất rộng rãi và phổ biến, đặc biệt trong việc giúp truy cập những trang web bị chặn 🙄(nhà mạng chặn ip trả về của máy chủ dns nên máy client k truy cập được), duy trì kết nối ổn định và tăng tốc độ kết nối mạng
- 
+
  Cài đặt và cấu hình giao thức DNS với công cụ bind9:
   - Cài đặt bind9 : `apt install bind9 bind9-doc bind9utils`
   -  <a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configDNS.md" target="blank" >Cấu hình máy server</a>
   - Kiểm tra server DNS bằng máy client: chỉ định máy chủ dns trong file resolv.conf `vi /etc/resolv.conf`
   > ![](./images/dns/rs2.png)
-  
+
   Và kiểm tra kết quả: `nslookup ze9hyrus.com`
-  
+
   > ![](./images/dns/result2.png)
-  
+
   > Ví dụ trên đã thực hiện việc cấu hình máy chủ dns mô hình master-slave để biên dịch url "ze9hyrus.com" ra địa chỉ ip của server "192.168.142.131" để client có thể truy cập đến server thông qua ip đó. Trong hệ thống dns này, master server đóng vai trò máy chủ để biên dịch các url được cài đặt riêng thành các địa chỉ ip. Và  slave server là máy chủ dự phòng, nhận và biên dịch yêu cầu của client thay cho master server khi nó bị lỗi. 
 ## 7. Searching domains<a name="7"></a>
 
 ## 8. Routing under Linux<a name="8"></a>
+
+
+
 ## 9. Configuring network time<a name="9"></a>
 Đối với 1 hệ thống mạng máy tính, tính đồng bộ về thời gian giữa server-clients là cực kì quan trọng. Trong bảo mật, các giao thức mật khẩu một lần được sử dụng để xác thực hai yếu tố như Google Authenticator, RSA SecurID, v.v. yêu cầu sự đồng bộ về thời gian giữa client và server để xác thực. Hay khi quản trị hệ thống, có đồng hồ đồng bộ giúp làm việc dễ dàng hơn với các hệ thống khác nhau.
 
@@ -233,7 +236,7 @@ NTP ( Network Time Protocol) là giao thức được sử dụng để đồng 
   - Kết nối đến server để đồng bộ hóa thời gian : `ntpdate [ip/hostname]`
   
   > ![](./images/report3/ntpdate1.png)
- 
+
 - Cài đặt và sử dụng NTP đồng bộ tự động(client)
 
   - Cài đặt NTP: `apt install ntp`
@@ -243,26 +246,26 @@ NTP ( Network Time Protocol) là giao thức được sử dụng để đồng 
   > ![](./images/report3/ntpclient.png)
   
   - Restart ntp và kiểm tra
- 
+
   > ![](./images/report3/ntp.png)
   
   
 ## 10. The time zone <a name="0"></a>
  Linux có một công cụ quản lý thời gian là timedatectl, có thể được sử dụng để truy vấn và thay đổi đồng hồ hệ thống cũng như cài đặt của nó, đồng thời bật hoặc tắt các dịch vụ đồng bộ hóa thời gian.
- 
+
  Để hiển thị time zone hiện tại của hệ thống: `timedatectl`
- 
+
  > ![](./images/report3/timezone.png)
- 
+
  Để thay đổi múi giờ: `timedatectl set-timezone [timezone]`
- 
+
  [timezone] có dạng Region/City, ví dụ `Asia/Ho_Chi_Minh`
- 
+
  > ![](./images/report3/settz.png)
- 
+
  Có thể xem sanh sách timezone được cung cấp bằng lệnh `timedatectl list-timezones`
- 
+
  > ![](./images/report3/listtz.png)
+
  
- 
- 
+
