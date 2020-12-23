@@ -80,7 +80,7 @@
 
   ## 1.3.1. Mô hình 
 
-  ![](./images/Iptables/1.1.png)
+  ![](./Images/Iptables/1.1.png)
 
 Firewall: Centos7 
 
