@@ -172,8 +172,45 @@ Client: Centos6
     
     dòng 4
     
+    `#iptables -A FORWARD -m state --state 	RELATED,ESTABLISHED -j ACCEPT`
     
+     ACCEPT Established Connection.
     
-    
+    ​	dòng 5 
   
+  `#iptables -A FORWARD -s 192.168.3.2  -d  192.168.2.2 -i ens37 -o ens38 -p tcp --dport 22 -m state --state NEW -j ACCEPT`
   
+  thêm 1 rule  FORWARD gói tin có địa chỉ nguồn192.168.3.2 trên ens37 sang địa chỉ đích trên ens37  và đến port 22 trên webserver
+  
+  dòng 6
+  
+  `#iptables -t nat -A POSTROUTING -o ens38 -d 192.168.2.2 -p tcp --dport 22 -j MASQUERADE`
+
+Bởi vì webserver nằm trong vùng dmz, dùng dãy địa chỉ private , nên muốn 1 máy trong dãy mạng LAN private có thể ssh được thì thì cần phải thay đổi địa chỉ nguồn sang địa chỉ ip của firewall
+
+​	dòng 7 và 8 tương tự dòng 5 dòng 6 chỉ thay port 22 sang port 80 để truy cập vào webserver.
+
+​	dòng 9, 10
+
+`#iptables -A FORWARD -i ens37 -o ens33 -j ACEEPT`
+
+`#iptables -t  nat -A POSTROUTING -o ens33 -j MASQUERADE`
+
+Máy trong mạng Lan muốn truy cập internet thì cần cần phải forward từ ens37 sang ens33 và cần thay đổi địa chỉ nguồn sang địa chỉ ip public của firewall
+
+​	dòng 11
+
+`#iptables -A INPUT -d 192.168.237.142  -i ens33 -j ACCEPT`
+
+Cho phép kết nối được đi vào hệ thống có địa chỉ đích là 1192.168.237.142
+
+​	dòng 12
+
+`#iptables -A  FORWARD -i ens33 -o ens38 -p tcp --dport 80 -j ACCEPT`
+
+Forward từ ens33 cổng 80 sang ens38 đến cổng 80 
+
+`#iptables -t  nat -A PREROUTING -d 192.68.237.142 -o ens33 -p tcp --dport 80 -j DNAT --to-destination  192.168.2.2`
+
+Chuyển hướng khi người  dùng  trên internet truy cập vào 192.168.237.142 sẽ được chuyển hướng đến web của webserver
+
