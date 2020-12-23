@@ -124,40 +124,56 @@ Client: Centos6
 
   - cấu hình 
 
-    `
+    `#iptables -P INPUT DROP`
 
-    #iptables -P INPUT DROP
+    `#iptables -P OUTPUT ACCEPT`
 
-    #iptables -P OUTPUT ACCEPT
+    `#iptables -P FORWARD DROP`
 
-    #iptables -P FORWARD DROP
+    `#iptables -A FORWARD -m state --state 	RELATED,ESTABLISHED -j ACCEPT`
 
-    #iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+    `#iptables -A FORWARD -s 192.168.3.2  -d  192.168.2.2 -i ens37 -o ens38 -p tcp --dport 22 -m state --state NEW -j ACCEPT`
 
-    #iptables -A FORWARD -s 192.168.3.2  -d  192.168.2.2 -i ens37 -o ens38 -p tcp --dport 22 -m state --state NEW -j ACCEPT
+    `#iptables -t nat -A POSTROUTING -o ens38 -d 192.168.2.2 -p tcp --dport 22 -j MASQUERADE`
 
-    #iptables -t nat -A POSTROUTING -o ens38 -d 192.168.2.2 -p tcp --dport 22 -j MASQUERADE
+    `#iptables -A FORWARD -s 192.168.3.2  -d  192.168.2.2 -i ens37 -o ens38 -p tcp --dport 80 -m state --state NEW -j ACCEPT`
 
-    #iptables -A FORWARD -s 192.168.3.2  -d  192.168.2.2 -i ens37 -o ens38 -p tcp --dport 80 -m state --state NEW -j ACCEPT
+    `#iptables -t nat -A POSTROUTING -o ens38 -d 192.168.2.2 -p tcp --dport 80 -j MASQUERADE`
 
-    #iptables -t nat -A POSTROUTING -o ens38 -d 192.168.2.2 -p tcp --dport 80 -j MASQUERADE
+    `#iptables -A FORWARD -i ens37 -o ens33 -j ACEEPT`
 
-    #iptables -A FORWARD -i ens37 -o ens33 -j ACEEPT
+    `#iptables -t  nat -A POSTROUTING -o ens33 -j MASQUERADE`
 
-    #iptables -t  nat -A POSTROUTING -o ens33 -j MASQUERADE
+    `#iptables -A INPUT -d 192.168.237.142  -i ens33 -j ACCEPT`
 
-    #iptables -A INPUT -d 192.168.237.142  -i ens33 -j ACCEPT
+    `#iptables -A  FORWARD -i ens33 -o ens38 -p tcp --dport 80 -j ACCEPT`
 
-    #iptables -A  FORWARD -i ens33 -o ens38 -p tcp --dport 80 -j ACCEPT
+    `#iptables -t  nat -A PREROUTING -d 192.68.237.142 -o ens33 -p tcp --dport 80 -j DNAT --to-destination  192.168.2.2`
 
-    #iptables -t  nat -A PREROUTING -d 192.68.237.142 -o ens33 -p tcp --dport 80 -j DNAT --to-destination  192.168.2.2
+    - Giải thích các dòng lệnh 
 
-    `
+      dòng 1
 
+    `#iptables -P INPUT DROP`
+
+    mặc định, không cho kết nối đi vào hệ thống
+
+    ​	dòng 2
+  
+    `#iptables -P OUTPUT ACCEPT`
     
-
+    mặc định, kết nối được đi xa hệ thống
     
-
+    ​	dòng 3
     
-
+    `#iptables -P FORWARD DROP`
+    
+    mặc định, không cho kết  nối được chuyển hướng
+    
+    dòng 4
+    
+    
+    
+    
+  
   
