@@ -214,3 +214,21 @@ Forward từ ens33 cổng 80 sang ens38 đến cổng 80
 
 Chuyển hướng khi người  dùng  trên internet truy cập vào 192.168.237.142 sẽ được chuyển hướng đến web của webserver
 
+## 1.3.5. Kết quả
+
+Client ping google.com 
+
+![](./Images/Iptables/1.2.png)
+
+Firewall cấm Client ping vào webserver
+
+![](./Images/Iptables/1.3.png)
+
+Firewall cho phép client truy cập vào webserver qua port 80
+
+![](./Images/Iptables/1.4.png)
+
+Firewall cho phép người dùng internet truy cập vào webserver qua ip 192.168.237.142 :80
+
+![](./Images/Iptables/1.5.png)
+
