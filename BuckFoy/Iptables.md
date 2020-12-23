@@ -80,7 +80,7 @@
 
   ## 1.3.1. Mô hình 
 
-  ![image-20201223154059057](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20201223154059057.png)
+  ![](./images/Iptables/1.1.png)
 
 Firewall: Centos7 
 
