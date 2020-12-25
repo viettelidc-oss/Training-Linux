@@ -1,6 +1,26 @@
 # Cấu hình tường lửa Iptables
 
-## 1.1. Khái niệm về Iptables
+[1.1. Khái niệm về Iptables](#p1.1)
+
+[1.2. Command iptables](#p1.2)
+
+[1.2.1. Cú pháp](#1.2.1)
+
+[1.2.2. Command](#p1.2.2)
+
+[1.3. Cấu  hình iptables](#p1.3)
+
+[1.3.1. Mô hình](#p1.3.1)
+
+[1.3.2. Yêu cầu](#p1.3.2)
+
+[1.3.3. Cài đặt iptables](#p1.3.3)
+
+[1.3.4. Cấu hình](#p1.3.4)
+
+[1.3.5. Kết quả](#p1.3.5)
+
+## 1.1. Khái niệm về Iptables<a name="p1.1"></a>
 
 - `iptables` là một ứng dụng dùng để quản lý filtering gói tin và NAT rules hoạt động trên console của linux rất nhỏ và tiện dụng. Được cung cấp miễn phí nhằm nâng cao tính bảo mật trên hệ thống Linux.
 
@@ -15,9 +35,9 @@
   - Xây dựng một hệ thống tường lửa (firewall).
   - Cung cấp, xây dựng và quản lý các rule để xử lý các gói tin. 
 
-  # 1.2. Command iptables
+  # 1.2. Command iptables<a name="p1.2"></a>
 
-  ## 1.2.1 Cú  pháp
+  ## 1.2.1 Cú  pháp<a name="p1.2.1"></a>
 
   ```
   iptables [-t table] command [chain] [match] [target/jump]
@@ -32,7 +52,7 @@
   VD: địa chỉ IP, port, giao thức hoặc bất cứ điều gì.
   \- Cuối cùng là `target` của gói tin. Nếu phù hợp với match, chúng tôi sẽ vói với kernel phải làm những gì với gói tin này.
 
-  ## 1.2.2. Command
+  ## 1.2.2. Command<a name="p1.2.2"></a>
 
   \- command nói cho iptables biết phải làm gì với phần còn lại của rule. Thông thường chúng ta muốn thêm hoặc xóa 1 cái gì đó trong bảng. Các command sau có sẵn trong iptables.
   \- **command**
@@ -76,9 +96,9 @@
 
   
 
-  # 1.3. Cấu hình iptables 
+  # 1.3. Cấu hình iptables<a name="p1.3"></a>
 
-  ## 1.3.1. Mô hình 
+  ## 1.3.1. Mô hình <a name="p1.3.1"></a>
 
   ![](./Images/Iptables/1.1.png)
 
@@ -97,7 +117,7 @@ Client: Centos6
 
 + eth0 : 192.168.3.2
 
-## 1.3.2. Yêu cầu
+## 1.3.2. Yêu cầu<a name="p1.3.2"></a>
 
 - Sử dụng Iptables làm Firewall cho hệ thống mạng.
 - Client truy cập được web
@@ -106,13 +126,13 @@ Client: Centos6
 - client ssh  đến  webserver qua cổng 22
 - routing
 
-## 1.3.3. Cài đặt iptables
+## 1.3.3. Cài đặt iptables<a name="p1.3.3"></a>
 
 - yum install -y ibtables-service
 
   
 
-## 1.3.4. Cấu hình
+## 1.3.4. Cấu hình<a name="p1.3.4"></a>
 
 - kích hoạt iptables fordward packet sang máy khác , cần sửa file  /etc/sysctl.conf
 
@@ -214,7 +234,7 @@ Forward từ ens33 cổng 80 sang ens38 đến cổng 80
 
 Chuyển hướng khi người  dùng  trên internet truy cập vào 192.168.237.142 sẽ được chuyển hướng đến web của webserver
 
-## 1.3.5. Kết quả
+## 1.3.5. Kết quả<a name="p1.3.5"></a>
 
 Client ping google.com 
 
