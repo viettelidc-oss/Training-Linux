@@ -1,9 +1,9 @@
  # SYSTEM SECURITY AND ENCRYPTION
- 
+
  ## [1. The secure shell OpenSSH](#openssh)
- 
+
  ## [2. Public/private key authentication](#key)
- 
+
  ## [3.	X11 forwarding](#x11)
 
 ## 1.	The secure shell OpenSSH <a name="openssh"></a>
@@ -14,7 +14,7 @@ Giao thức hoạt động theo mô hình máy khách-máy chủ, có nghĩa là
 - **Cài đặt**
 Service ssh thường được đi kèm với hệ điều hành, để kiểm tra phiên bản có sẵn của ssh : `ssh -V`
 
-> ![](./images/report2/sshver.png)
+> ![](../images/report2/sshver.png)
 
 Nếu hệ thống chưa được cài đặt ssh, sử dụng lệnh : `apt install ssh`
 
@@ -24,41 +24,41 @@ Nếu hệ thống chưa được cài đặt ssh, sử dụng lệnh : `apt ins
 Với port là cổng truy cập của server (mặc định là 22) Username là tên người dùng truy cập, và host là tên host server hoặc địa chỉ ip của server
 Ví dụ `ssh -p 452 ndcuong@192.168.142.128`
 
-> ![](./images/report2/connectmanually.png)
+> ![](../images/report2/connectmanually.png)
 
  - Truy cập vào server với các trình giả lập kết nối mobaxterm(ngoài ra có thể dùng putty, xshell):
 Tạo session mới :
 
 (1) Chọn session => (2) Chọn SSH => (3) Thông tin kết nối đến server => OK
 
-> ![](./images/report2/connectssh.png)
+> ![](../images/report2/connectssh.png)
 
 Máy ảo sẽ tự động kết nối đến server bằng phương thức ssh, sau đó người dùng sẽ đăng nhập để được cấp quyền truy cập (nếu server yêu cầu)
 
 - **Cấu hình ssh**
  Các cài đặt, cấu hình server ssh được lưu và thực thi trong file sshd_config, gõ command: `vi /etc/ssh/sshd_config` <a name="cf"></a>
- 
- > ![](./images/report2/configssh1.png)
- 
+
+ > ![](../images/report2/configssh1.png)
+
  Tại đây, có thể sử dụng các lệnh có sẵn bằng cách xóa bỏ dấu # ở trước và thay đổi tham số theo mục đích, hoặc thêm lệnh mới. Sau đó lưu file và restart lại ssh `( systemctl restart ssh )` để áp dụng các thay đổi.
- 
+
  *Các cấu hình thường dùng:*
   - Thay đổi cổng (port) truy cập: `Port [new port]`
-  
+
   Cổng port mặc định của ssh là 22. Để đảm bảo tính bảo mật thì nên đặt port mới cho server. Port phải nằm trong khoảng từ 0 đến 65535 và phải khả dụng (k có service khác sử dụng)
   Ví dụ:Port 452
-  
-  > ![](./images/report2/configport.png)
-  
+
+  > ![](../images/report2/configport.png)
+
   Restart ssh và kiểm tra :
-  
-  > ![](./images/report2/port.png)
-  
+
+  > ![](../images/report2/port.png)
+
   - Đăng nhập bằng public/private key: `PubkeyAuthentication [yes/no]`
     
     Sau đó chỉ định vị trí lưu file public key: `AuthorizedKeysFile [location]` <a name="pubkey"></a>
     
-    > ![](./images/report2/pubkeylocation.png)
+    > ![](../images/report2/pubkeylocation.png)
     
   - Danh sách user được truy cập: `AllowUsers [username1] [username2] ...`
     VD: AllowUsers ndcuong
@@ -67,7 +67,7 @@ Máy ảo sẽ tự động kết nối đến server bằng phương thức ssh
     
     Các user khác sẽ bị từ chối truy cập
     
-    > ![](./images/report2/allowuser.png)
+    > ![](../images/report2/allowuser.png)
     
     Mặc định thì tất cả các user đều có thể truy cập vào server, ngoài ra có thể tạo danh sách chặn: `DenyUsers [username1] [username2] ...`
     
@@ -76,8 +76,8 @@ Máy ảo sẽ tự động kết nối đến server bằng phương thức ssh
     number là số lần nhập sai tối đa
     
   - Và rất nhiều các tùy chọn cấu hình khác, có thể tham khảo tại <a href="https://www.ssh.com/ssh/sshd_config/#authorizedkeysfile-location">đây</a>
-  
- 
+
+
 ## 2. Public/private key authentication<a name="key"></a>
 Có một số tùy chọn có thể được sử dụng để xác thực người dùng. Hai cách phổ biến nhất là mật khẩu và xác thực khóa công khai.
 
@@ -87,7 +87,7 @@ Phương pháp xác thực khóa công khai chủ yếu được sử dụng đ�
 
 - Bước 1: Tạo key với lệnh `ssh-keygen`
 
-> ![](./images/report2/keygen.png)
+> ![](../images/report2/keygen.png)
 
 Nhớ địa chỉ lưu key và passphrase để cài đặt các bước tiếp theo
 
@@ -95,26 +95,26 @@ Nhớ địa chỉ lưu key và passphrase để cài đặt các bước tiếp
 
 - Bước 3: Sử dụng file private key để truy cập vào server (sử dụng công cụ Mobaxterm)
 
-> ![](./images/report2/prikey.png)
+> ![](../images/report2/prikey.png)
 
 ## 3.	X11 forwarding <a name="x11"></a>
 X11 forwarding là phương thức giúp cho người dùng có thể khởi chạy các ứng dụng có GUI được cài đặt trên hệ thống remote Linux và hiển thị về màn hình máy client.
 - Bước 1: Cấu hình server
   - Enable X11 trong file [sshd_config](#cf)
   
-  > ![](./images/report2/x11cf.png)
+  > ![](../images/report2/x11cf.png)
   
   - Cài đặt package x11-apps: `apt install x11-apps`
   - Restart service ssh: `service ssh restart`
 
 - Bước 2: Đảm bảo X11 cũng được bật ở client (mặc định có sẵn với công cụ Mobaxterm, hoặc sử dụng option -X nếu truy cập bằng command: `ssh -X [name]@[host)`
 
-> ![](./images/report2/x11.png)
+> ![](../images/report2/x11.png)
 
 - Bước 3: Khởi động ứng dụng có GUI được cài đặt trên server
 VD: `gedit`
 
 Máy client hiển thị 1 cửa sổ cho phép thao tác trực tiếp vào ứng dụng GUI của server
-> ![](./images/report2/gedit.gif)
+> ![](../images/report2/gedit.gif)
 
 > gif lỗi, record k hiển thị explorer để open/save

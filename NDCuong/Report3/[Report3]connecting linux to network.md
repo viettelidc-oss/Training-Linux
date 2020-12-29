@@ -38,18 +38,18 @@ Dynamic Host Configuration Protocol (DHCP) là một giao thức cho phép cấp
 Các bước cấu hình ip một cách thủ công trong hệ thống ubuntu:
   - B1: Kiểm tra tên của ethernet interface, gõ `ip link`, hệ thống sẽ in ra danh sách các ethernet interface có sẵn, trong đa số các trường hợp sẽ có 2 ethernet interface: lo - giao diện loopback được hệ thống sử dụng để giao tiếp với chính nó - và 1(hoặc nhiều) ethernet interface được sử dụng để kết nối ethernet - trong trường hợp này là ens38
   
-  > ![](./images/report3/iplink.png)
+  > ![](../images/report3/iplink.png)
   
   - B2: Mở và tiến hành cấu hình thủ công ethernet interface với file config:
     > Với các hệ thống ubuntu 17.10 trở lên, netplan là công cụ quản lý mạng mặc định. Để chỉnh sửa file config: `vi /etc/netplan/01-network-manager-all.yaml`
     
-    > ![](./images/report3/dfnetplan.png)
+    > ![](../images/report3/dfnetplan.png)
     
     Với hệ thống trên, 3 từ khóa network, version và renderer là 3 thuộc tính mặc định. Tiếp theo, ethernets là loại thiết bị được cấu hình (loại thiết bị có thể là ethernets, bonds, bridges, hoặc vlans. Với mỗi loại thiết bị có thể chỉ định nhiều ethernet interface, ở đây có 1 giao diện là ens38 được cấu hình để lấy ip từ máy chủ dhcp: `dhcp4: yes`
     
     Để cấu hình ip tĩnh:
     
-    > ![](./images/report3/cfnetplan.png)
+    > ![](../images/report3/cfnetplan.png)
     
     - dhcp4: no : k sử dụng ip từ máy chủ dhcp
     - addresses : địa chỉ ip tĩnh đặt cho ethernet interface, không được trùng với các ip của máy khác.
@@ -60,7 +60,7 @@ Các bước cấu hình ip một cách thủ công trong hệ thống ubuntu:
     
     > Hoặc sử dụng ifconfig cho mọi hệ thống ubuntu: `vi /etc/network/interfaces` <a name="ifconfig"></a>
     
-    > ![](./images/report3/dfif.png)
+    > ![](../images/report3/dfif.png)
     
     - auto: interface sẽ được cấu hình khi khởi động
     - iface: interface
@@ -68,7 +68,7 @@ Các bước cấu hình ip một cách thủ công trong hệ thống ubuntu:
     
     Để cấu hình ip tĩnh:
     
-    > ![](./images/report3/cfif.png)
+    > ![](../images/report3/cfif.png)
     
     - inet static: sử dụng địa chỉ ip tĩnh
     - address: địa chỉ ip tĩnh đặt cho ethernet interface, không được trùng với các ip của máy khác.
@@ -81,7 +81,7 @@ Sau khi hoàn thành, reboot lại hệ thống để áp dụng cấu hình.
 #### 3.1. Network protocol
 > Giao thức mạng(Network protocols) là một tập hợp các quy tắc được thiết lập để xác định cách dữ liệu được truyền giữa các thiết bị khác nhau trong cùng một mạng. Về cơ bản, nó cho phép các thiết bị được kết nối giao tiếp với nhau, bất kể bất kỳ sự khác biệt nào về quy trình, cấu trúc(phần cứng) hoặc thiết kế nội bộ của chúng.
 
-> ![](./images/report3/np.png)
+> ![](../images/report3/np.png)
 
 Các giao thức mạng có ba hành động chính: giao tiếp(Communication), quản lý (Network management) và bảo mật(Security)
 - Communication: Các giao thức truyền thông cho phép các thiết bị mạng khác nhau giao tiếp với nhau. Các loại giao thức truyền thông phổ biến bao gồm:
@@ -100,7 +100,7 @@ Các giao thức mạng có ba hành động chính: giao tiếp(Communication),
   #### 3.2. Mô hình OSI
  > Mô hình OSI (Open Systems Interconnection Reference Model)còn được gọi với cái tên: mô hình kết nối hệ thống mở.Khác với TCP/IP(là mô hình được phát triển dựa trên giao thức), OSI là một chuẩn giao thức độc lập. Mô hình này chia giao tiếp mạng thành 7 lớp. Trong đó, lớp 1 đến 4 là những cấp thấp và chỉ thực hiện nhiệm vụ truyền tải dữ liệu. Lớp 5 đến lớp 7 sẽ là lớp cấp cao, có nhiệm vụ đặc phù, xử lý các vấn đề ứng dụng và tham gia vào chuỗi mắt xích truyền tải dữ liệu đến những lớp tiếp theo.
 
- > ![](./images/report3/osi.png)
+ > ![](../images/report3/osi.png)
 
  Mô hình OSI phân chia chức năng của một giao thức ra thành một chuỗi các tầng cấp. Một hệ thống cài đặt các giao thức bao gồm một chuỗi các tầng nói trên được gọi là "chồng giao thức" (protocol stack).  Chồng giao thức có thể được cài đặt trên phần cứng, hoặc phần mềm, hoặc là tổ hợp của cả hai. Thông thường thì chỉ có những tầng thấp hơn là được cài đặt trong phần cứng, còn những tầng khác được cài đặt trong phần mềm. Mỗi một tầng cấp có một đặc tính là nó chỉ sử dụng chức năng của tầng dưới nó, đồng thời chỉ cho phép tầng trên sử dụng các chức năng của mình. Mỗi tầng đảm nhiệm một công việc rất cụ thể và sau đó chuyển dữ liệu cho tầng tiếp theo.
 
@@ -119,7 +119,7 @@ Các giao thức mạng có ba hành động chính: giao tiếp(Communication),
 #### 3.3. Mô hình TCP/IP
 > TCP/IP (Transmission Control Protocol và Internet Protocol- giao thức điều khiển giao vận dữ liệu và giao thức kết nối internet) là giao thức mà hầu hết các mạng máy tính ngày nay đều sử dụng để kết nối. Cơ chế hoạt động của mô hình này là IP đóng vai trò kết nối và TCP truyền dữ liệu giữa các thiết bị đã được kết nối và kiểm soát dữ liệu được truyền đi đó, đảm bảo rằng dữ liệu được truyền đi 1 cách đầy đủ, toàn vẹn
 
-> ![](./images/report3/tcpip.png)
+> ![](../images/report3/tcpip.png)
 
 Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng thấp nhất là:
 - Tầng vật lý (Physical) : chịu trách nhiệm truyền dữ liệu giữa hai thiết bị trong cùng một mạng. Tại đây, các gói dữ liệu được đóng vào khung (gọi là Frame) và được định tuyến đi đến đích đã được chỉ định ban đầu.
@@ -168,8 +168,6 @@ Một số thiết bị mạng phổ biến:
   - Modem: một thiết bị cho phép máy tính gửi hoặc nhận dữ liệu qua đường dây điện thoại hoặc đường cáp. Dữ liệu được lưu trữ trên máy tính là dữ liệu digital trong khi đường dây điện thoại hoặc dây cáp chỉ có thể truyền dữ liệu analog, do vậy chức năng chính của modem là chuyển đổi tín hiệu digital thành tín hiệu analog(modulator) và ngược lại(demodulator). 
   - RJ45 Connector: chuẩn đầu nối vật lí của cáp Ethernet.
 
-  > ![](./images/report3/RJ45.png)
-
   - Card Ethernet - network interface card (NIC) - là thành phần phần cứng được máy tính sử dụng để kết nối với mạng và giao tiếp với các thiết bị khác trong mạng LAN/Ethernet. Trong hệ thống máy tính hiện đại, NIC được tích hợp sẵn trong mainboard.
   - Router, Switch, Wi-Fi Card v.v.
 
@@ -185,11 +183,11 @@ Một số thiết bị mạng phổ biến:
   - Cài đặt bind9 : `apt install bind9 bind9-doc bind9utils`
   -  <a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configDNS.md" target="blank" >Cấu hình máy server</a>
   - Kiểm tra server DNS bằng máy client: chỉ định máy chủ dns trong file resolv.conf `vi /etc/resolv.conf`
-  > ![](./images/dns/rs2.png)
+  > ![](../images/dns/rs2.png)
 
   Và kiểm tra kết quả: `nslookup ze9hyrus.com`
 
-  > ![](./images/dns/result2.png)
+  > ![](../images/dns/result2.png)
 
   > Ví dụ trên đã thực hiện việc cấu hình máy chủ dns mô hình master-slave để biên dịch url "ze9hyrus.com" ra địa chỉ ip của server "192.168.142.131" để client có thể truy cập đến server thông qua ip đó. Trong hệ thống dns này, master server đóng vai trò máy chủ để biên dịch các url được cài đặt riêng thành các địa chỉ ip. Và  slave server là máy chủ dự phòng, nhận và biên dịch yêu cầu của client thay cho master server khi nó bị lỗi. 
 ## 7. Searching domains<a name="7"></a>
@@ -208,34 +206,34 @@ NTP ( Network Time Protocol) là giao thức được sử dụng để đồng 
   - Cài đặt NTP: `apt install ntp`
   - Đặt nhóm máy chủ cung cấp thời gian theo khu vực Việt Nam: truy cập website ntppool.org, chọn khu vực Asia -> <a href="https://www.ntppool.org/zone/vn">VietNam</a>. 
   
-  > ![](./images/report3/pool.png)
+  > ![](../images/report3/pool.png)
   
-  > ![](./images/report3/poolasia.png)
+  > ![](../images/report3/poolasia.png)
   
-  > ![](./images/report3/poolvn.png)
+  > ![](../images/report3/poolvn.png)
   
   Copy các server, sau đó mở file conf: `vi /etc/ntp/ntp.conf`
   
-  > ![](./images/report3/ntpconf.png)
+  > ![](../images/report3/ntpconf.png)
   
   Thay server nhận được ở trên vào file này
   
-  > ![](./images/report3/ntpconf1.png)
+  > ![](../images/report3/ntpconf1.png)
   
   - Lưu lại, restart lại ntp để áp dụng thay đổi. 
   
-  > ![](./images/report3/ntpstt.png)
+  > ![](../images/report3/ntpstt.png)
   
   - Cài đặt tường lửa cho phép truy cập qua port 123(port mặc định của ntp) `ufw allow 123`
   
 - Cài đặt và sử dụng NTP thủ công(client)
   - Cài đặt NTPdate: `apt install ntpdate`
   
-  > ![](./images/report3/ntpdate.png)
+  > ![](../images/report3/ntpdate.png)
   
   - Kết nối đến server để đồng bộ hóa thời gian : `ntpdate [ip/hostname]`
   
-  > ![](./images/report3/ntpdate1.png)
+  > ![](../images/report3/ntpdate1.png)
 
 - Cài đặt và sử dụng NTP đồng bộ tự động(client)
 
@@ -243,11 +241,11 @@ NTP ( Network Time Protocol) là giao thức được sử dụng để đồng 
   
   Sau đó mở file conf: `vi /etc/ntp/ntp.conf` và nhập địa chỉ ip của server
 
-  > ![](./images/report3/ntpclient.png)
+  > ![](../images/report3/ntpclient.png)
   
   - Restart ntp và kiểm tra
 
-  > ![](./images/report3/ntp.png)
+  > ![](../images/report3/ntp.png)
   
   
 ## 10. The time zone <a name="0"></a>
@@ -255,17 +253,17 @@ NTP ( Network Time Protocol) là giao thức được sử dụng để đồng 
 
  Để hiển thị time zone hiện tại của hệ thống: `timedatectl`
 
- > ![](./images/report3/timezone.png)
+ > ![](../images/report3/timezone.png)
 
  Để thay đổi múi giờ: `timedatectl set-timezone [timezone]`
 
  [timezone] có dạng Region/City, ví dụ `Asia/Ho_Chi_Minh`
 
- > ![](./images/report3/settz.png)
+ > ![](../images/report3/settz.png)
 
  Có thể xem sanh sách timezone được cung cấp bằng lệnh `timedatectl list-timezones`
 
- > ![](./images/report3/listtz.png)
+ > ![](../images/report3/listtz.png)
 
  
 

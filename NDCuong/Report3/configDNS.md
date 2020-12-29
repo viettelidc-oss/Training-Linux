@@ -2,22 +2,22 @@
 
 #### `vi /etc/bind/named.conf.ontions`
 
-> ![](./images/dns/confop.png)
+> ![](../images/dns/confop.png)
 
 #### `vi /etc/bind/named.conf`<a name="1"></a>
 
-> ![](./images/dns/conf.png)
+> ![](../images/dns/conf.png)
 
 #### `vi /etc/bind/named.conf.local`
 
-> ![](./images/dns/conflocal.png)
+> ![](../images/dns/conflocal.png)
 
 - "ze9hyrus.com" : domain zone
 - "etc/bind/forward.ze9hyrus": tên file và địa chỉ tuyệt đối của file forward (tương tự với "etc/bind/reverse.ze9hyrus")
 
 #### `vi /etc/bind/forward.ze9hyrus` (tạo file mới)
 
-> ![](./images/dns/fw.png)
+> ![](../images/dns/fw.png)
 - masterdns.ze9hyrus.com: hostname server master
 - slavedns.ze9hyrus.com: hostname server slave
 - ...131: địa chỉ ip server master
@@ -25,16 +25,16 @@
 - ...129: địa chỉ ip client
 #### `vi /etc/bind/reverse.ze9hyrus `(tạo file mới)
 
-> ![](./images/dns/rv.png)
+> ![](../images/dns/rv.png)
 
 #### `vi /etc/network/interfaces`
 Đảm bảo rằng hệ thống đã cài đặt package *ifupdown* trước khi gõ lệnh này
 
-> ![](./images/dns/itf.png)
+> ![](../images/dns/itf.png)
 
 #### `vi /etc/resolv.conf `
 
-> ![](./images/dns/rs.png)
+> ![](../images/dns/rs.png)
 
 ## Kết quả
 
@@ -42,11 +42,11 @@ Sau khi cấu hình xong, tiến hành `reboot` lại hệ thống và kiểm tr
 
 #### Check file conf, zone 
 
-> ![](./images/dns/check.png)
+> ![](../images/dns/check.png)
 
 #### Check server `nslookup ze9hyrus.com`
 
-> ![](./images/dns/result.png)
+> ![](../images/dns/result.png)
 
 ## Cấu hình slave server
 
@@ -54,16 +54,16 @@ Sau khi cấu hình xong, tiến hành `reboot` lại hệ thống và kiểm tr
 
 #### `vi /etc/bind/named.conf.local`
 
-> ![](./images/dns/conflocal1.png)
+> ![](../images/dns/conflocal1.png)
 
 #### `vi /etc/network/interfaces`
 Đảm bảo rằng hệ thống đã cài đặt package *ifupdown* trước khi gõ lệnh này
 
-> ![](./images/dns/itf1.png)
+> ![](../images/dns/itf1.png)
 
 #### `vi /etc/resolv.conf `
 
-> ![](./images/dns/rs1.png)
+> ![](../images/dns/rs1.png)
 
 ## Kiểm tra
 
@@ -71,4 +71,4 @@ Sau khi cấu hình xong, tiến hành `reboot` lại hệ thống và kiểm tr
 
 #### Check server `nslookup ze9hyrus.com`
 
-> ![](./images/dns/result1.png)
+> ![](../images/dns/result1.png)

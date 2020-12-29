@@ -19,98 +19,99 @@ The Linux terminal có một số lệnh hữu ích có thể hiển thị các 
 ###### 1.2.1. Hiển thị
 
   - Ps
-  
+
 Command `ps` in ra các process đang chạy tại thời điểm thực thi, gồm PID, thời gian đã chạy và tên process, có 1 số option như:
 
 `ps -A` liệt kê tất cả các process đang chạy
 
-> ![](./images/report2/ps-A.png)
+> ![](../images/report2/ps-A.png)
 
 `ps -A | grep [process]` hiển thị các process có tên chứa [process]
 
-> ![](./images/report2/psgrep.png)
+> ![](../images/report2/psgrep.png)
 
   - Ps tree
-  
+
 `pstree` hiển thị các process dạng cây: các process sẽ hiển thị bên dưới trình quản lý tạo ra chúng
 
-> ![](./images/report2/pstree.png)
+> ![](../images/report2/pstree.png)
 
   - Top
-  
+
 Command `top` là lệnh hiển thị các process đang chạy trong thời gian thực, hiển thị lượng tài nguyên các process sử dụng và được sắp xếp theo mức độ sử dụng CPU
 
-> ![](./images/report2/top.png)
+> ![](../images/report2/top.png)
 
 Để thoát ra, sử dụng interrupt keyboard(phím tắt này thường ngắt (kill) các process đang chạy trong terminal) `Ctrl + C`
 
   - Htop
-  
+
 Htop tương tự như lệnh top, nhưng được bổ sung các chức năng để sắp xếp, thay đổi mức độ ưu tiên hay kill process (v.v.). Htop cũng có giao diện dễ nhìn hơn top. Tuy nhiên htop thường k được cài đặt sẵn trong hệ điều hành và cần được cài đặt với lệnh > apt install htop
 
-> ![](./images/report2/htop.png)
+> ![](../images/report2/htop.png)
 
 ###### 1.2.2. Quản lý
   - Kill
-  
-  `kill [PID]` sẽ kill process dựa vào PID được cung cấp. PID có thể lấy bằng các lệnh hiển thị (ps, top) hoặc lệnh pgrep
-  
-  > ![](./images/report2/kill.png)
-  
-  - Pgrep
-  
-  `pgrep [process]` trả về PID của [process], có thể sử dụng như 1 biến trong lệnh kill: `kill $(pgrep [process])`
-  
-  > ![](./images/report2/pgrep.png)
-  
-  > ![](./images/report2/pgrep1.png)
-  
-  - Pkill & killall
-  Tương tự như kill, pkill & killall ngắt các process nhưng dựa theo tên, ví dụ: `pkill sshd` hoặc `killall sshd`
-  
-  > ![](./images/report2/pkill.png)
-  
-  - Renice
-  `renice [priority] [PID]` là lệnh đặt thứ tự ưu tiên cho process có PID được cung cấp, với priority từ -19 đến 19 (19 có mức độ ưu tiên thấp nhất, mặc định là 0)
 
-> ![](./images/report2/renice.png)
+  `kill [PID]` sẽ kill process dựa vào PID được cung cấp. PID có thể lấy bằng các lệnh hiển thị (ps, top) hoặc lệnh pgrep
+
+  > ![](../images/report2/kill.png)
+
+  - Pgrep
+
+  `pgrep [process]` trả về PID của [process], có thể sử dụng như 1 biến trong lệnh kill: `kill $(pgrep [process])`
+
+  > ![](../images/report2/pgrep.png)
+
+  > ![](../images/report2/pgrep1.png)
+
+  - Pkill & killall
+    Tương tự như kill, pkill & killall ngắt các process nhưng dựa theo tên, ví dụ: `pkill sshd` hoặc `killall sshd`
+
+  > ![](../images/report2/pkill.png)
+
+  - Renice
+    `renice [priority] [PID]` là lệnh đặt thứ tự ưu tiên cho process có PID được cung cấp, với priority từ -19 đến 19 (19 có mức độ ưu tiên thấp nhất, mặc định là 0)
+
+> ![](../images/report2/renice.png)
 
   -  Xkill
-  `xkill` sẽ chuyển con trỏ chuột thành dạng dấu x, khi nhấp chuột vào bất kì cửa sổ nào, process chịu trách nhiệm thực thi cửa sổ đó sẽ đóng lại. Đây là phương pháp để kill 1 process bằng có giao diện đồ họa. Nếu k muốn kill process, click chuột phải để thoát xkill.
-  
-  > ![](./images/report2/xkill.png)
-  
+    `xkill` sẽ chuyển con trỏ chuột thành dạng dấu x, khi nhấp chuột vào bất kì cửa sổ nào, process chịu trách nhiệm thực thi cửa sổ đó sẽ đóng lại. Đây là phương pháp để kill 1 process bằng có giao diện đồ họa. Nếu k muốn kill process, click chuột phải để thoát xkill.
+
+  > ![](../images/report2/xkill.png)
+
 ## 2. Shared libraries <a name="sl"></a>
 
    #### 2.1. Library
    Library là file chứa các đoạn mã lệnh và dữ liệu được tổ chức thành các hàm, các lớp nhằm cung cấp chức năng nào đó cho các chương trình chạy trên máy tính. Ví dụ như khi chương trình cần sử dụng hàm sort(), trong chương trình đó k cần phải có chi tiết mã lệnh của hàm sort(), nhưng trên máy phải có 1 library nào đó chứa nội dung của hàm này và trong chương trình có khai báo library đó để khi chương trình được thực thi, nó sẽ tìm nội dung của hàm sort() trong library đó để dùng.
    Library gồm 3 loại: Static, Dynamic và Shared. Thường thì các library ở dạng mã nhị phân, không phải dạng văn bản (plain text).
-   
+
    #### 2.2. Shared libraries
    - *Static linking*: Khi chương trình biên dịch, nó lấy các đoạn mã cần thiết từ library và lưu vào bộ nhớ ngoài, khi chạy không còn phụ thuộc vào sự tồn tại của đoạn mã trong library đó nữa.
    - *Dynamic linking*: Khác với static linking (chương trình và thư viện liên kết trong quá trình biên dịch), với dynamic linking thì quá trình liên kết diễn ra trong khi chương trình đang chạy (runtime). Điều này giúp giảm thiểu dung lượng (vì không phải lưu đoạn mã trong library vào chương trình khi chạy như static)
    - *Shared libraries*: Các thư viện dynamic có thể được dùng bởi nhiều chương trình khác nhau trong một thời điểm được gọi là *Shared libraries*. Các file *Shared libraries* thường có phần mở rộng .dll (window), .dylib(OS X) và .so (linux)
-   
-   > ![](./images/report2/.so.png)
-   
+
+   > ![](../images/report2/.so.png)
+
    #### 2.3. Quản lý Shared libraries
    - Xác định các *Shared libraries* cần thiết của một chương trình
   > Các chương trình nào sử dụng dynamic linking yêu cầu một vài shared library có trên hệ thống. Nếu các library cần thiết không được tìm thấy (hoặc không tồn tại), khi chạy chương trình sẽ đưa ra thông báo lỗi. Để kiểm tra các *Shared libraries* cần thiết của một chương trình: `ldd [program]` . Command ldd trả về các *Shared libraries* mà chương trình yêu cầu
   Ví dụ: `ldd /bin/bash`
-  
-  > ![](./images/report2/ldd.png)
-  
+
+  > ![](../images/report2/ldd.png)
+
    - Thêm library mới
+
     Khi các chương trình ở dạng executable có sử dụng dynamic linking được chạy, thì tiện ích **ld.so** sẽ chịu trách nhiệm tìm kiếm và nạp vào bộ nhớ các shared library cần thiết cho chương trình đó. Nếu **ld.so** không thể tìm thấy các library đó thì chương trình sẽ gặp lỗi và không thể chạy được.
 
 Thường thì các library được đặt trong các thư mục như /lib, /usr/lib, /usr/local/lib. Để hướng dẫn cho ld.so tìm kiếm library trong các thư mục này cũng như là các thư mục khác: 
- 
+
  > Tạo index gồm tên các library và thư mục lưu trữ chúng. File /etc/ld.so.cache chứa thông tin index này. Đây là file nhị phân, vì thế ld.so có thể nhanh chóng đọc nội dung của file này.
    Để thêm mới index của library vào file cache trên, đầu tiên bạn thêm thư mục chứa library đó vào file /etc/ld.so.conf, đây là file cấu hình chứa các thư mục sẽ được tạo index bởi tiện ích ldconfig. Sau đó, chạy lệnh ldconfig với cú pháp như sau:
 
  `ldconfig [options] [lib_dirs]` hoặc đơn giản là `ldconfig`
 
-> ![](./images/report2/ldconfig.png)
+> ![](../images/report2/ldconfig.png)
 
 Có 2 option cho lệnh này
 
@@ -128,15 +129,15 @@ Các hành động của cron được điều khiển bởi một tệp crontab
 - Có 3 lệnh crontab cơ bản: 
   - List: `crontab -l` xem danh sách các lệnh có trong file crontab
   
-  > ![](./images/report2/listcron.png)
+  > ![](../images/report2/listcron.png)
   
   - Edit: `crontab -e` mở và chỉnh sửa file crontab của user (hoặc của root với lệnh `sudo crontab -e`), tạo mới nếu chưa có
   
-  > ![](./images/report2/editcron.png)
+  > ![](../images/report2/editcron.png)
   
   - Remove: `crontab -r` xóa file crontab của user (hoặc của root với lệnh `sudo crontab -r`)
 
-  > ![](./images/report2/removecron.png)
+  > ![](../images/report2/removecron.png)
 
 - Lập lịch:
 Các công việc được lập lịch thực hiện với cú pháp: `[minute] [hour] [day] [month] [weekday] [command]`
@@ -150,8 +151,8 @@ Với:
 Các tham số thời gian không nhất thiết phải xác định cụ thể, sử dụng dấu * để bỏ qua tham số thời gian đó và lệnh sẽ được thực hiện định kì (nếu xác định cụ thể lệnh sẽ chỉ thực hiện một lần (trong năm?). Dấu * tương ứng với mọi giá trị tại vị trí đó đều được chấp nhận: * tại *minute* ứng với "mỗi phút", * tại *day* ứng với "mỗi ngày trong tháng", v.v.
 
  Ví dụ: lập lịch backup vào 5h sáng mỗi thứ 2 hàng tuần với lệnh `0 5 * * 1 tar -zcf /var/backups/home.tgz /home/`
- 
- 
+
+
 Các tham số thời gian cũng nhận nhiều hơn 1 giá trị, các giá trị cho cùng 1 tham số sẽ cách nhau bằng dấu ","
 
 Ví dụ: lập lịch backup vào 5h sáng ngày 5, 10, 20 với lệnh `0 5 5,10,20 * * tar -zcf /var/backups/home.tgz /home/`

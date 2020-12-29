@@ -29,7 +29,7 @@ Giao thức **syslog** có những yếu tố sau:
 
 Theo mặc định, Syslog message format được chia thành hai phần, độ dài một message không được vượt quá 1024 bytes
 
->  ![](./images/report3/syslog.png)
+>  ![](../images/report3/syslog.png)
 
 
 
@@ -39,7 +39,7 @@ Khởi tạo template có tên precise, sau đó đặt precise làm template m�
 
 
 
->  ![](./images/report3/templatelog.png)
+>  ![](../images/report3/templatelog.png)
 
 
 
@@ -53,7 +53,7 @@ Sau khi thay đổi, Syslog message format trả ra kết quả:
 
 
 
->  ![](./images/report3/syslog1.png)
+>  ![](../images/report3/syslog1.png)
 
 
 
@@ -69,7 +69,7 @@ Sau khi thay đổi, Syslog message format trả ra kết quả:
 
     
 
-    >  ![](./images/report3/facility.png)
+    >  ![](../images/report3/facility.png)
 
     
 
@@ -77,7 +77,7 @@ Sau khi thay đổi, Syslog message format trả ra kết quả:
 
 
 
-> ![](./images/report3/severity.png)
+> ![](../images/report3/severity.png)
 
 
 
@@ -104,7 +104,7 @@ Hầu hết thời gian, quản trị viên hệ thống không giám sát một
 
 
 
->  ![](./images/report3/syslogsv.png)
+>  ![](../images/report3/syslogsv.png)
 
 
 
@@ -115,13 +115,13 @@ Hầu hết thời gian, quản trị viên hệ thống không giám sát một
 - Chỉ định máy chủ nhận log: `[Facility levels].[Severity levels]@@[IP]:[port]` , ví dụ:`*.*@@192.168.142.131:514`
 - Khởi động lại rsyslog
 
->  ![](./images/report3/syslogcl.png)
+>  ![](../images/report3/syslogcl.png)
 
 Mô hình: 2 máy client gửi syslog về server. Xuất hiện 2 folder có tên là hostname của 2 máy client chứa các file log nhận được 
 
 
 
->  ![](./images/report3/syslog3.png)
+>  ![](../images/report3/syslog3.png)
 
 
 
@@ -129,7 +129,7 @@ Mở file systemd.log của client "web":
 
 
 
-> ![](./images/report3/syslog4.png)
+> ![](../images/report3/syslog4.png)
 
 
 
@@ -137,7 +137,7 @@ Sau đó thực hiện 1 hành động từ client (ví dụ restart lại servi
 
 
 
-> ![](./images/report3/syslog5.png)
+> ![](../images/report3/syslog5.png)
 
 
 
@@ -147,7 +147,7 @@ Sau đó thực hiện 1 hành động từ client (ví dụ restart lại servi
 
 
 
-> ![](./images/report3/logger.png)
+> ![](../images/report3/logger.png)
 
 
 
@@ -155,9 +155,9 @@ Ngoài ra, logger có thể dùng để thực hiện các lệnh (bằng dấu 
 
 
 
-> ![](./images/report3/logger2.png)
+> ![](../images/report3/logger2.png)
 >
-> ![](./images/report3/logger1.png)
+> ![](../images/report3/logger1.png)
 
 
 
@@ -165,9 +165,9 @@ Ngoài ra, logger có thể dùng để thực hiện các lệnh (bằng dấu 
 
 
 
-> ![](./images/report3/logger3.png)
+> ![](../images/report3/logger3.png)
 >
-> ![](./images/report3/logger4.png)
+> ![](../images/report3/logger4.png)
 
 
 
@@ -185,7 +185,7 @@ Logrotate thường có sẵn trên hệ thống, nếu k sử dụng lệnh `ap
 
 
 
->  ![](./images/report3/logrotate.png)
+>  ![](../images/report3/logrotate.png)
 
 
 
@@ -239,13 +239,13 @@ Có thể thực thi các lệnh trước hoặc sau khi rotate, thường đư�
 
 
 
-> ![](./images/report3/logrotate1.png)
+> ![](../images/report3/logrotate1.png)
 
 
 
 Chạy thủ công logrotate để kiểm tra: `logrotate -vf /etc/logrotate.d/ssh` (-v để hiển thị quá trình, -f để chạy thủ công)
 
-> ![](./images/report3/logrotate2.png)
+> ![](../images/report3/logrotate2.png)
 
 
 
@@ -257,7 +257,7 @@ Journalctl là một tiện ích hệ thống cung cấp khả năng truy vấn 
 
 
 
-> ![](./images/report3/journalctl.png)
+> ![](../images/report3/journalctl.png)
 
 
 
@@ -265,7 +265,7 @@ Journalctl là một tiện ích hệ thống cung cấp khả năng truy vấn 
 
 
 
-> ![](./images/report3/journalctl1.png)
+> ![](../images/report3/journalctl1.png)
 
 
 
@@ -277,7 +277,7 @@ Giới hạn số dòng hiển thị: ` journalctl -n [number]`
 
 
 
-> ![](./images/report3/journalctl2.png)
+> ![](../images/report3/journalctl2.png)
 
 
 
@@ -285,7 +285,7 @@ Hiển thị theo mốc thời gian, ví dụ hiện thị trong vòng 1 giờ t
 
 
 
-> ![](./images/report3/journalctl3.png)
+> ![](../images/report3/journalctl3.png)
 
 
 
@@ -293,7 +293,7 @@ Hiển thị theo mốc thời gian, ví dụ hiện thị trong vòng 1 giờ t
 
 
 
-> ![](./images/report3/journalctl4.png)
+> ![](../images/report3/journalctl4.png)
 
 
 

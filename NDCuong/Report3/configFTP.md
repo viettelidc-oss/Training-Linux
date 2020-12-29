@@ -3,7 +3,7 @@ Sau khi cài đặt, file cấu hình của server FTP được đặt ở `/etc
 
 #### `vi /etc/vsftpd.conf`
 
-> ![](./images/ftp/conf.png)
+> ![](../images/ftp/conf.png)
 
 Đây là file cấu hình cho server dns, các thuộc tính có dạng tham số được cấu hình bằng cú pháp `[parameters] = [value]`. Tham khảo chi tiết các thuộc tính tại <a href="http://vsftpd.beasts.org/vsftpd_conf.html">đây</a>.
 > Các thuộc tính cần lưu ý: 
@@ -31,27 +31,27 @@ Sau khi cài đặt, file cấu hình của server FTP được đặt ở `/etc
   #### Cấu hình tường lửa
   Để server cho phép các client truy cập vào, cần phải mở các port được dùng trong vsftpd: `ufw allow [port number]`
   
-  > ![](./images/ftp/fw.png)
+  > ![](../images/ftp/fw.png)
   
   Kiểm tra: `ufw disable`
   
-  > ![](./images/ftp/fwstt.png)
+  > ![](../images/ftp/fwstt.png)
   
 ## Kiểm tra kết nối
  Cài đặt filezilla ở client để kết nối đến server: `apt install filezilla` (Ubuntu 20.04). 
- 
+
  Mở site kết nối với server :
- 
-  > ![](./images/ftp/cn.png)
-  
+
+  > ![](../images/ftp/cn.png)
+
  Kết quả (without chroot):
- 
- > ![](./images/ftp/ftp.png)
- 
+
+ > ![](../images/ftp/ftp.png)
+
  Kết quả (chroot):
 
- > ![](./images/ftp/ftpchroot.png)
- 
+ > ![](../images/ftp/ftpchroot.png)
+
  Disconnect:
- 
- > ![](./images/ftp/dcn.png)
+
+ > ![](../images/ftp/dcn.png)

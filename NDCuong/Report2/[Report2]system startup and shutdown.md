@@ -21,7 +21,7 @@ Quá trình khởi động của hệ điều hành Linux từ lúc mở máy đ
   
   > Chương trình được thực hiện đầu tiên là POST (Power-on Self-test) nhằm kiểm tra thông số và trạng thái của các phần cứng máy tính (CPU, RAM, DISK v.v.). Nếu quá trình POST kết thúc và k phát hiện lỗi phần cứng, BIOS sẽ tìm kiếm và khởi chạy một (trong những) hệ điều hành chứa trong ổ cứng (hoặc CD/DVD, USB v.v.). 
   
-  > ![](./images/report2/post.png)
+  > ![](../images/report2/post.png)
   
   Người dùng có thể truy cập vào giao diện cài đặt BIOS để thay đổi các thiết lập, cấu hình máy tính, thay đổi thứ tự ưu tiên của các thiết bị lưu trữ.
 
@@ -29,7 +29,7 @@ Quá trình khởi động của hệ điều hành Linux từ lúc mở máy đ
   
   > Sau khi BIOS xác định được thiết bị lưu trữ nào được ưu tiên, BIOS sẽ đọc trong MBR (hoặc UEFI) của thiết bị đó để nạp vào bộ nhớ chương trình được lưu trữ trong đó. 
   
-  > ![](./images/report2/mbr.png)
+  > ![](../images/report2/mbr.png)
   
   Đến giai đoạn này, máy tính sẽ không truy cập vào phương tiện lưu trữ nào. Thông tin về ngày tháng, thời gian và các thiết bị ngoại vi quan trọng nhất được nạp từ CMOS.
   
@@ -39,7 +39,7 @@ Quá trình khởi động của hệ điều hành Linux từ lúc mở máy đ
   
   > File grub:
   
-  > ![](./images/report2/grub.png)
+  > ![](../images/report2/grub.png)
   
   GRUB hay LILO đều có thể khởi động cho cả Linux và Windows, nhưng ngược lại các bootloader trên Windows như (NTLDR, BOOTMGR) thì không hỗ trợ khởi động cho các hệ điều hành Linux.
   
@@ -55,7 +55,7 @@ Quá trình khởi động của hệ điều hành Linux từ lúc mở máy đ
   
   Chúng ta có thể thấy tệp kernel và initramfs trong thư mục /boot.
   
-  > ![](./images/report2/initramfs.png)
+  > ![](../images/report2/initramfs.png)
   
 - **Init:** <a name="init"></a>Tiến trình Init là cha của tất cả các tiến trình khác mà có trên hệ thống Linux, luôn có PID = 1 
   
@@ -73,14 +73,14 @@ Quá trình khởi động của hệ điều hành Linux từ lúc mở máy đ
   
   >Gần cuối quá trình khởi động, init sẽ bắt đầu một chế độ đăng nhập text mode. Nhập tên người dùng và mật khẩu của bạn để đăng nhập và xuất hiện các dấu nhắc lệnh shell. Subsystem cuối cùng được init khởi động lên là X Window.
   
-  > ![](./images/report2/login.png)
+  > ![](../images/report2/login.png)
   - **Sau khi đăng nhập thành công:**
   Một chương trình shell (có thể là bash, sh, csh…, mặc định là bash) sẽ được bắt đầu và sẵn sàng nhận các lệnh. Tất cả các chương trình mà bạn chạy và mọi thao tác khác mà bạn thực hiện trong suốt phiên làm việc sẽ được thực hiện bởi shell đó hoặc bởi chương trình khác mà được shell khởi động.
 
 Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của nó sẽ bị kết thúc. Sau đó init (hoặc XDM/GDM/KDM/Entrance) sẽ “thức tỉnh” và bắt đầu một lời nhắc nhở đăng nhập mới.
 
 **Minh họa quá trình khởi động hệ thống Linux:**
-> ![](./images/report2/boot-process.png)
+> ![](../images/report2/boot-process.png)
 
 **2 loại init:**
  - **Unix System V** <a name="usv"></a>
@@ -93,32 +93,33 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
    - Runlevel 5: Đa người dùng đầy đủ dịch vụ (có GUI).
    - Runlevel 6: Reboot hệ thống.
    
-   > ![](./images/report2/runlevel.png)
+   > ![](../images/report2/runlevel.png)
    
+
  Sau khi xác định run level. Chương trình /sbin/init sẽ thực thi các file statup script được đặt trong các thư mục con của thư mục /etc/rc.d
-   
-   > ![](./images/report2/runlevel1.png)
-   
+
+   > ![](../images/report2/runlevel1.png)
+
    Trong file script theo từng level. Các tên tập tin bắt đầu bằng từ khóa "S" có nghĩa là tập tin này sẽ được thực thi lúc khởi động hệ thống. Nếu tập tin bắt đầu bằng từ khóa "K" nghĩa là tập tin đó được thực thi khi hệ thống shutdown. Số theo sau từ khóa "S" và "K" để chỉ định trình tự khởi động các script, kế tiếp là tên file script cho từng dịch vụ.
   - **Systemd** <a name="systemd"></a>   
-   Đối với các bản Linux hiện đại gần đây thì init và runlevel được thay thế bởi systemd và cũng thực hiện nhiệm vụ tương ứng. Systemd cũng giống như init là tiến trình chạy đầu tiên trên hệ thống với ID = 1.
-   
-   > ![](./images/report2/systemd1.png)
-   
+      Đối với các bản Linux hiện đại gần đây thì init và runlevel được thay thế bởi systemd và cũng thực hiện nhiệm vụ tương ứng. Systemd cũng giống như init là tiến trình chạy đầu tiên trên hệ thống với ID = 1.
+
+   > ![](../images/report2/systemd1.png)
+
    Systemd đọc tệp liên kết bởi /etc/systemd/system/default.target để xác định đích hệ thống mặt định. Tệp mục tiêu trong hệ thống xác định các dịch vụ mà systemd bắt đầu. Systemd sẽ bắt đầu mọi thứ trong /etc/systemd/system/basic.target trước khi bắt đầu multi-user service.
-   
+
    Systemd sử dụng mục tiêu thay vì runlevel. Systemd có hai mục tiêu chính: multi-user.target và graphical.target tương ứng với runlevel 3 và runlevel 5.
-   
+
    Kiểm tra mục tiêu mặc định hiện tại :
-   
+
    > systemctl get-default
-   
+
    Đặt mục tiêu mặc định :
-   
+
    > systemctl set-default [target]
-   
-   > ![](./images/report2/systemd2.png)
-   
+
+   > ![](../images/report2/systemd2.png)
+
    ## 2. The startup script framework <a name="startupscript"></a>
    Startup script là các chương trình tự động khởi chạy khi hệ thống khởi động. 
     
@@ -127,49 +128,50 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
    Với hệ thống Systemd, init đọc tệp liên kết bởi /etc/systemd/system/default.target để xác định đích hệ thống mặt định. Và tệp mục tiêu trong hệ thống đó sẽ xác định các dịch vụ mà systemd bắt đầu.
     
    >Trong ảnh là các startup service trong hệ thống systemd (các dòng màu xanh lam)
-   > ![](./images/report2/systemd1.png)
-   ## 3. Managing services using <a name="manaservice"></a>
+   > ![](../images/report2/systemd1.png)
    
+   ## 3. Managing services using <a name="manaservice"></a>
+
    ## 4. Starting and stopping services dynamically <a name="servicedynamic"></a>
    Có nhiều cách để khởi động hay tắt service nào đó, 2 cách phổ biến là:
    - *Sử dụng systemctl*
-   
+
    Để khởi động/đóng service, sử dụng lệnh `systemctl [option] [service]`
-   
+
    Với [option] là start hoặc stop, [service] là tên service cần thao tác.
-   
+
    Để kiểm tra tình trạng của service: `systemctl status [service]`
-   
-   > ![](./images/report2/systemdctl1.png)
-   
+
+   > ![](../images/report2/systemdctl1.png)
+
    - *Sử dụng command service của deb init-system-helpers*
-   
+
    Để khởi động/đóng service, sử dụng lệnh `service [service] [option] `
-   
+
    Với [option] là start hoặc stop, [service] là tên service cần thao tác.
-   
+
    Để kiểm tra tình trạng của service: `systemctl [service] status`
-   
-   > ![](./images/report2/service.png)
+
+   > ![](../images/report2/service.png)
    ## 5. Managing services with systemctl <a name="systemctl"></a>
    *Systemctl* là một tiện ích systemd chịu trách nhiệm điều khiển hệ thống systemd và service. Systemd là một tập hợp các daemon, tiện ích và thư viện quản lý hệ thống, dùng để thay thế cho System V init daemon. 
-   
+
    Cách sử dụng: cách sử dụng *systemctl* đã được giới thiệu qua ở phần [4. Starting and stopping services dynamically](#servicedynamic), với cú pháp là 
-   
+
    > systemctl [option] [service]
-   
+
    Tuy nhiên ngoài các chức năng stop, start và status, *systemctl* còn có 1 vài chức năng khác như:
    - reload, restart, reload-or-restart (khởi động lại, tải lại) sử dụng khi service gặp lỗi, hoặc cần làm mới lại service
-   > ![](./images/report2/reloadservice.png)
+   > ![](../images/report2/reloadservice.png)
    - enable, disable (bật/tắt) 
-   > ![](./images/report2/enableservice.png)
+   > ![](../images/report2/enableservice.png)
    - is-enabled, is-active, is-failed (kiểm tra trạng thái) trả về kết quả ngắn gọn trạng thái của service
-   > ![](./images/report2/checkservice.png)
+   > ![](../images/report2/checkservice.png)
    - Hiển thị danh sách service với command: `systemctl list-units [option]`
-   > ![](./images/report2/list-units.png)
-   
+   > ![](../images/report2/list-units.png)
+
    Chú thích:
-   
+
    - UNIT: system unit name
    - LOAD: unit đã được tải hay chưa, thông tin của unit đã được tải sẽ lưu trong bộ nhớ 
    - ACTIVE: trạng thái bật, tắt của unit
@@ -181,4 +183,4 @@ Khi bạn đăng xuất, shell đó và tất cả các tiến trình con của 
   rc sau đó chạy rc.shutdown ( File /etc/rc.shutdown chạy ngay trước khi tắt hệ thống). Quản trị viên có thể đặt vào tệp này bất kỳ lệnh nào họ muốn thực hiện trong khi tắt máy.
 
 Nếu init đang thoát khỏi chế độ một người dùng, nó cũng sẽ chạy phần đầu tiên của quá trình tắt (lưu dữ liệu ngẫu nhiên), mặc dù không chạy phần sau.
-  
+
