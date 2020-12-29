@@ -181,7 +181,7 @@ Một số thiết bị mạng phổ biến:
 
  Cài đặt và cấu hình giao thức DNS với công cụ bind9:
   - Cài đặt bind9 : `apt install bind9 bind9-doc bind9utils`
-  -  <a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/Report3/configDNS.md" target="blank" >Cấu hình máy server</a>
+  - [Cấu hình máy server](./configDNS.md)
   - Kiểm tra server DNS bằng máy client: chỉ định máy chủ dns trong file resolv.conf `vi /etc/resolv.conf`
   > ![](../images/dns/rs2.png)
 
