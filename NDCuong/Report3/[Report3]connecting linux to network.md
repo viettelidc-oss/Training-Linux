@@ -147,7 +147,7 @@ Mô hình TCP/IP tiêu chuẩn bao gồm 4 tầng, bắt đầu từ tầng th�
 
  Để cài đặt và cấu hình server FTP trên hệ thống linux(ubuntu), có thể sử dụng công cụ vsftpd(Very Secure File Transport Protocol Daemon) -  server FTP độc lập - một cách đơn giản và nhanh chóng. Cài đặt vsftpd: `apt install vsftpd`
 
-<a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configFTP.md"> Tiến hành cấu hình server</a>
+[Tiến hành cấu hình server](#./configFTP.md)
 
 ## 4. Network services and port numbers<a name="4"></a>
 
@@ -181,7 +181,7 @@ Một số thiết bị mạng phổ biến:
 
  Cài đặt và cấu hình giao thức DNS với công cụ bind9:
   - Cài đặt bind9 : `apt install bind9 bind9-doc bind9utils`
-  -  <a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/configDNS.md" target="blank" >Cấu hình máy server</a>
+  -  <a href="https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/Report3/configDNS.md" target="blank" >Cấu hình máy server</a>
   - Kiểm tra server DNS bằng máy client: chỉ định máy chủ dns trong file resolv.conf `vi /etc/resolv.conf`
   > ![](../images/dns/rs2.png)
 
