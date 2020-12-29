@@ -120,4 +120,4 @@ Thay [IP controller node] bằng địa chỉ ip của controller node
 
 
 
-[Tham khảo](#https://docs.openstack.org/install-guide/environment.html)
+[Tham khảo](https://docs.openstack.org/install-guide/environment.html)
