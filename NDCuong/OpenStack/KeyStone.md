@@ -1,5 +1,7 @@
 # KeyStone
 
+Dịch vụ Identity(KeyStone) thường là dịch vụ đầu tiên mà người dùng tương tác. Sau khi được xác thực, người dùng cuối có thể sử dụng danh tính của họ để truy cập các dịch vụ OpenStack khác. Tương tự như vậy, các dịch vụ OpenStack khác tận dụng dịch vụ Identity để đảm bảo người dùng đúng như họ nói và khám phá vị trí của các dịch vụ khác trong quá trình triển khai. 
+
 #### [1.Install and configure](#1)
 
 #### [2.Create a domain, project, users and roles](#2)
@@ -13,6 +15,8 @@
 ## 1.Install and configure<a name="1"></a>
 
 #### 1.1. Tạo database
+
+
 
 - Kết nối với máy chủ cơ sở dữ liệu với tư cách root: `mysql -u root -p` => Nhập Password đã đặt khi cài đặt [môi trường](./Môi%20trường.md#5) 
 
@@ -91,6 +95,10 @@ $ export OS_IDENTITY_API_VERSION=3
 
 Thay ADMIN_PASS bằng password đặt ở [bootstrap](#bootstrap)
 
+- Enable and start service:
+  - `systemctl enable httpd.service`
+  - `systemctl start httpd.service`
+
 ## 2.Create a domain, project, users and roles<a name="2"></a>
 
 > KeyStone có 4 đối tượng : domain, project, user and role. Role là đối tượng chỉ định, ủy quyền cho đối tượng user tác động như thế nào đến 2 đối tượng domain và project
@@ -147,3 +155,33 @@ Khi chưa khai báo password, request sẽ bị từ chối với thông báo *T
 
 
 
+Các phần trước đã sử dụng kết hợp các biến môi trường và các tùy chọn lệnh để tương tác với dịch vụ Identity thông qua openstack client. Để tăng hiệu quả hoạt động của client, OpenStack hỗ trợ các client environment scripts đơn giản còn được gọi là tệp OpenRC. Các tập scripts này thường chứa các tùy chọn chung cho tất cả các máy khách, nhưng cũng hỗ trợ các tùy chọn duy nhất, ví dụ với người dùng admin:
+
+- Tạo scripts **admin-openrc**: `vi admin-openrc`. Thêm các thông tin xác thực phù hợp vào
+
+  ```
+  export OS_PROJECT_DOMAIN_NAME=Default
+  export OS_USER_DOMAIN_NAME=Default
+  export OS_PROJECT_NAME=admin
+  export OS_USERNAME=admin
+  export OS_PASSWORD=ADMIN_PASS
+  export OS_AUTH_URL=http://controller:5000/v3
+  export OS_IDENTITY_API_VERSION=3
+  export OS_IMAGE_API_VERSION=2
+  ```
+
+Khi chạy client với một project hay user cụ thể, chỉ cần chạy client environment scripts tương ứng đã tạo để xác thực: `. admin-openrc`
+
+Ví dụ:
+
+- File client environment scripts **admin-openrc**
+
+![](../images/OpenStack/KeyStone/vd1.png)
+
+- Bỏ các biến đăng nhập tạm thời  OS_AUTH_URL và OS_PASSWORD: `unset OS_AUTH_URL OS_PASSWORD`. Lúc này khi chạy client sẽ yêu cầu xác thực người dùng, ví dụ với câu lệnh yêu cầu thông báo xác thực
+
+![](../images/OpenStack/KeyStone/vd2.png)
+
+- Chạy file client environment scripts **admin-openrc**: `. admin-openrc`, sau đó yêu cầu thông báo xác thực sẽ cho ra kết quả xác thực
+
+![](../images/OpenStack/KeyStone/vd3.png)

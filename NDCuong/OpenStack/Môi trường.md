@@ -42,6 +42,8 @@ Lưu ý: thay NTP_SERVER bằng hostname hoặc ip của server NTP
 
 ## 5.SQL database<a name="5"></a>
 
+Hầu hết các dịch vụ OpenStack sử dụng cơ sở dữ liệu SQL để lưu trữ thông tin. Cơ sở dữ liệu thường chạy trên controller node.
+
 - Install the packages: `yum install mariadb mariadb-server python2-PyMySQL`
 - Config:  `vi /etc/my.cnf.d/openstack.cnf` (create), input: 
 
