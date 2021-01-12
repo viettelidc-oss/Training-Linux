@@ -60,6 +60,8 @@ shutdown, halt |  Tắt hệ thống tại thời điểm yêu cầu |
 pwd: | hiển thị thư mục hiện tại |
 
 ### add disk và cấu hình LVM
+
+https://blogd.net/linux/tao-va-quan-ly-lvm-trong-linux/
   - cấu trúc LVM 
   
   ![image15](https://user-images.githubusercontent.com/74639473/99787412-47fce200-2b52-11eb-83a5-7a2d52f3daa1.png)
