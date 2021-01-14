@@ -1,6 +1,6 @@
 # Glance
 
-Dịch vụ Image(Glance) cho phép người dùng khám phá, đăng ký và truy xuất image máy ảo. Nó cung cấp một API REST(kiểu kiến trúc dành cho các hệ thống siêu đa phương tiện được sử dụng cho World Wide Web) cho phép bạn truy vấn siêu dữ liệu hình ảnh máy ảo và truy xuất hình ảnh thực tế(query virtual machine image metadata and retrieve an actual image). Có thể lưu trữ hình ảnh máy ảo được tạo sẵn thông qua dịch vụ Image ở nhiều vị trí khác nhau, từ hệ thống tệp đơn giản đến hệ thống lưu trữ đối tượng như OpenStack Object Storage.
+
 
 #### [1.Install and configure](#1)
 

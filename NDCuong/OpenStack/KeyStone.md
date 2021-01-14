@@ -1,7 +1,5 @@
 # KeyStone
 
-Dịch vụ Identity(KeyStone) thường là dịch vụ đầu tiên mà người dùng tương tác. Sau khi được xác thực, người dùng cuối có thể sử dụng danh tính của họ để truy cập các dịch vụ OpenStack khác. Tương tự như vậy, các dịch vụ OpenStack khác tận dụng dịch vụ Identity để đảm bảo người dùng đúng như họ nói và khám phá vị trí của các dịch vụ khác trong quá trình triển khai. 
-
 #### [1.Install and configure](#1)
 
 #### [2.Create a domain, project, users and roles](#2)
@@ -101,7 +99,7 @@ Thay ADMIN_PASS bằng password đặt ở [bootstrap](#bootstrap)
 
 ## 2.Create a domain, project, users and roles<a name="2"></a>
 
-> KeyStone có 4 đối tượng : domain, project, user and role. Role là đối tượng chỉ định, ủy quyền cho đối tượng user tác động như thế nào đến 2 đối tượng domain và project
+> 
 
 - Tạo domain mới (tên example, nội dung "An Example Domain") : `openstack domain create --description "An Example Domain" example`
 
