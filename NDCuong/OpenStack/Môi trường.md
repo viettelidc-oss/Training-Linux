@@ -32,7 +32,9 @@ Sử dụng ntp package (<a href="https://github.com/ze9hyrus/Training-Linux/blo
 
 Lưu ý: thay NTP_SERVER bằng hostname hoặc ip của server NTP
 
-- Restart service : `systemctl restart chrony`
+- Đối với các node khác (k phải controller node), thêm `allow [ip_controller_node]/24` vào file config (/etc/chrony.conf)
+
+- Restart service : `systemctl restart chronyd`
 
 ## 4.OpenStack packages<a name="4"></a>
 

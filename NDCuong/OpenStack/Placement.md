@@ -18,10 +18,10 @@
 
   - `GRANT ALL PRIVILEGES ON placement.* TO 'placement'@'localhost' \
     IDENTIFIED BY 'PLACEMENT_DBPASS';` 
+    
+  - `GRANT ALL PRIVILEGES ON placement.* TO 'placement'@'%' \
+        IDENTIFIED BY 'PLACEMENT_DBPASS';`
   
-- `GRANT ALL PRIVILEGES ON placement.* TO 'placement'@'%' \
-      IDENTIFIED BY 'PLACEMENT_DBPASS';`
-
   - Lưu ý: thay PLACEMENT_DBPASS bằng mật khẩu muốn đặt
   
     ![](../images/OpenStack/Placement/db.png)
@@ -50,7 +50,7 @@
 
   
 
-#### 1.3. Cài đặt và cấu hình Glance
+#### 1.3. Cài đặt và cấu hình Placement
 
 - Install packages : `yum install openstack-placement-api`
 

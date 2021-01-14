@@ -4,6 +4,8 @@ Dịch vụ Image(Glance) cho phép người dùng khám phá, đăng ký và tr
 
 #### [1.Install and configure](#1)
 
+#### [2.Verify operation](#2)
+
 
 
 ------------------------------------------------------
@@ -97,3 +99,15 @@ Dịch vụ Image(Glance) cho phép người dùng khám phá, đăng ký và tr
 - Enable and start service
 - ` systemctl enable openstack-glance-api.service`
   - ` systemctl start openstack-glance-api.service`
+
+## 2.Verify operation<a name="2"></a>
+
+- Dowload source image: `wget http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img`
+- Upload the image to the Image service using the [QCOW2](https://docs.openstack.org/glance/train/glossary.html#term-qemu-copy-on-write-2-qcow2) disk format, [bare](https://docs.openstack.org/glance/train/glossary.html#term-bare) container format, and public visibility so all projects can access it:`glance image-create --name "cirros" --file cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --visibility public`
+
+![](../images/OpenStack/Glance/ni.png)
+
+- Confirm upload of the image and validate attributes: ` openstack image list`
+
+  ![](../images/OpenStack/Glance/il.png)
+
