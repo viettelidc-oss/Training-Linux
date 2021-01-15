@@ -2,8 +2,6 @@
 
 #### [1.Install and configure](#1)
 
-
-
 ------------------------------------------------------
 
 ## 1.Install and configure<a name="1"></a>
@@ -24,7 +22,6 @@
   
   - Lưu ý: thay PLACEMENT_DBPASS bằng mật khẩu muốn đặt
   
-    ![](../images/OpenStack/Placement/db.png)
 
 #### 1.2. Xác thực, ủy quyền với KeyStone
 
@@ -81,8 +78,6 @@
     
     Thay PLACEMENT_PASS(password user) và PLACEMENT_DBPASS(password database) bằng mật khẩu đã đặt 
 
-- Tạo bảng cho dịch vụ Image: `su -s /bin/sh -c "placement-manage db sync" placement` - Các bảng sau sẽ tự động được tạo khi chạy lệnh trên
-
-![](../images/OpenStack/Placement/tb.png)
+- Tạo bảng cho dịch vụ Image: `su -s /bin/sh -c "placement-manage db sync" placement` 
 
 - Restart httpd service:  `systemctl restart httpd`

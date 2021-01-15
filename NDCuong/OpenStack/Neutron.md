@@ -1,9 +1,5 @@
 # Placement
 
-#### [1.Install and configure](#1)
-
-
-
 ------------------------------------------------------
 
 ## 1.Install and configure<a name="1"></a>

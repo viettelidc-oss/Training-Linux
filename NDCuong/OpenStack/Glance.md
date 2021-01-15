@@ -6,8 +6,6 @@
 
 #### [2.Verify operation](#2)
 
-
-
 ------------------------------------------------------
 
 ## 1.Install and configure<a name="1"></a>
@@ -103,7 +101,7 @@
 ## 2.Verify operation<a name="2"></a>
 
 - Dowload source image: `wget http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img`
-- Upload the image to the Image service using the [QCOW2](https://docs.openstack.org/glance/train/glossary.html#term-qemu-copy-on-write-2-qcow2) disk format, [bare](https://docs.openstack.org/glance/train/glossary.html#term-bare) container format, and public visibility so all projects can access it:`glance image-create --name "cirros" --file cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --visibility public`
+- Upload image: `glance image-create --name "cirros" --file cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --visibility public` (tên: cirros, nguồn:  cirros-0.4.0-x86_64-disk.img, định dạng : qcow2, định dạng vùng chứa(siêu dữ liệu):  bare(k có vùng chứa siêu dữ liệu), hiển thị: public)
 
 ![](../images/OpenStack/Glance/ni.png)
 

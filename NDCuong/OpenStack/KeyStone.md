@@ -14,8 +14,6 @@
 
 #### 1.1. Tạo database
 
-
-
 - Kết nối với máy chủ cơ sở dữ liệu với tư cách root: `mysql -u root -p` => Nhập Password đã đặt khi cài đặt [môi trường](./Môi%20trường.md#5) 
 
 - Tạo database: `CREATE DATABASE keystone;`
@@ -28,7 +26,6 @@
 
   - Lưu ý: thay KEYSTONE_DBPASS bằng mật khẩu muốn đặt
 
-    ![](../images/OpenStack/KeyStone/db.png)
 
 #### 1.2. Cài đặt và cấu hình KeyStone
 
@@ -48,17 +45,15 @@
     provider = fernet
     ```
 
-- Tạo bảng cho dịch vụ Identity: `su -s /bin/sh -c "keystone-manage db_sync" keystone` - Các bảng sau sẽ tự động được tạo khi chạy lệnh trên
+- Tạo bảng cho dịch vụ Identity: `su -s /bin/sh -c "keystone-manage db_sync" keystone` 
 
-![](../images/OpenStack/KeyStone/tb.png)
-
-- Khởi tạo kho khóa Fernet: 
+- Initialize Fernet key repositories (Khởi tạo kho khóa Fernet): 
 
   - `keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone`
   - `keystone-manage credential_setup --keystone-user keystone --keystone-group keystone`
   - Các tham số --keystone-user và keystone-group chỉ định user/group của hệ điều hành được phép chạy KeyStone. Ở đây user/group được chọn là 'keystone'
 
-- Bootstrap the Identity service:<a name="bootstrap"></a>
+- Bootstrap the Identity service(khởi tạo, khai báo các tham số):<a name="bootstrap"></a>
 
   ```
   keystone-manage bootstrap --bootstrap-password ADMIN_PASS \

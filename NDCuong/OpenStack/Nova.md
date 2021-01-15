@@ -50,7 +50,6 @@ Trong bài viết này controller node và compute node sẽ được cài đặ
   
   - Lưu ý: thay GLANCE_DBPASS bằng mật khẩu muốn đặt
   
-    ![](../images/OpenStack/Nova/db.png)
 
 #### 1.2. Xác thực, ủy quyền với KeyStone
 

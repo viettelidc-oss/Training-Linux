@@ -9,8 +9,13 @@ Thứ tự cài đặt: Môi trường -> KeyStone -> Glance -> Placement -> Nov
 ##  Environment
 
 - SQL database: Hầu hết các dịch vụ OpenStack sử dụng cơ sở dữ liệu SQL để lưu trữ thông tin. Cơ sở dữ liệu thường chạy trên nút điều khiển.
+
+  ![](../images/OpenStack/db.png)
+
 - Message queue: OpenStack sử dụng Message queue để điều phối hoạt động và thông tin trạng thái giữa các dịch vụ. Dịch vụ hàng đợi tin nhắn thường chạy trên controller node.
+
 - Memcache: Cơ chế xác thực dịch vụ Identity cho các dịch vụ sử dụng Memcached để lưu trữ tokens. Dịch vụ memcached thường chạy trên controller node.
+
 - Etcd: Các dịch vụ OpenStack có thể sử dụng Etcd, một kho lưu trữ khóa-giá trị (key-values) đáng tin cậy được phân phối để khóa khóa phân tán, lưu trữ cấu hình, theo dõi dịch vụ trực tiếp và các tình huống khác.
 
 ## Identity (KeyStone)
@@ -82,6 +87,9 @@ Thứ tự cài đặt: Môi trường -> KeyStone -> Glance -> Placement -> Nov
   - nova-compute: daemon tạo và giám sát các máy ảo thông qua các API giám sát (hypervisor APIs)
   - nova-scheduler: lấy yêu cầu máy ảo từ hàng đợi và chỉ định host server cho nó
   - nova-conductor: kết nối nova-compute và database, ngăn k cho nova-compute truy cập trực tiếp vào database
+  
+  ![](../images/OpenStack/Nova/3.png)
+  
   - nova-novncproxy: cung cấp proxy để truy cập các instance đang chạy thông qua kết nối VNC. Hỗ trợ ứng dụng khách novnc dựa trên trình duyệt.
   - nova-spicehtml5proxy: cung cấp proxy để truy cập các phiên bản đang chạy thông qua kết nối SPICE. Hỗ trợ ứng dụng khách HTML5 dựa trên trình duyệt.
   - nova-xvpvncproxy: cung cấp proxy để truy cập các phiên bản đang chạy thông qua kết nối VNC. Hỗ trợ máy khách Java dành riêng cho OpenStack.
@@ -95,7 +103,14 @@ Thứ tự cài đặt: Môi trường -> KeyStone -> Glance -> Placement -> Nov
 
 ## Dashboard (Horizon)
 
+- Là service cung cấp dịch vụ đồ họa GUI phục vụ cho quản trị hệ thống OpenStack thông qua website
+
+  ![](../images/OpenStack/hz.png)
+
 ## Block Storage (Cinder)
 
 - Cung cấp các thiết bị lưu trữ (block storage) cho instances. Phương thức lưu trữ được cung cấp và sử dụng được xác định bởi trình điều khiển Lưu trữ khối(Block Storage driver) hoặc các trình điều khiển trong trường hợp cấu hình đa phụ trợ.
+- Tạo, xóa và sử dụng volume
+
+![](../images/OpenStack/cd.png)
 
