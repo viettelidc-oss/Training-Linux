@@ -6,6 +6,13 @@ Thứ tự cài đặt: Môi trường -> KeyStone -> Glance -> Placement -> Nov
 
 # Tổng quan OS:
 
+##  Environment
+
+- SQL database: Hầu hết các dịch vụ OpenStack sử dụng cơ sở dữ liệu SQL để lưu trữ thông tin. Cơ sở dữ liệu thường chạy trên nút điều khiển.
+- Message queue: OpenStack sử dụng Message queue để điều phối hoạt động và thông tin trạng thái giữa các dịch vụ. Dịch vụ hàng đợi tin nhắn thường chạy trên controller node.
+- Memcache: Cơ chế xác thực dịch vụ Identity cho các dịch vụ sử dụng Memcached để lưu trữ tokens. Dịch vụ memcached thường chạy trên controller node.
+- Etcd: Các dịch vụ OpenStack có thể sử dụng Etcd, một kho lưu trữ khóa-giá trị (key-values) đáng tin cậy được phân phối để khóa khóa phân tán, lưu trữ cấu hình, theo dõi dịch vụ trực tiếp và các tình huống khác.
+
 ## Identity (KeyStone)
 
 - Dịch vụ Identity thường là dịch vụ đầu tiên mà người dùng tương tác. Sau khi được xác thực, người dùng có thể sử dụng danh tính của họ để truy cập các dịch vụ OpenStack khác. Tương tự như vậy, các dịch vụ OpenStack khác tận dụng dịch vụ Identity để đảm bảo danh tính người dùng quyền truy cập, sử dụng các dịch vụ khác trong quá trình triển khai. 
