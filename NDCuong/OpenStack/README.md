@@ -80,26 +80,64 @@ Thứ tự cài đặt: Môi trường -> KeyStone -> Glance -> Placement -> Nov
 ## Compute(Nova)
 
 - Tổ chức, vận hành và quản lý(host and manage) hệ thống OpenStack. Đây là thành phần chính của hệ thống dịch vụ hạ tầng (IaaS). Module chính được triển khai bằng Python.
+
 - OpenStack Compute tương tác với OpenStack Identity để xác thực, OpenStack Placement để theo dõi và lựa chọn kho tài nguyên, dịch vụ OpenStack Image cho hình ảnh đĩa và máy chủ, và OpenStack Dashboard cho giao diện quản trị và người dùng.
+
+  ![](../images/OpenStack/nv5.png)
+
 - OpenStack Compute bao gồm:
+
+  ![](../images/OpenStack/Nova/3.png)
+
   - nova-api: Tiếp nhận và phản hồi các yêu cầu gọi API của người dùng cuối, thực thi các chính sách(policies) và bắt đầu hầu hết các hoạt động điều phối, chẳng hạn như chạy một instance
   - nova-api-metadata: Tiếp nhận yêu cầu metadata từ instances
   - nova-compute: daemon tạo và giám sát các máy ảo thông qua các API giám sát (hypervisor APIs)
   - nova-scheduler: lấy yêu cầu máy ảo từ hàng đợi và chỉ định host server cho nó
   - nova-conductor: kết nối nova-compute và database, ngăn k cho nova-compute truy cập trực tiếp vào database
-  
-  ![](../images/OpenStack/Nova/3.png)
-  
+
   - nova-novncproxy: cung cấp proxy để truy cập các instance đang chạy thông qua kết nối VNC. Hỗ trợ ứng dụng khách novnc dựa trên trình duyệt.
   - nova-spicehtml5proxy: cung cấp proxy để truy cập các phiên bản đang chạy thông qua kết nối SPICE. Hỗ trợ ứng dụng khách HTML5 dựa trên trình duyệt.
   - nova-xvpvncproxy: cung cấp proxy để truy cập các phiên bản đang chạy thông qua kết nối VNC. Hỗ trợ máy khách Java dành riêng cho OpenStack.
 
+- Tạo, xóa, điều khiển máy ảo
+
+  - Tạo
+
+    ![](../images/OpenStack/nv1.png)
+
+  - Xóa
+
+    ![](../images/OpenStack/nv2.png)
+
+  - Điều khiển với virsh command
+
+    ![](../images/OpenStack/nv3.png)
+
+  - Điều khiển bằng dashboard
+
+    ![](../images/OpenStack/nv4.png)
+
 ## Networking (Neutron)
 
 - Tạo và gắn các thiết bị giao diện(interface devices) được quản lý bởi các dịch vụ OpenStack khác vào mạng. Plug-ins có thể được triển khai để phù hợp với các thiết bị mạng và phần mềm khác nhau, mang lại sự linh hoạt cho kiến trúc và triển khai OpenStack. 
+
+  ![](../images/OpenStack/nt1.png)
+
 - Tiếp nhận là định tuyến các yêu cầu API (API request) đến plug-in thích hợp để thực thi.
+
 - OpenStack Networking chủ yếu tương tác với OpenStack Compute để cung cấp mạng và kết nối cho các instance của nó.
+
 - Chủ yếu sử dụng Messaging queue để định tuyến thông tin giữa các máy chủ neutron và các tác nhân(agents) khác nhau. Cũng hoạt động như một cơ sở dữ liệu để lưu trữ trạng thái mạng cho các plug-in cụ thể.
+
+- Thêm, xóa network
+
+  - Thêm 
+
+    ![](../images/OpenStack/nt.png)
+
+  - Xóa 
+
+    ![](../images/OpenStack/nt2.png)
 
 ## Dashboard (Horizon)
 
@@ -110,7 +148,18 @@ Thứ tự cài đặt: Môi trường -> KeyStone -> Glance -> Placement -> Nov
 ## Block Storage (Cinder)
 
 - Cung cấp các thiết bị lưu trữ (block storage) cho instances. Phương thức lưu trữ được cung cấp và sử dụng được xác định bởi trình điều khiển Lưu trữ khối(Block Storage driver) hoặc các trình điều khiển trong trường hợp cấu hình đa phụ trợ.
+
+  ![](../images/OpenStack/cd.png)
+
 - Tạo, xóa và sử dụng volume
 
-![](../images/OpenStack/cd.png)
+  - Tạo
+
+    ![](../images/OpenStack/cd1.png)
+
+  - Xóa
+
+    ![](../images/OpenStack/cd2.png)
+
+
 
