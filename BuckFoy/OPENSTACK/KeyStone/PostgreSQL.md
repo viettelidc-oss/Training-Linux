@@ -1,5 +1,22 @@
 # PostgreSQL 
 
+## Cài đặt psqlS
+
+```
+
+sudo yum install postgresql-server postgresql-contrib
+```
+
+```
+sudo postgresql-setup initdb
+```
+
+```
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+
+```
+
 [1. các lệnh kiểm tra user, database,tables](#p1)
 
 [2. Các kiểu dữ liệu trong PSQL](#P2)
@@ -69,3 +86,155 @@
 | Kiểu dữ liệu | Kích thước lưu trữ | Miêu tả                         |
 | ------------ | ------------------ | ------------------------------- |
 | boolean      | 1 byte             | Có 2 giá trị là true hoặc false |
+
+
+
+
+
+## Đồng bộ dữ liệu Postgresql bằng replication
+
+- slep 1: setup hostname
+
+  ```
+  sudo hostnamectl set-hostname master-server
+  ```
+
+```
+sudo hostnamectl set-hostname slave-server
+```
+
+```
+sudo vim /etc/hosts
+```
+
+- step 2: Cài đặt Postgresql trên master và slave
+
+  ```
+  su - postgres
+  psql
+  \conninfo
+  ```
+
+- Cấu hình master-server
+
+  ```
+  su - postgres
+  ```
+
+```
+psql
+CREATE USER replica REPLICATION LOGIN ENCRYPTED PASSWORD 'replicauser@';
+```
+
+```
+cd /etc/postgresql/9.4/main/
+```
+
+```
+listen_addresses = 'localhost,192.168.1.249'
+```
+
+```
+wal_level = hot_standby
+```
+
+```
+archive_mode = on
+archive_command = 'cp -i %p /var/lib/postgresql/9.4/main/archive/%f'
+max_wal_senders = 3
+wal_keep_segments = 8
+```
+
+```
+mkdir -p /var/lib/9.4/main/archive/
+```
+
+```
+vim pg_hba.conf
+host    replication     replica      192.168.1.248/24            md5
+
+```
+
+- step 4. Cấu hình slave server
+
+  ```
+  su - postgres
+  cd /etc/postgresql/9.4/main/
+  ```
+
+```
+vim postgresql.conf
+listen_addresses = 'localhost,192.168.1.248'
+wal_level = hot_standby
+checkpoint_segments = 8
+max_wal_senders = 3
+wal_keep_segments = 8
+hot_standby = on
+
+```
+
+- step 5: 
+
+  slave
+
+  ```
+  systemctl stop postgresql
+  su - postgres
+  mv 9.4/main 9.4/main_original
+  pg_basebackup -h 192.168.1.249 -D /var/lib/postgresql/9.4/main -U replica -v -P
+  ```
+
+```
+cd /var/lib/postgresql/9.4/main/
+vim recovery.conf
+standby_mode = 'on'
+primary_conninfo = 'host=192.168.1.249 port=5432 user=replica password=replicauser@'
+restore_command = 'cp //var/lib/postgresql/9.4/main/archive/%f %p'
+trigger_file = '/tmp/postgresql.trigger.5432'
+```
+
+```
+systemctl start postgresql
+```
+
+- step 6 : Testing
+
+  master
+
+  ```
+  su - postgres
+  psql -x -c "select * from pg_stat_replication;"
+  su - postgres
+  psql
+  create database howtoforge;
+  ```
+
+slave
+
+```
+su - postgres
+psql
+\list
+```
+
+#### chuyển slave thành  master
+
+chạy quảng cáo pg_ctl
+
+```
+bash``-4.2$ pg_ctl promote -D ``/var/lib/pgsql/10/data/``<font><``/font``>
+waiting ``for` `server to promote.... ``done``<font><``/font``>
+server promoted
+```
+
+Tạo một tệp trigger_file mà chúng ta phải thêm vào recovery.conf của thư mục dữ liệu của chúng ta.
+
+```
+bash``-4.2$ ``cat` `/var/lib/pgsql/10/data/recovery``.conf<font><``/font``>
+standby_mode = ``'on'``<font><``/font``>
+primary_conninfo = ``'application_name=pgsql_node_0 host=postgres1 port=5432 user=replication password=****'``<font><``/font``>
+recovery_target_timeline = ``'latest'``<font><``/font``>
+trigger_file = ``'/tmp/failover.trigger'``<font><``/font``>
+<font><``/font``>
+bash``-4.2$ ``touch` `/tmp/failover``.trigger
+```
