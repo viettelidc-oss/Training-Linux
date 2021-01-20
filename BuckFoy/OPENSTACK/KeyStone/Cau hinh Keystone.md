@@ -28,7 +28,8 @@ systemctl start mariadb.service
 
 ![](./Image/1.png)
 
-![image-20210104160223255](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210104160223255.png)
+![](./Image/2.png)
+
 
 ```
 yum install rabbitmq-server
@@ -38,21 +39,20 @@ yum install rabbitmq-server
 systemctl enable rabbitmq-server.service
 systemctl start rabbitmq-server.service
 ```
-
-![image-20210104160450916](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210104160450916.png)
+![](./Image/3.png)
 
 ```
 cp /etc/sysconfig/memcached /etc/sysconfig/memcached.origin
 ```
+![](./Image/4.png)
 
-![image-20210104160541521](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210104160541521.png)
 
 ```
 systemctl enable memcached.service
 systemctl start memcached.service
 ```
 
-![image-20210104160732428](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210104160732428.png)
+![](./Image/5.png)
 
 ```
 yum install -y openstack-keystone httpd mod_wsgi
@@ -76,8 +76,7 @@ provider = fernet
 su -s /bin/sh -c "keystone-manage db_sync" keystone
 ```
 
-![image-20210104160936757](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210104160936757.png)
-
+![](./Image/6.png)
 ```
 keystone-manage bootstrap --bootstrap-password ADMIN_PASS \
   --bootstrap-admin-url http://controller:5000/v3/ \
@@ -128,12 +127,12 @@ export OS_IDENTITY_API_VERSION=3
 openstack project create --domain default --description "Service Project" service
 ```
 
-![image-20210104161159542](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210104161159542.png)
+![](./Image/7.png)
 
-![image-20210104161213712](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210104161213712.png)
+![](./Image/8.png)
 
-![image-20210104161241734](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210104161241734.png)
+![](./Image/9.png)
 
-![image-20210104161318884](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210104161318884.png)
+![](./Image/10.png)
 
-![image-20210104161352361](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210104161352361.png)
+![](./Image/11.png)
