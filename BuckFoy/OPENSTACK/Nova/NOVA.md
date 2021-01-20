@@ -1,5 +1,14 @@
 NOVA
 
+#### Tạo database
+
+- Kết nối với máy chủ cơ sở dữ liệu với tư cách root: `mysql -u root -p` => Nhập Password đã đặt khi cài đặt [môi trường](https://github.com/ze9hyrus/Training-Linux/blob/main/NDCuong/OpenStack/Môi trường.md#5)
+- Tạo database:
+  - `CREATE DATABASE nova_api;`
+  - `CREATE DATABASE nova;`
+  - `CREATE DATABASE nova_cell0;`
+- Cấp quyền truy cập vào database
+
 ```
 mysql -u root -pWelcome123
 CREATE DATABASE nova_api;
