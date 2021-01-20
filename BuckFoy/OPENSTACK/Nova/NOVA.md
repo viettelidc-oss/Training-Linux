@@ -86,3 +86,4 @@ lock_path = /var/lib/nova/tmp
 # ...
 virt_type = qemu
 ```
+a
