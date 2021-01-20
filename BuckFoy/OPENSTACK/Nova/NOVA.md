@@ -1,5 +1,8 @@
 NOVA
 
+
+## Tao database
+
 ```
 mysql -u root -pWelcome123
 CREATE DATABASE nova_api;
@@ -10,15 +13,24 @@ GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'localhost' IDENTIFIED BY 'Welcome123';
 GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'%' IDENTIFIED BY 'Welcome123';
 exit
 ```
+###  Xác thực, ủy quyền với KeyStone
+Chạy file client environment scripts admin-openrc để xác thực với người dùng admin để có thể dùng các lệnh CLI chỉ dành cho quản trị viên (admin-only CLI commands): . admin-openrc
+Tạo user nova: openstack user create --domain default --password-prompt nova
 
 ```
 . admin-openrc
 openstack user create --domain default --password-prompt nova
 ```
 
-![image-20210106110857229](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210106110857229.png)
+![](./Image/1.png)
 
-![image-20210106110932045](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210106110932045.png)
+Tạo role phân quyền project service cho user nova: openstack role add --project service --user nova admin
+
+Tạo service (type compute) nova : openstack service create --name nova --description "OpenStack Compute" compute
+
+![](./Image/2.png)
+
+Tạo API endpoints(vị trí mà các API tương tác với hệ thống, truy cập tài nguyên. Tham khảo):
 
 ```
 openstack endpoint create --region RegionOne compute public http://192.168.237.142:8774/v2.1/%\(tenant_id\)s
@@ -26,8 +38,10 @@ openstack endpoint create --region RegionOne compute internal http://192.168.237
 openstack endpoint create --region RegionOne compute admin http://192.168.237.142:8774/v2.1/%\(tenant_id\)s
 ```
 
-![image-20210106111136036](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210106111136036.png)
+![](./Image/3.png)
 
+
+## Cài đặt và cấu hình Nova
 ```
 yum install openstack-nova-api openstack-nova-conductor openstack-nova-console openstack-nova-novncproxy openstack-nova-scheduler -y
 ```
@@ -67,4 +81,8 @@ api_servers = http://192.168.237.142:9292
 
 [oslo_concurrency]
 lock_path = /var/lib/nova/tmp
+
+[libvirt]
+# ...
+virt_type = qemu
 ```
