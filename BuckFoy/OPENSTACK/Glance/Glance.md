@@ -23,7 +23,7 @@ Tạo user glance: openstack user create --domain default --password-prompt glan
 openstack user create glance --domain default --password Welcome123
 ```
 
-![](./Glance/1.png)
+![](./Image/1.png)
 
 Tạo role phân quyền project service (tạo mới nếu chưa có: openstack project create --domain default --description "Service Project" service) cho user glance: openstack role add --project service --user glance admin
 
@@ -35,27 +35,32 @@ endpoint public: openstack endpoint create --region RegionOne image public http:
 endpoint internal: openstack endpoint create --region RegionOne image internal http://controller:9292
 endpoint admin: openstack endpoint create --region RegionOne image admin http://controller:9292
 
-![](./Glance/2.png)
+![](./Image/2.png)
 
-![](./Glance/3.png)
+![](./Image/3.png)
 
-![](./Glance/4.png)
+![](./Image/4.png)
 
 
 ## Cài đặt và cấu hình Glance
 ```
 yum install openstack-glance -y
 ```
-![](./Glance/5.png)
+![](./Image/5.png)
 
 Config: vi /etc/glance/glance-api.conf
 
+```
 [database]
+
 # ...
+
 connection = mysql+pymysql://glance:GLANCE_DBPASS@controller/glance
 
 [keystone_authtoken]
+
 # ...
+
 www_authenticate_uri  = http://controller:5000
 auth_url = http://controller:5000
 memcached_servers = controller:11211
@@ -67,14 +72,21 @@ username = glance
 password = GLANCE_PASS
 
 [paste_deploy]
+
 # ...
+
 flavor = keystone
 
 [glance_store]
+
 # ...
+
 stores = file,http
 default_store = file
 filesystem_store_datadir = /var/lib/glance/images/
+```
+
+
 
 Tạo bảng cho dịch vụ Image: su -s /bin/sh -c "glance-manage db_sync" glance - Các bảng sau sẽ tự động được tạo khi chạy lệnh trên
 
