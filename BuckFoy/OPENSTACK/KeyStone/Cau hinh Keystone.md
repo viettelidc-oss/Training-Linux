@@ -26,7 +26,7 @@ systemctl enable mariadb.service
 systemctl start mariadb.service
 ```
 
-![image-20210104160152436](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210104160152436.png)
+![](./OPENSTACK/KeyStone/Image/1.png)
 
 ![image-20210104160223255](C:\Users\ADMIN\AppData\Roaming\Typora\typora-user-images\image-20210104160223255.png)
 
