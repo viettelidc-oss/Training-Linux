@@ -87,9 +87,41 @@ sudo systemctl enable postgresql
 | ------------ | ------------------ | ------------------------------- |
 | boolean      | 1 byte             | Có 2 giá trị là true hoặc false |
 
+### Backup and restore PostgreSQL
+
+##### Backup Database
+
+- Backup thành file txt thuần SQL
+
+Để backup PostgreSQL Database thì trước tiên hãy đăng nhập bằng tài khoản có quyền truy cập server, sau đó chuyển sang dùng tài khoản **Postgres** và chạy lệnh `pg_dump` như sau
+
+$ pg_dump db > db.sql
+
+![](./Images/Postgresql/1.png)
+
+- khôi phục postgresql database
+
+  Để khôi phục một database từ file backup.bak ,có thể sử dụn conmand sau
+
+  psql vanphong < /opt/backup/vanphong.bak
+
+  ![](./Images/Postgresql/2.png)
+
+  #### Backup and sao lưu toàn bộ database
+
+  Để backup toàn bộ database của postgresql ,sử dụng công cụ pg_dumpall của Postgresql
+
+  pg_dumpall > /opt/backup/all_pgdb_backup.bak
+
+  ![](./Images/Postgresql/3.png)
 
 
 
+Để khôi phục toàn bộ database 
+
+psql -f /opt/backup/all_pgdb_backup.bak postgres
+
+![](./Images/Postgresql/4.png)
 
 ## Đồng bộ dữ liệu Postgresql bằng replication
 

@@ -93,3 +93,15 @@ Tạo bảng cho dịch vụ Image: su -s /bin/sh -c "glance-manage db_sync" gla
 Enable and start service
 systemctl enable openstack-glance-api.service
 systemctl start openstack-glance-api.service
+
+## Verify operation
+
+- Dowload source image: `wget http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img`
+- Upload image: `glance image-create --name "cirros" --file cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --visibility public` (tên: cirros, nguồn: cirros-0.4.0-x86_64-disk.img, định dạng : qcow2, định dạng vùng chứa(siêu dữ liệu): bare(k có vùng chứa siêu dữ liệu), hiển thị: public)
+
+![](./Image/6.png)
+
+Confirm upload of the image and validate attributes: `openstack image list`
+
+![](./Image/7.png)
+
