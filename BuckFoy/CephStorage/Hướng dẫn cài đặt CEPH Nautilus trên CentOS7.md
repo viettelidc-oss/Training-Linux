@@ -1,3 +1,9 @@
+
+
+
+
+
+
 # Hướng dẫn cài đặt CEPH Nautilus trên CentOS7
 
 ## 1. Mô hình dựng LAB
@@ -67,6 +73,10 @@ systemctl start chronyd.service
 systemctl restart chronyd.service
 chronyc sources
 ```
+
+Cấu hình đồng bộ thời gian
+
+ https://news.cloud365.vn/cai-dat-chrony-tren-centos-rhel-7/
 
 Khởi động lại node CEPH1 và chuyển sang CEPH2 thực hiện tiếp.
 
@@ -229,8 +239,348 @@ Kết quả sinh ra các file trong thư mục hiện tại
 
 - Để node `ceph01`, `ceph02`, `ceph03` có thể thao tác với cluster chúng ta cần gán cho node quyền admin bằng cách bổ sung key `admin.keying` cho node
 
+  
+
 ```
 ceph-deploy admin ceph01 ceph02 ceph03
 ```
 
 > ![](./image/33.png)
+
+ 
+
+#### Cấu hình manager và dashboad cho ceph cluster
+
+Ceph-dashboard là một thành phần thuộc `ceph-mgr`. Trong bản Nautilus thì thành phần dashboard được cả tiến khá lớn. Cung cấp nhiều quyền hạn thao tác với CEPH hơn các bản trước đó
+
+Thực hiện trên node ceph1 việc cài đặt này.
+
+Cài thêm các gói bổ trợ trước khi cài
+
+```
+sudo yum install -y python-jwt python-routes
+sudo rpm -Uvh http://download.ceph.com/rpm-nautilus/el7/noarch/ceph-grafana-dashboards-14.2.3-0.el7.noarch.rpm
+
+sudo rpm -Uvh http://download.ceph.com/rpm-nautilus/el7/noarch/ceph-mgr-dashboard-14.2.3-0.el7.noarch.rpm
+```
+
+Thực hiện kích hoạt ceph-mgr và ceph-dashboard
+
+```
+ceph-deploy mgr create ceph1 ceph2 ceph3
+ceph mgr module enable dashboard --force
+ceph mgr module ls
+```
+
+Tạo cert cho ceph-dashboad
+
+```
+sudo ceph dashboard create-self-signed-cert 
+```
+
+Kết quả trả về dòng *Self-signed certificate created* là thành công.
+
+Tạo tài khoản cho ceph-dashboard, trong hướng dẫn này tạo tài khoản tên là *cephadmin* và mật khẩu là *matkhau2019@*
+
+```
+ceph dashboard ac-user-create cephadmin matkhau2019@ administrator 
+```
+
+```
+ceph mgr services 
+```
+
+```
+{
+    "dashboard": "https://ceph1:8443/"
+}
+```
+
+Truy cập https://ip_ceph1:8443
+
+Màn hình trạng thái tổng thể của CEP cluster
+
+![](./image/35.png)
+
+Màn hình thành phần MON của CEPH
+
+![](./image/36.png)
+
+Màn hình các Node của CEPH
+
+![](./image/37.png)
+
+Màn hình các OSD disk của CEPH
+
+![](./image/38.png)
+
+#### Cấu hình object storage và khai báo sử dụng trên ceph-dashboard
+
+ sử dụng node ceph2 để cài đặt thành phần Radosgw để cung cấp object storage.
+
+Đứng trên ceph1 tiếp tục thực hiện lệnh dưới để triển khai thành phần radosgw. 
+
+```
+ceph-deploy install --rgw ceph2
+```
+
+```
+ceph-deploy rgw create ceph2
+```
+
+![](./image/39.png)
+
+Thực hiện khai báo user để có thể sử dụng được dashboard để quản lý object storage, ta sẽ có tùy chọn “*–system*“
+
+```
+radosgw-admin user create --uid=cloud365admin --display-name=Cloud365 --system
+```
+
+Kết quả trả về sẽ là thông tin về *access_key* và *secret_key* 
+
+![](./image/40.png)
+
+Thực hiện khai báo `access_key` và `secret_key`tích hợp với dashboard của ceph. Lưu ý phải dùng chuỗi đối với kết quả của bạn nhé.
+
+```
+ceph dashboard set-rgw-api-access-key CQF41G7RFFSXV37NXE82
+ceph dashboard set-rgw-api-secret-key S7SC3kGkdT22Okw6cbwThYIxerPH40J3UZgLk44C
+ceph dashboard set-rgw-api-ssl-verify False
+```
+
+Tới đây, ta chuyển sang bước login vào dashboard của CEPH để xem các thành phần của `object storage` vừa khai báo, cụ thể như sau
+
+Màn hình quan sát các node đã cài đăt radosgw
+
+![](./image/41.png)
+
+
+
+Màn hình liệt kê user của object storage
+
+![](./image/42.png)
+
+Màn hình tạo user trong object storage
+
+![](./image/43.png)
+
+![](./image/44.png)
+
+
+
+
+
+## Hướng dẫn sử dụng block storage của CEPH
+
+**Cách dùng block storage được tổng hợp như sau**:
+
+- Block storage được dùng để chứa máy ảo trong môi trường cloud hoặc là disk được gắn thêm cho máy ảo hoặc máy chủ thông thường, disk gắn thêm này được cấp ra từ cụm cluser CEPH.
+- Muốn dùng block storage thì các client phải có gói phần mềm hỗ trợ, tức là phải cài phần mềm tương đương driver.
+- Tốc độ truy cập của block storage nhanh hơn object storage nên phù hợp với các hệ thống đòi hỏi khả năng truy xuất cao như Database, hệ điều hành (chính là OS cài lên disk).
+- Đa số các hệ thống cung cấp block storage chỉ cung cấp trong phạm vi khoảng cách ngắn, không như object là có thể qua môi trường internet.
+
+### Cấu hình cơ bản cho `client1`
+
+#### Khai báo IP, hostname
+
+Như cấu hình giống ceph1
+
+#### Cài đặt repos và các gói bổ trợ cho client1
+
+Cài đặt các gói bổ trợ cho `client1`
+
+```
+yum update -y
+yum install epel-release -y
+yum install wget bybo curl git -y
+yum install python-setuptools -y
+yum install python-virtualenv -y
+yum update -y
+```
+
+Cấu hình NTP
+
+```
+yum install -y chrony
+
+systemctl enable chronyd.service
+systemctl start chronyd.service
+systemctl restart chronyd.service
+chronyc sources
+```
+
+Tạo user là cephuser với mật khẩu là `matkhau2019@`
+
+```
+useradd cephuser; echo 'matkhau2019@' | passwd cephuser --stdin
+echo "cephuser ALL = (root) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/cephuser
+chmod 0440 /etc/sudoers.d/cephuser
+```
+
+```
+cd /ceph-deploy
+```
+
+```
+ssh-copy-id cephuser@client
+```
+
+```
+ceph-deploy install --release nautilus client
+```
+
+![](./image/45.png)
+
+Thực hiện deploy node `client`
+
+```
+ceph-deploy admin client
+```
+
+![](./image/46.png)
+
+Đứng trên node `CEPH1` để phân quyền cho file `/etc/ceph/ceph.client.admin.keyring` cho node `client`
+
+```
+ssh cephuser@client 'sudo chmod +r /etc/ceph/ceph.client.admin.keyring'
+```
+
+#### Cấu hình RBD cho Client sử dụng
+
+**Thực hiên trên node** `ceph1`
+
+Khai báo pool tên là `rbd` để client sử dụng. Tên pool này khá đặc biệt vì nó là pool block storage mặc định của CEPH. Nếu trong các lệnh ko đưa tùy chọn `-p ten_pool` thì CEPH sẽ làm việc với pool này.
+
+```
+ceph osd pool create rbd 128
+```
+
+```
+rbd pool init rbd
+```
+
+Kiểm tra pool vừa tạo xem đã có hay chưa bằng lệnh `ceph osd pool ls`
+
+![](./image/47.png)
+
+Tới đây đã thiết lập rbd pool xong trên node `CEPH1`. Chuyển sang client để sử dụng các images (tạm hiểu là các disk)
+
+Đứng trên node cephclient1 thực hiện tạo một image có tên là disk01 với dung lượng là 10GB, image này sẽ nằm trong pool có tên là `rdbpool` vừa tạo ở trên.
+
+```
+ rbd create disk01 --size 10G --image-feature layering
+```
+
+Dùng lệnh liệt kê các images để kiểm tra lại xem các images RDB đã được tạo hay chưa
+
+```
+rbd ls -l
+```
+
+Kết quả lệnh `rbd ls -l -p rbd`
+
+![](./image/48.png)
+
+Việc tiếp theo cần phải gắn nó vào máy ảo và format, sau đó tiếp tục mount vào thư mục cần thiết.
+
+Thực hiện map images đã được tạo tới một disk của máy client
+
+```
+rbd map disk01 
+```
+
+![](./image/49.png)
+
+Thực hiện kiểm tra xem images RBD có tên là disk01 đã được map hay chưa.
+
+```
+rbd showmapped
+```
+
+![](./image/50.png)
+
+Tới đây máy client chưa thể sử dụng ổ được map vì chưa được phân vùng, tiếp tục thực hiện bước phân vùng và mount vào một thư mục nào đó để sử dụng.
+
+```
+sudo mkfs.xfs /dev/rbd0
+```
+
+![](./image/51.png)
+
+Thực hiện mount vào thư mục /mtn
+
+```
+sudo mount /dev/rbd0 /mnt
+```
+
+![](./image/52.png)
+
+Kích hoạt rdb map
+
+```
+systemctl start rbdmap
+
+systemctl enable rbdmap
+
+systemctl status rbdmap
+```
+
+Sửa file `vi /etc/ceph/rbdmap` bằng việc thêm dòng `rbd/disk01 id=admin,keyring=/etc/ceph/ceph.client.admin.keyring` vào cuối file. Nội dung của file `/etc/ceph/rbdmap` như dưới
+
+Sửa file `/etc/fstab` bằng việc khai báo đường dẫn của device và thư mục được mount. Thêm dòng dưới vào cuối cùng của file.
+
+```
+/dev/rbd/rbd/disk01             /mnt                    xfs     noauto          0 0
+```
+
+#### Thực hiện tạo ra pool thứ 2 cho block storage
+
+```
+ceph osd pool create rbdpool 64
+
+rbd pool init rbdpool
+```
+
+Kiểm tra lại các pool đã được tạo hay chưa bằn lệnh `ceph osd pool ls`. Ta có kết quả dưới.
+
+![](./image/53.png)
+
+Chuyển sang node `client` thực hiện các bước dưới.
+
+Thực hiện khai báo cho client sử dụng pool có tên là `rbdpool`. Đứng trên `client` thực hiện với tùy chọn `-p rbdpoll`
+
+```
+rbd create disk02 --size 2G --image-feature layering -p rbdpool
+```
+
+Kiểm tra image có tên là `disk02` xem được tạo hay chưa bằng lệnh `rbd ls -l -p rbdpool` . Kết quả là
+
+![](./image/54.png)
+
+Thực hiện map image disk02 để client1 sử dụng. Lưu ý chỉ định tùy chọn `-p rbdpool`
+
+```
+rbd map disk02 -p rbdpool
+```
+
+![](./image/55.png)
+
+Thực hiện format `/dev/rdb1` để bắt đầu sử dụng.
+
+```
+sudo mkfs.xfs /dev/rbd1
+```
+
+Thực hiện mount thư mục `/opt` của client1 để dùng.
+
+```
+sudo mount /dev/rbd1 /opt
+```
+
+Thử ghi dữ liệu và quan sát ở thư mục `/opt`
+
+```
+echo "Cloud365 chao cac ban" > /opt/ceph.txt
+cat /opt/ceph.txt
+Cloud365 chao cac ban
+```
