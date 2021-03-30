@@ -59,7 +59,7 @@ Thứ tự cài đặt: Môi trường -> KeyStone -> Glance -> Placement -> Nov
 
     - Upload image: `glance image-create --name "cirros" --file cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --visibility public` (tên: cirros, nguồn:  cirros-0.4.0-x86_64-disk.img, định dạng : qcow2, định dạng vùng chứa(siêu dữ liệu):  bare(k có vùng chứa siêu dữ liệu), hiển thị: public)
 
-  - Lưu trữ: xem các image đã tạo và đang được lưu trữ gồm id, tên, trạng thái `glance image-list`
+  - Lưu trữ: xem các image đã tạo và đang được lưu trữ gồm id, tên, trạng thái `openstack image-list`
 
     ![](../images/OpenStack/gl2.png)
 
