@@ -41,6 +41,8 @@
 
 - Drop các yêu cầu truy cập trái phép đến hệ thống : `iptables -P INPUT DROP` & `iptables -P FORWARD DROP`
 
+- `iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT`
+
 - Cho phép forward : `echo 1 > /proc/sys/net/ipv4/ip_forward`
 
   #### Cho phép các client (dải ip 192.168.101.0/24) truy cập đến internet
