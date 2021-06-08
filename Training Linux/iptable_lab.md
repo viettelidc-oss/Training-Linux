@@ -4,30 +4,30 @@
 
 #### Mô hình 
 
-![](./images/iptables/system.png)
+![](../images/iptables/system.png)
 
 - Firewall, web server, client 2 cài đặt ubuntu server 20.04
 - Client 1 cài đặt ubuntu desktop 20.04
 - Cấu hình iptables trên firewall
 - Web server cài đặt apache2 chạy website http (port 80)
 
-![](./images/iptables/apache.png)
+![](../images/iptables/apache.png)
 
 - IP Firewall
 
-![](./images/iptables/ipfw.png)
+![](../images/iptables/ipfw.png)
 
 - IP Web server
 
-![](./images/iptables/ipweb.png)
+![](../images/iptables/ipweb.png)
 
 - IP Client 1
 
-![](./images/iptables/ipcl1.png)
+![](../images/iptables/ipcl1.png)
 
 - IP Client 2
 
-![](./images/iptables/ipcl2.png)
+![](../images/iptables/ipcl2.png)
 
 - Tất cả các client set gateway = 192.168.101.2 (ip của firewall), tương tự, web server set gateway = 192.168.100.2
 
@@ -55,15 +55,15 @@
 
   - Cấu hình firewall
 
-  ![](./images/iptables/cl-i-cf.png)
+  ![](../images/iptables/cl-i-cf.png)
 
   - Kết quả client 1
 
-  ![](./images/iptables/cl-i-cl1.png)
+  ![](../images/iptables/cl-i-cl1.png)
 
   - Kết quả client 2
 
-  ![](./images/iptables/cl-i-cl2.png)
+  ![](../images/iptables/cl-i-cl2.png)
 
   #### Cho phép client 1 kết nối ssh đến web server
 
@@ -75,15 +75,15 @@
 
   - Cấu hình firewall
 
-  ![](./images/iptables/cl-w-cf.png)
+  ![](../images/iptables/cl-w-cf.png)
 
   - Kết quả client 1
 
-  ![](./images/iptables/cl-w-cl1.png)
+  ![](../images/iptables/cl-w-cl1.png)
 
   - Kết quả client 2
 
-  ![](./images/iptables/cl-w-cl2.png)
+  ![](../images/iptables/cl-w-cl2.png)
 
   #### Cho phép các thiết bị kết nối internet bên ngoài hệ thống có thể truy cập đến web server
 
@@ -94,8 +94,8 @@
 
   - Cấu hình
 
-  ![](./images/iptables/i-w.png)
+  ![](../images/iptables/i-w.png)
 
   - Kết quả
 
-![](./images/iptables/i-w-cf.png)
+![](../images/iptables/i-w-cf.png)
